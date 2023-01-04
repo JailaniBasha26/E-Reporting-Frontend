@@ -27,7 +27,7 @@ render(
   <Provider store={store}>
     <HashRouter history={history}>
       <Switch>
-        <Route exact path="/" component={Year} />
+        <Route exact path="/" component={Fill_SIE} />
         <Route exact path="/addOrganization/" component={AddOrganization} />
         <Route exact path="/PlayGround/" component={PlayGround} />
         <Route exact path="/fileSIE/" component={File_SIE} />

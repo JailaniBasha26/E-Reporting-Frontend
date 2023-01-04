@@ -19,22 +19,22 @@ class Fill_SIE extends Component {
 
   render() {
     return (
-    <div className="main-container">
-      <div className="sub">
+    
+      <div className="fill-sub">
         <center>
           <div>
-            <p className="sub2">Hey!</p>
-            <p className="sub3">
+            <p className="fill-sub2">Hey!</p>
+            <p className="fill-sub3">
               Choose how you want to start your annual report.
             </p>
           </div>
-          <div className="btn-div">
-            <button className="btn-1">Fill in by hand</button>
-            <button className="btn-1">Import SIE File</button>
+          <div className="fill-btn-div">
+            <button className="fill-btn-1">Fill in by hand</button>
+            <button className="fill-btn-1">Import SIE File</button>
           </div>
         </center>
       </div>
-      </div>
+      
     );
   }
 }
