@@ -7,7 +7,7 @@ import { Card } from "primereact/card";
 import Chart from "react-apexcharts";
 // import './ButtonDemo.css';
 import axios from "axios";
-import "./Home.css";
+import "./YYY.css";
 
 let barGraphOptions = {};
 let barGraphSeries = [];

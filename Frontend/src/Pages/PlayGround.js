@@ -90,6 +90,8 @@ class PlayGround extends Component {
           />
         </div>
 
+        
+
         <div className="incomeStatement">
           <div className="incomeStatementPadding">
             {getIncomeStatementFieldsArray.map(function (d, idx) {
