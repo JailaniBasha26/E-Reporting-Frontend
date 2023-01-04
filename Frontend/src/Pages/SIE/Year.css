@@ -1,0 +1,128 @@
+.main-container {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border: 1px solid white;
+    width: 900px;
+    height: 450px;
+    text-align: center;
+    margin-left: 500px;
+    margin-top: 130px;
+    background-color:  rgb(222, 220, 220);
+    box-shadow:5px 10px 8px #888888;
+    font-size: 10px;
+    /* display: flex;
+    flex-direction: column; */
+  }
+  
+  /* .sub {
+  border: 1px solid white;
+  width: 900px;
+  height: 300px;
+  text-align: center;
+  margin-left: 500px;
+  margin-top: 130px;
+  background-color:  rgb(222, 220, 220);
+  box-shadow:5px 10px 8px #888888;
+  font-size: 10px;
+  } */
+  
+  .sub2 {
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+  .sub3 {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .cal-label {
+    display: flex;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .cal-label-1,.cal-label-2 {
+  margin: 10px;
+  margin-left: 50px;
+  }
+  
+  .cal-label-1:first-child,.cal-label-2:first-child {
+    margin-right: 170px;
+  }
+
+  .cal-box {
+    display: flex;
+    width: 100%;
+    /* font-size: 15px; */
+  }
+
+  #icon {
+    margin-left: 50px;
+    width: 300px;
+    /* margin: 5px; */;
+    
+  }
+
+  #icon:first-child {
+    margin-right: 100px;
+  }
+
+  .drop-label-main{
+    display: flex;
+    width: 100%;
+    font-size: 15px;
+    margin-top: 12px;
+  }
+
+   .drop-label {
+    margin: 10px;
+    margin-left: 50px;
+    }
+
+    .drop-option {
+      margin-left: 50px;
+      width: 750px;
+      float: left;
+      text-align: left;
+    }
+
+    .btn-div {
+      padding-top: 50px;
+      padding-bottom: 50px;
+    }
+
+    .btn-save {
+      height: 50px;
+      width: 150px;
+      border: none;
+      border-radius: 10px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: 500;
+      font-size: 20px;
+      color: black;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.35s;
+      text-align: center;
+      display: inline-block;
+      transition-duration: 0.4s;
+      background-color: rgb(215, 168, 168);
+    }
+
+    .btn-save:hover {
+      background-color: #e10404;
+      color: white;
+    }
+
+    .p-button {
+      color: #ffffff;
+      background: #ce2b2b;
+      border: 1px solid #2196F3;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+      border-radius: 3px;
+  }
