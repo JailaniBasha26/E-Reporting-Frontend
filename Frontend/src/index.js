@@ -4,6 +4,8 @@ import { render } from "react-dom";
 import Home from "../src/Pages/Home";
 import AddOrganization from "../src/Pages/AddOrganization";
 import PlayGround from "../src/Pages//PlayGround";
+import File_SIE from "../src/Pages/SIE/Fill_SIE";
+import Year from "../src/Pages/SIE/Year";
 import "./index.css";
 import { Provider } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -14,7 +16,8 @@ import reducers from "./reducers/index.js";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";
+import "primeflex/primeflex.css";                              //icons
+import Fill_SIE from "../src/Pages/SIE/Fill_SIE";
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -23,7 +26,7 @@ render(
   <Provider store={store}>
     <HashRouter history={history}>
       <Switch>
-        <Route exact path="/" component={PlayGround} />
+        <Route exact path="/" component={Year} />
         <Route exact path="/addOrganization/" component={AddOrganization} />
         <Route exact path="/playground/" component={PlayGround} />
       </Switch>
