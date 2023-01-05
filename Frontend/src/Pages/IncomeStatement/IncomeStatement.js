@@ -3,10 +3,10 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import axios from "axios";
-import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Header from "../../Pages/Header/header";
+import Steps from "../Steps/steps";
 import "./IncomeStatement.css";
 
 let getIncomeStatementFieldsArray = [],
@@ -113,6 +113,7 @@ class IncomeStatement extends Component {
     return (
       <div className="carousel-demo">
         <Header />
+        {/* <Steps pageName="incomeStatement" /> */}
         <div className="incomeStatement">
           <div className="incomeStatementPadding">
             {getIncomeStatementFieldsArray.map((result, idx) => {

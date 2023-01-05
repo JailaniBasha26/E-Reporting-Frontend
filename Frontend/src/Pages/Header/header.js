@@ -11,10 +11,6 @@ class headers extends Component {
     this.state = {};
   }
 
-  addOrganization() {
-    this.props.history.push("/fileSIE");
-  }
-
   render() {
     return (
       <div className="header">

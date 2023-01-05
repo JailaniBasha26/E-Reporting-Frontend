@@ -3,6 +3,7 @@ import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
+import Steps from "../Steps/steps";
 import "./Year.css";
 
 class Year extends Component {
@@ -30,6 +31,7 @@ class Year extends Component {
     return (
       <div>
         <Header />
+        {/* <Steps pageName="financialYear" /> */}
         <center>
           <div className="year-main-container">
             <div>

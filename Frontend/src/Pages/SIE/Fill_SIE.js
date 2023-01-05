@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
+import Steps from "../Steps/steps";
 import "./Fill_SIE.css";
 
 class Fill_SIE extends Component {
@@ -25,6 +26,7 @@ class Fill_SIE extends Component {
     return (
       <div>
         <Header />
+        {/* <Steps pageName="SIE File" isInvalid={true} /> */}
         <center>
           <div className="fill-sub">
             <div>

@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
+import { Toast } from "primereact/toast";
 import Header from "../Header/header";
+import Steps from "../Steps/steps";
+import axios from "axios";
 import "./Info.css";
 
+let isAllFieldsFilled = false;
 class Info extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +21,7 @@ class Info extends Component {
       isWrongZipcodeFormat: false,
       postalAddress: "",
       checkpostalAddress: false,
+      isExistingOrganization: false,
     };
     this.organizationNoOnChange = this.organizationNoOnChange.bind(this);
     this.companyNameAndPostalAddressOnChange =
@@ -27,6 +32,27 @@ class Info extends Component {
 
   organizationNoOnChange(e) {
     if (e.value != null) {
+      axios
+        .get("/getOrganizationDetails/" + e.value)
+        .then((response) => {
+          if (response.data != "") {
+            this.setState({
+              isExistingOrganization: true,
+              organizationNo: response.data.organizationno,
+              companyName: response.data.organizationname,
+              zipcodeNo: response.data.zipcode,
+              postalAddress: response.data.postaladdress,
+            });
+          } else {
+            this.setState({
+              isExistingOrganization: false,
+              companyName: "",
+              zipcodeNo: "",
+              postalAddress: "",
+            });
+          }
+        })
+        .catch((error) => {});
       this.setState({
         organizationNo: e.value,
       });
@@ -44,7 +70,35 @@ class Info extends Component {
   }
 
   navigateToYearPage() {
-    this.props.history.push("/year");
+    const {
+      isExistingOrganization,
+      organizationNo,
+      companyName,
+      zipcodeNo,
+      postalAddress,
+    } = this.state;
+
+    let addNewOrganization = {
+      organizationname: "",
+      organizationno: "",
+      zipcode: "",
+      postaladdress: "",
+    };
+
+    if (!isExistingOrganization) {
+      addNewOrganization = {
+        organizationname: companyName,
+        organizationno: organizationNo,
+        zipcode: zipcodeNo,
+        postaladdress: postalAddress,
+      };
+      axios
+        .post("/postOrganizationDetails", addNewOrganization)
+        .then((data) => {
+          this.props.history.push("/year");
+        })
+        .catch((err) => {});
+    } else this.props.history.push("/year");
   }
 
   companyNameAndPostalAddressOnChange(e, field) {
@@ -62,21 +116,25 @@ class Info extends Component {
   }
 
   zipcodeOnChange(e) {
-    console.log(e);
-    this.setState({
-      zipcodeNo: e.value,
-    });
+    if (e.value != null) {
+      this.setState({
+        zipcodeNo: e.value,
+      });
 
-    let zipcodeLength = e.value.toString().length;
-    if (zipcodeLength != 5) {
+      let zipcodeLength = e.value.toString().length;
+      if (zipcodeLength != 5) {
+        this.setState({
+          isWrongZipcodeFormat: true,
+        });
+      } else
+        this.setState({
+          isWrongZipcodeFormat: false,
+        });
+    } else {
       this.setState({
-        isWrongZipcodeFormat: true,
+        zipcodeNo: "",
       });
-    } else
-      this.setState({
-        isWrongZipcodeFormat: false,
-      });
-    //isWrongZipcodeFormat
+    }
   }
 
   moveOnClick() {
@@ -84,16 +142,45 @@ class Info extends Component {
       this.state;
     let orginizationNoLength = organizationNo.toString().length;
     let zipcodeLength = zipcodeNo.toString().length;
+  }
 
-    // if ()
-
-    // if (organizationNo)
+  errorMessage() {
+    this.toast.show({
+      severity: "error",
+      summary: "Incomplete",
+      detail: "Please fill all the fields",
+      life: 2000,
+    });
   }
   render() {
-    const { isWrongOrganizationNo } = this.state;
+    const {
+      isWrongOrganizationNo,
+      organizationNo,
+      companyName,
+      zipcodeNo,
+      postalAddress,
+    } = this.state;
+
+    if (
+      organizationNo == "" ||
+      companyName == "" ||
+      zipcodeNo == "" ||
+      postalAddress == ""
+    )
+      isAllFieldsFilled = false;
+    else isAllFieldsFilled = true;
+
+    console.log(isAllFieldsFilled, "+++");
+
     return (
       <div>
         <Header />
+        {/* <Steps pageName="companyInformation" isInvalid={!isAllFieldsFilled} /> */}
+        <Toast
+          ref={(el) => {
+            this.toast = el;
+          }}
+        ></Toast>
         <center>
           <div className="info-container">
             <div>
@@ -191,10 +278,10 @@ class Info extends Component {
                 <Button
                   label="Move On"
                   aria-label="Annual Report"
-                  onClick={() => this.navigateToInformationPage()}
                   id="annualReportBtn"
                   className="btn_Annual"
-                  disabled
+                  //disabled
+                  onClick={() => this.errorMessage()}
                   style={{
                     width: "157px",
                     height: "44px",
