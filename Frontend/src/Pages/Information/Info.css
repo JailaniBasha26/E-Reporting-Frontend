@@ -1,0 +1,67 @@
+.info-container{
+  background-color:  rgb(214, 203, 203); 
+  /* margin-top: 130px; */
+  width: 900px;
+  /* height: 650px; */
+
+}
+
+.info2 {
+  padding-top: 25px;
+  font-size: 25px;
+}
+
+.info3 {
+  margin-top: 10px;
+  font-size: 20px;
+}
+
+.Text-label {
+  display: flex;
+  width: 100%;
+  font-size: 15px;
+  flex-direction: column;
+}
+
+.Text-label-1,.Text-label-2,.Text-label-3,.Text-label-4 {
+margin: 10px;
+margin-left: 70px;
+text-align: left;
+}
+
+#Organization_no,#Company_Name,#zipCode,#Postal_Address{
+  width: 700px;
+  margin-left: 70px;
+}
+
+.warningLabel{
+  margin-left: 70px;
+  text-align: start;
+  color: red;;
+}
+
+.Text-label-2,.Text-label-3,.Text-label-4{
+  padding-top: 20px;
+}
+
+.btn_div{
+     margin-top: 85px;
+    bottom: 22px;
+    position: relative;
+}
+.btn_MoveOn{
+  width: 150px;
+  height: 50px;
+}
+
+
+
+.fieldsStyle{
+  height: 1em;
+}
+
+.warningDiv{
+  text-align: end;
+  width: 700px;
+  margin-left: 70px;
+}
