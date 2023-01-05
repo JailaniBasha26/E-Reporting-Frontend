@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { render } from "react-dom";
 import YYY from "../src/Pages/YYY";
 import AddOrganization from "../src/Pages/AddOrganization";
-import PlayGround from "../src/Pages//PlayGround";
+import IncomeStatement from "../src/Pages/IncomeStatement/IncomeStatement";
 import File_SIE from "../src/Pages/SIE/Fill_SIE";
 import Year from "../src/Pages/year/Year";
 import home from "../src/Pages/Home/home";
@@ -18,9 +18,12 @@ import reducers from "./reducers/index.js";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
-import "primeflex/primeflex.css";                              //icons
+import "primeflex/primeflex.css"; //icons
 import Fill_SIE from "../src/Pages/SIE/Fill_SIE";
 import Home from "../src/Pages/YYY";
+import "primeflex/primeflex.css";
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -29,11 +32,11 @@ render(
   <Provider store={store}>
     <HashRouter history={history}>
       <Switch>
-      <Route exact path="/" component={home} />
+        <Route exact path="/" component={home} />
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
         <Route exact path="/addOrganization/" component={AddOrganization} />
-        <Route exact path="/PlayGround/" component={PlayGround} />
+        <Route exact path="/incomeStatement/" component={IncomeStatement} />
         <Route exact path="/fileSIE/" component={File_SIE} />
       </Switch>
     </HashRouter>

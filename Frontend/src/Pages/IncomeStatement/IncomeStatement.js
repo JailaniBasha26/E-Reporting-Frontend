@@ -6,15 +6,15 @@ import axios from "axios";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Header from "../Pages/Header/header";
-import "./PlayGround.css";
+import Header from "../../Pages/Header/header";
+import "./IncomeStatement.css";
 
 let getIncomeStatementFieldsArray = [],
   wrongFields = [],
   headerWiseAmountArray = {},
   amountArray = [],
   total = 0;
-class PlayGround extends Component {
+class IncomeStatement extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -244,4 +244,4 @@ class PlayGround extends Component {
     );
   }
 }
-export default PlayGround;
+export default IncomeStatement;

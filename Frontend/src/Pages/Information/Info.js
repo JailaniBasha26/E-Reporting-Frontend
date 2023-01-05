@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Button } from "primereact/button";
+import Header from "../Header/header";
 import "./Info.css";
 
 class Info extends Component {
@@ -91,121 +92,121 @@ class Info extends Component {
   render() {
     const { isWrongOrganizationNo } = this.state;
     return (
-      <center>
-        <div className="info-container">
-          <div>
-            <p className="info2">
-              Which Company does the annual report apply to ?
-            </p>
-            <p className="info3">Fill in the company details below</p>
-          </div>
+      <div>
+        <Header />
+        <center>
+          <div className="info-container">
+            <div>
+              <p className="info2">
+                Which Company does the annual report apply to ?
+              </p>
+              <p className="info3">Fill in the company details below</p>
+            </div>
 
-          <div className="Text-label">
-            <span className="Text-label-1">Organization Number</span>
-            <div className="fieldsStyle">
-              <InputNumber
-                id="Organization_no"
-                placeholder="Please fill in your Organization Number"
-                inputId="withoutgrouping"
-                value={this.state.organizationNo}
-                onValueChange={(e) => this.organizationNoOnChange(e)}
-                mode="decimal"
-                useGrouping={false}
-              />
+            <div className="Text-label">
+              <span className="Text-label-1">Organization Number</span>
+              <div className="fieldsStyle">
+                <InputNumber
+                  id="Organization_no"
+                  placeholder="Please fill in your Organization Number"
+                  inputId="withoutgrouping"
+                  value={this.state.organizationNo}
+                  onValueChange={(e) => this.organizationNoOnChange(e)}
+                  mode="decimal"
+                  useGrouping={false}
+                />
 
-<div className="warningDiv">
-              {isWrongOrganizationNo && (
-                <label className="warningLabel">
-                 Invalid organization number
-                </label>
-              )}
+                <div className="warningDiv">
+                  {isWrongOrganizationNo && (
+                    <label className="warningLabel">
+                      Invalid organization number
+                    </label>
+                  )}
+                </div>
+              </div>
+              <span className="Text-label-2">Company Name</span>
+              <div className="fieldsStyle">
+                <InputText
+                  id="Company_Name"
+                  placeholder="mandatory field"
+                  value={this.state.companyName}
+                  onChange={(e) =>
+                    this.companyNameAndPostalAddressOnChange(e, "companyName")
+                  }
+                />
+                <div className="warningDiv">
+                  {this.state.checkCompanyName &&
+                    this.state.companyName == "" && (
+                      <label className="warningLabel">
+                        Company name is mandatory
+                      </label>
+                    )}
+                </div>
+              </div>
+              <span className="Text-label-3">ZIP Code</span>
+              <div className="fieldsStyle">
+                <InputNumber
+                  id="zipCode"
+                  placeholder="The zip code must consist of 5 digits"
+                  inputId="withoutgrouping"
+                  value={this.state.zipcodeNo}
+                  onValueChange={(e) => this.zipcodeOnChange(e)}
+                  mode="decimal"
+                  useGrouping={false}
+                />
+
+                <div className="warningDiv">
+                  {this.state.isWrongZipcodeFormat && (
+                    <label className="warningLabel">Invalid zipcode</label>
+                  )}
+                </div>
+              </div>
+              <span className="Text-label-4">Postal Address</span>
+              <div className="fieldsStyle">
+                <InputText
+                  id="Postal_Address"
+                  placeholder="mandatory field"
+                  value={this.state.postalAddress}
+                  onChange={(e) =>
+                    this.companyNameAndPostalAddressOnChange(e, "postalAddress")
+                  }
+                />
+
+                <div className="warningDiv">
+                  {this.state.checkpostalAddress &&
+                    this.state.postalAddress == "" && (
+                      <label className="warningLabel">
+                        Postal address is mandatory
+                      </label>
+                    )}
+                </div>
               </div>
             </div>
-            <span className="Text-label-2">Company Name</span>
-            <div className="fieldsStyle">
-              <InputText
-                id="Company_Name"
-                placeholder="mandatory field"
-                value={this.state.companyName}
-                onChange={(e) =>
-                  this.companyNameAndPostalAddressOnChange(e, "companyName")
-                }
-              />
-<div className="warningDiv">
-              {this.state.checkCompanyName && this.state.companyName == "" && (
-                <label className="warningLabel">
-                  Company name is mandatory
-                </label>
+
+            <div className="btn_div">
+              {this.state.isWrongOrganizationNo ||
+              this.state.isWrongZipcodeFormat ||
+              this.state.companyName == "" ||
+              this.state.postalAddress == "" ? (
+                <Button
+                  label="Move On"
+                  className="btn_MoveOn"
+                  aria-label="Move On"
+                  disabled
+                />
+              ) : (
+                <Button
+                  label="Move On"
+                  className="btn_MoveOn"
+                  aria-label="Move On"
+                  // onClick={}
+                  onClick={() => this.navigateToYearPage()}
+                />
               )}
-
-</div>
-
-            </div>
-            <span className="Text-label-3">ZIP Code</span>
-            <div className="fieldsStyle">
-              <InputNumber
-                id="zipCode"
-                placeholder="The zip code must consist of 5 digits"
-                inputId="withoutgrouping"
-                value={this.state.zipcodeNo}
-                onValueChange={(e) => this.zipcodeOnChange(e)}
-                mode="decimal"
-                useGrouping={false}
-              />
-
-<div className="warningDiv">
-              {this.state.isWrongZipcodeFormat && (
-                <label className="warningLabel">Invalid zipcode</label>
-              )}
-
-</div>
-            </div>
-            <span className="Text-label-4">Postal Address</span>
-            <div className="fieldsStyle">
-              <InputText
-                id="Postal_Address"
-                placeholder="mandatory field"
-                value={this.state.postalAddress}
-                onChange={(e) =>
-                  this.companyNameAndPostalAddressOnChange(e, "postalAddress")
-                }
-              />
-
-<div className="warningDiv">
-              {this.state.checkpostalAddress &&
-                this.state.postalAddress == "" && (
-                  <label className="warningLabel">
-                    Postal address is mandatory
-                  </label>
-                )}
-
-</div>
             </div>
           </div>
-
-          <div className="btn_div">
-            {this.state.isWrongOrganizationNo ||
-            this.state.isWrongZipcodeFormat ||
-            this.state.companyName == "" ||
-            this.state.postalAddress == "" ? (
-              <Button
-                label="Move On"
-                className="btn_MoveOn"
-                aria-label="Move On"
-                disabled
-              />
-            ) : (
-              <Button
-                label="Move On"
-                className="btn_MoveOn"
-                aria-label="Move On"
-                // onClick={}
-                onClick={() => this.navigateToYearPage()}
-              />
-            )}
-          </div>
-        </div>
-      </center>
+        </center>
+      </div>
     );
   }
 }

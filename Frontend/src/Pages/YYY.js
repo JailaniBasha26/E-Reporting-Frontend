@@ -159,6 +159,7 @@ class Home extends Component {
               value={this.state.organizationNo}
               onChange={(e) => this.organizationNoOnChange(e)}
             />
+
             <br />
             <Button
               label="Submit"
