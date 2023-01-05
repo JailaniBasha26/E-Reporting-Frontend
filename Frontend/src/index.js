@@ -8,6 +8,7 @@ import File_SIE from "../src/Pages/SIE/Fill_SIE";
 import Year from "../src/Pages/year/Year";
 import home from "../src/Pages/Home/home";
 import Info from "../src/Pages/Information/Info";
+import Header from "../src/Pages/Header/header";
 import "./index.css";
 import { Provider } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -33,11 +34,13 @@ render(
     <HashRouter history={history}>
       <Switch>
         <Route exact path="/" component={home} />
+        <Route exact path="/home" component={home} />
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
         <Route exact path="/addOrganization/" component={AddOrganization} />
         <Route exact path="/incomeStatement/" component={IncomeStatement} />
         <Route exact path="/fileSIE/" component={File_SIE} />
+        <Route exact path="/header" component={Header} />
       </Switch>
     </HashRouter>
   </Provider>,

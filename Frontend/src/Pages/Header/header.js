@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Image } from "primereact/image";
 import logo from "../../../assests/RebelSkoolLogo.jpg";
 import "./header.css";
+import { Button } from "primereact/button";
+import { Route } from "react-router-dom";
 
 class headers extends Component {
   constructor(props) {
@@ -9,10 +11,33 @@ class headers extends Component {
     this.state = {};
   }
 
+  addOrganization() {
+    this.props.history.push("/fileSIE");
+  }
+
   render() {
     return (
       <div className="header">
-        <Image src={logo} alt="Image" width="200" className="rebelSkoolLogo" />
+        <div>
+          <Route
+            render={({ history }) => (
+              <button
+                type="button"
+                onClick={() => {
+                  history.push("/");
+                }}
+                class="headerButton"
+              >
+                <Image
+                  src={logo}
+                  alt="Image"
+                  width="200"
+                  className="rebelSkoolLogo"
+                />
+              </button>
+            )}
+          />
+        </div>
       </div>
     );
   }

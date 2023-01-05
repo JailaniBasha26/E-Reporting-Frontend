@@ -236,7 +236,18 @@ class IncomeStatement extends Component {
               );
             })}
             <center>
-              <Button label="Save & Continue" id="submit" />
+              <Button
+                label="Save & Continue"
+                aria-label="Annual Report"
+                onClick={() => this.navigateToIncomeStatementPage()}
+                id="annualReportBtn"
+                className="btn_Annual"
+                style={{
+                  width: "227px",
+                  height: "44px",
+                  fontSize: "1.2rem",
+                }}
+              />
             </center>
           </div>
         </div>

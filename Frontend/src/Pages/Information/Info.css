@@ -1,9 +1,10 @@
-.info-container{
-  background-color:  rgb(214, 203, 203); 
-  /* margin-top: 130px; */
+.info-container {
+  background-color: rgb(222, 220, 220);
+  box-shadow: 5px 10px 8px #888888;
+  border: 1px solid white;
+  margin-top: 130px;
   width: 900px;
   /* height: 650px; */
-
 }
 
 .info2 {
@@ -23,45 +24,51 @@
   flex-direction: column;
 }
 
-.Text-label-1,.Text-label-2,.Text-label-3,.Text-label-4 {
-margin: 10px;
-margin-left: 70px;
-text-align: left;
-}
-
-#Organization_no,#Company_Name,#zipCode,#Postal_Address{
-  width: 700px;
+.Text-label-1,
+.Text-label-2,
+.Text-label-3,
+.Text-label-4 {
+  margin: 10px;
   margin-left: 70px;
+  text-align: left;
 }
 
-.warningLabel{
+#Organization_no,
+#Company_Name,
+#zipCode,
+#Postal_Address {
+  width: 700px;
+  margin-left: -70px;
+}
+
+.warningLabel {
   margin-left: 70px;
   text-align: start;
-  color: red;;
+  color: red;
 }
 
-.Text-label-2,.Text-label-3,.Text-label-4{
+.Text-label-2,
+.Text-label-3,
+.Text-label-4 {
   padding-top: 20px;
 }
 
-.btn_div{
-     margin-top: 85px;
-    bottom: 22px;
-    position: relative;
+.btn_div {
+  margin-top: 85px;
+  bottom: 22px;
+  position: relative;
 }
-.btn_MoveOn{
+.btn_MoveOn {
   width: 150px;
   height: 50px;
 }
 
-
-
-.fieldsStyle{
+.fieldsStyle {
   height: 1em;
 }
 
-.warningDiv{
+.warningDiv {
   text-align: end;
   width: 700px;
-  margin-left: 70px;
+  margin-left: -70px;
 }

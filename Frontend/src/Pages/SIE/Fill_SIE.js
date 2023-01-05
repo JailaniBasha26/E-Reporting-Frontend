@@ -34,13 +34,20 @@ class Fill_SIE extends Component {
               </p>
             </div>
             <div className="fill-btn-div">
-              <button
-                className="fill-btn-1"
+              <Button
+                label="Fill in by hand"
+                aria-label="Annual Report"
                 onClick={() => this.navigateToInformationPage()}
-              >
-                Fill in by hand
-              </button>
-              <button className="fill-btn-1">Import SIE File</button>
+                id="annualReportBtn"
+                className="btn_Annual"
+              />
+
+              <Button
+                label="Import SIE File"
+                aria-label="Annual Report"
+                id="annualReportBtn"
+                className="btn_Annual"
+              />
             </div>
           </div>
         </center>

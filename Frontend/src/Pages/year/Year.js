@@ -84,12 +84,18 @@ class Year extends Component {
             </div>
 
             <div className="year-btn-div">
-              <button
-                className="year-btn-save"
+              <Button
+                label="Move On"
+                aria-label="Annual Report"
                 onClick={() => this.navigateToIncomeStatementPage()}
-              >
-                Move On
-              </button>
+                id="annualReportBtn"
+                className="btn_Annual"
+                style={{
+                  width: "157px",
+                  height: "44px",
+                  fontSize: "1.2rem",
+                }}
+              />
             </div>
           </div>
         </center>

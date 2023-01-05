@@ -190,17 +190,29 @@ class Info extends Component {
               this.state.postalAddress == "" ? (
                 <Button
                   label="Move On"
-                  className="btn_MoveOn"
-                  aria-label="Move On"
+                  aria-label="Annual Report"
+                  onClick={() => this.navigateToInformationPage()}
+                  id="annualReportBtn"
+                  className="btn_Annual"
                   disabled
+                  style={{
+                    width: "157px",
+                    height: "44px",
+                    fontSize: "1.2rem",
+                  }}
                 />
               ) : (
                 <Button
                   label="Move On"
-                  className="btn_MoveOn"
-                  aria-label="Move On"
-                  // onClick={}
+                  aria-label="Annual Report"
                   onClick={() => this.navigateToYearPage()}
+                  id="annualReportBtn"
+                  className="btn_Annual"
+                  style={{
+                    width: "157px",
+                    height: "44px",
+                    fontSize: "1.2rem",
+                  }}
                 />
               )}
             </div>
