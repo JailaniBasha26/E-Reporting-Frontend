@@ -31,15 +31,9 @@ class Fill_SIE extends Component {
               Choose how you want to start your annual report.
             </p>
           </div>
-<<<<<<< Updated upstream
           <div className="fill-btn-div">
             <button className="fill-btn-1" onClick={() => this.navigateToInformationPage()}>Fill in by hand</button>
             <button className="fill-btn-1">Import SIE File</button>
-=======
-          <div className="btn-div">
-            <button className="btn-1" onClick={() => this.navigateToInformationPage()}>Fill in by hand</button>
-            <button className="btn-1">Import SIE File</button>
->>>>>>> Stashed changes
           </div>
     
       </div>
