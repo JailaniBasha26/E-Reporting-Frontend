@@ -12,10 +12,6 @@ class Fill_SIE extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      intro: "Hey!",
-      introCommand: "Choose how you want to start your anuual report.",
-      fillButton: "Fill in by hand",
-      SIEButton: "Import SIE File",
     };
   }
 

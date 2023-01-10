@@ -32,31 +32,15 @@
   max-width: 1300px;
   padding: 0 50px;
 }
-.main_heading {
-  text-align: center;
-  font-size: 4rem;
-  color: #f5382b;
-}
+
 
 .main_para {
   text-align: center;
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   margin-top: 1rem;
-  /* color: #ff8177; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-
-.main_container {
-  /* margin-top: -3em; */
-}
-
-/* #annualReportBtn {
-  width: 250px;
-  height: 55px;
-  background: red;
-  border: none;
-  font-size: 1.5rem;
-} */
 
 .btn:hover,
 .btn:focus,
@@ -85,6 +69,7 @@
   height: 55px;
   background: red;
   font-size: 1.5rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #annualReportBtn span {
@@ -110,4 +95,12 @@
 #annualReportBtn:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.p-carousel .p-carousel-indicators .p-carousel-indicator button {
+  background-color: #e9ecef;
+  width: 10px !important;
+  height: 10px !important;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  border-radius: 50% !important;
 }

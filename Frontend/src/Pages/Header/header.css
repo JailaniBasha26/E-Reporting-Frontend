@@ -4,18 +4,21 @@
 }
 
 .header {
-  background: #80808017;
+  background: white;
+  background-color: white;
   height: 6em;
   padding: 8px;
+  width: 10px;
 }
 
 .headerButton {
   border: none;
-  box-shadow: 0 0 5px rgb(0 0 1);
-  /* width: 22.2%; */
+  /* box-shadow: 0 0 5px rgb(0 0 1); */
+  background: white;
+  background-color: white;
   transition: transform 2s;
 }
 
-button.headerButton:hover {
+/* button.headerButton:hover {
   transform: scale(1.1);
-}
+} */

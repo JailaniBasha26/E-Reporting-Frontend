@@ -37,7 +37,7 @@ class home extends Component {
     );
   }
 
-  addOrganization() {
+  annualReport() {
     this.props.history.push("/fileSIE");
   }
 
@@ -46,12 +46,12 @@ class home extends Component {
     return (
       <div className="carousel-demo">
         <Header />
-        <div className="card">
+        <div className="carouselCard">
           <Carousel
             value={carouselUrls}
             numVisible={1}
             numScroll={1}
-            autoplayInterval={3000}
+            autoplayInterval={300000}
             circular
             itemTemplate={this.carouselRender}
           />
@@ -59,17 +59,17 @@ class home extends Component {
 
         <div className="main_container">
           <div className="main_content">
-            <h1 className="main_heading"> WELCOME! </h1>
+            {/* <h1 className="main_heading"> WELCOME! </h1> */}
             <p className="main_para">
               Make your annual report according to regulations K2 through our
-              accounting program - directly in the browser.
+              E-Reporting system - directly in the browser.
             </p>
             <div className="main_btn">
               <center>
                 <Button
-                  label="Annual Report"
+                  label="BEGIN"
                   aria-label="Annual Report"
-                  onClick={() => this.addOrganization()}
+                  onClick={() => this.annualReport()}
                   id="annualReportBtn"
                   className="btn_Annual"
                 />

@@ -10,17 +10,20 @@
 .info2 {
   padding-top: 25px;
   font-size: 25px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .info3 {
   margin-top: 10px;
   font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .Text-label {
   display: flex;
   width: 100%;
   font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   flex-direction: column;
 }
 
@@ -31,26 +34,30 @@
   margin: 10px;
   margin-left: 70px;
   text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #Organization_no,
 #Company_Name,
-#zipCode,
-#Postal_Address {
+#Postalcode,
+#City {
   width: 700px;
   margin-left: -70px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .warningLabel {
   margin-left: 70px;
   text-align: start;
   color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .Text-label-2,
 .Text-label-3,
 .Text-label-4 {
   padding-top: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .btn_div {
@@ -61,14 +68,18 @@
 .btn_MoveOn {
   width: 150px;
   height: 50px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .fieldsStyle {
-  height: 1em;
+  height: 1.2em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
 }
 
 .warningDiv {
   text-align: end;
   width: 700px;
   margin-left: -70px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

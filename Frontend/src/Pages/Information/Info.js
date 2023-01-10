@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
+import { InputMask } from 'primereact/inputmask';
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import Header from "../Header/header";
@@ -14,20 +15,20 @@ class Info extends Component {
     super(props);
     this.state = {
       organizationNo: "",
-      isWrongOrganizationNo: false,
       companyName: "",
+      PostalcodeNo: "",
+      City: "",
+      isWrongOrganizationNo: false,
       checkCompanyName: false,
-      zipcodeNo: "",
-      isWrongZipcodeFormat: false,
-      postalAddress: "",
-      checkpostalAddress: false,
+      isWrongPostalcodeFormat: false,
+      checkCity: false,
       isExistingOrganization: false,
     };
     this.organizationNoOnChange = this.organizationNoOnChange.bind(this);
-    this.companyNameAndPostalAddressOnChange =
-      this.companyNameAndPostalAddressOnChange.bind(this);
-    this.zipcodeOnChange = this.zipcodeOnChange.bind(this);
-    this.moveOnClick = this.moveOnClick.bind(this);
+    this.companyNameAndCityOnChange =
+      this.companyNameAndCityOnChange.bind(this);
+    this.PostalcodeOnChange = this.PostalcodeOnChange.bind(this);
+    this.NEXTClick = this.NEXTClick.bind(this);
   }
 
   organizationNoOnChange(e) {
@@ -40,15 +41,15 @@ class Info extends Component {
               isExistingOrganization: true,
               organizationNo: response.data.organizationno,
               companyName: response.data.organizationname,
-              zipcodeNo: response.data.zipcode,
-              postalAddress: response.data.postaladdress,
+              PostalcodeNo: response.data.Postalcode,
+              City: response.data.City,
             });
           } else {
             this.setState({
               isExistingOrganization: false,
               companyName: "",
-              zipcodeNo: "",
-              postalAddress: "",
+              PostalcodeNo: "",
+              City: "",
             });
           }
         })
@@ -57,7 +58,8 @@ class Info extends Component {
         organizationNo: e.value,
       });
       let orginizationNoLength = e.value.toString().length;
-      if (orginizationNoLength != 10 && orginizationNoLength != 12) {
+
+      if (orginizationNoLength != 11) {
         this.setState({
           isWrongOrganizationNo: true,
         });
@@ -67,30 +69,32 @@ class Info extends Component {
         });
       }
     }
-  }
 
+  }
+  
+  
   navigateToYearPage() {
     const {
       isExistingOrganization,
       organizationNo,
       companyName,
-      zipcodeNo,
-      postalAddress,
+      PostalcodeNo,
+      City,
     } = this.state;
 
     let addNewOrganization = {
       organizationname: "",
       organizationno: "",
-      zipcode: "",
-      postaladdress: "",
+      Postalcode: "",
+      City: "",
     };
 
     if (!isExistingOrganization) {
       addNewOrganization = {
         organizationname: companyName,
         organizationno: organizationNo,
-        zipcode: zipcodeNo,
-        postaladdress: postalAddress,
+        Postalcode: PostalcodeNo,
+        City: City,
       };
       axios
         .post("/postOrganizationDetails", addNewOrganization)
@@ -101,7 +105,7 @@ class Info extends Component {
     } else this.props.history.push("/year");
   }
 
-  companyNameAndPostalAddressOnChange(e, field) {
+  companyNameAndCityOnChange(e, field) {
     if (field == "companyName") {
       this.setState({
         companyName: e.target.value,
@@ -109,39 +113,39 @@ class Info extends Component {
       });
     } else {
       this.setState({
-        postalAddress: e.target.value,
-        checkpostalAddress: true,
+        City: e.target.value,
+        checkCity: true,
       });
     }
   }
 
-  zipcodeOnChange(e) {
+  PostalcodeOnChange(e) {
     if (e.value != null) {
       this.setState({
-        zipcodeNo: e.value,
+        PostalcodeNo: e.value,
       });
 
-      let zipcodeLength = e.value.toString().length;
-      if (zipcodeLength != 5) {
+      let PostalcodeLength = e.value.toString().length;
+      if (PostalcodeLength != 5) {
         this.setState({
-          isWrongZipcodeFormat: true,
+          isWrongPostalcodeFormat: true,
         });
       } else
         this.setState({
-          isWrongZipcodeFormat: false,
+          isWrongPostalcodeFormat: false,
         });
     } else {
       this.setState({
-        zipcodeNo: "",
+        PostalcodeNo: "",
       });
     }
   }
 
-  moveOnClick() {
-    const { organizationNo, companyName, zipcodeNo, postalAddress } =
+  NEXTClick() {
+    const { organizationNo, companyName, PostalcodeNo, City } =
       this.state;
     let orginizationNoLength = organizationNo.toString().length;
-    let zipcodeLength = zipcodeNo.toString().length;
+    let PostalcodeLength = PostalcodeNo.toString().length;
   }
 
   errorMessage() {
@@ -157,15 +161,15 @@ class Info extends Component {
       isWrongOrganizationNo,
       organizationNo,
       companyName,
-      zipcodeNo,
-      postalAddress,
+      PostalcodeNo,
+      City,
     } = this.state;
 
     if (
       organizationNo == "" ||
       companyName == "" ||
-      zipcodeNo == "" ||
-      postalAddress == ""
+      PostalcodeNo == "" ||
+      City == ""
     )
       isAllFieldsFilled = false;
     else isAllFieldsFilled = true;
@@ -175,7 +179,6 @@ class Info extends Component {
     return (
       <div>
         <Header />
-        {/* <Steps pageName="companyInformation" isInvalid={!isAllFieldsFilled} /> */}
         <Toast
           ref={(el) => {
             this.toast = el;
@@ -193,12 +196,14 @@ class Info extends Component {
             <div className="Text-label">
               <span className="Text-label-1">Organization Number</span>
               <div className="fieldsStyle">
-                <InputNumber
+
+
+                <InputMask
                   id="Organization_no"
-                  placeholder="Please fill in your Organization Number"
-                  inputId="withoutgrouping"
+                  mask="999999-9999"
+                  placeholder="xxxxxx-xxxx"
                   value={this.state.organizationNo}
-                  onValueChange={(e) => this.organizationNoOnChange(e)}
+                  onChange={(e) => this.organizationNoOnChange(e)}
                   mode="decimal"
                   useGrouping={false}
                 />
@@ -218,52 +223,55 @@ class Info extends Component {
                   placeholder="mandatory field"
                   value={this.state.companyName}
                   onChange={(e) =>
-                    this.companyNameAndPostalAddressOnChange(e, "companyName")
+                    this.companyNameAndCityOnChange(e, "companyName")
                   }
                 />
                 <div className="warningDiv">
                   {this.state.checkCompanyName &&
                     this.state.companyName == "" && (
+                      
                       <label className="warningLabel">
                         Company name is mandatory
                       </label>
                     )}
                 </div>
               </div>
-              <span className="Text-label-3">ZIP Code</span>
+              <span className="Text-label-3">Postal Code</span>
               <div className="fieldsStyle">
                 <InputNumber
-                  id="zipCode"
+                  id="Postalcode"
                   placeholder="The zip code must consist of 5 digits"
                   inputId="withoutgrouping"
-                  value={this.state.zipcodeNo}
-                  onValueChange={(e) => this.zipcodeOnChange(e)}
+                  value={this.state.PostalcodeNo}
+                  onValueChange={(e) => this.PostalcodeOnChange(e)}
                   mode="decimal"
                   useGrouping={false}
                 />
 
                 <div className="warningDiv">
-                  {this.state.isWrongZipcodeFormat && (
-                    <label className="warningLabel">Invalid zipcode</label>
+                  {this.state.isWrongPostalcodeFormat && (
+                    <label className="warningLabel">Invalid Postalcode</label>
                   )}
                 </div>
               </div>
-              <span className="Text-label-4">Postal Address</span>
+              <span className="Text-label-4">City</span>
               <div className="fieldsStyle">
                 <InputText
-                  id="Postal_Address"
+                  id="City"
                   placeholder="mandatory field"
-                  value={this.state.postalAddress}
+                  value={this.state.City}
                   onChange={(e) =>
-                    this.companyNameAndPostalAddressOnChange(e, "postalAddress")
+                    this.companyNameAndCityOnChange(e, "City")
                   }
                 />
 
                 <div className="warningDiv">
-                  {this.state.checkpostalAddress &&
-                    this.state.postalAddress == "" && (
+                  {this.state.checkCity &&
+                  //city length... length <=1 -> error 
+                    // (this.state.City == "") && (
+                      (this.state.City.trim().length<=1) && (
                       <label className="warningLabel">
-                        Postal address is mandatory
+                        City is mandatory
                       </label>
                     )}
                 </div>
@@ -272,11 +280,11 @@ class Info extends Component {
 
             <div className="btn_div">
               {this.state.isWrongOrganizationNo ||
-              this.state.isWrongZipcodeFormat ||
+              this.state.isWrongPostalcodeFormat ||
               this.state.companyName == "" ||
-              this.state.postalAddress == "" ? (
+              this.state.City == "" ? (
                 <Button
-                  label="Move On"
+                  label="NEXT"
                   aria-label="Annual Report"
                   id="annualReportBtn"
                   className="btn_Annual"
@@ -290,7 +298,7 @@ class Info extends Component {
                 />
               ) : (
                 <Button
-                  label="Move On"
+                  label="NEXT"
                   aria-label="Annual Report"
                   onClick={() => this.navigateToYearPage()}
                   id="annualReportBtn"

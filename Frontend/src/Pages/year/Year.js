@@ -81,7 +81,7 @@ class Year extends Component {
                 onChange={(e) => this.setState({ selected_year: e.value })}
                 optionLabel="name"
                 placeholder="Choose"
-                className="drop-option"
+                className="year-drop-option"
               />
             </div>
 

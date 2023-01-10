@@ -11,8 +11,7 @@
   background-color: rgb(222, 220, 220);
   box-shadow: 5px 10px 8px #888888;
   font-size: 10px;
-  /* display: flex;
-  flex-direction: column; */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* .sub {
@@ -30,17 +29,20 @@ font-size: 10px;
 .year-sub2 {
   margin-top: 50px;
   font-size: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .year-sub3 {
   margin-top: 20px;
   font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .year-cal-label {
   display: flex;
   width: 100%;
   font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .year-cal-label-1,
@@ -74,6 +76,7 @@ font-size: 10px;
   display: flex;
   width: 100%;
   font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin-top: 12px;
 }
 
@@ -87,11 +90,14 @@ font-size: 10px;
   width: 750px;
   float: left;
   text-align: left;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .year-btn-div {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  /* padding-top: 50px;
+  padding-bottom: 50px; */
+  position: relative;
+  top: 30px;
 }
 
 .year-btn-save {
@@ -123,6 +129,7 @@ font-size: 10px;
   border: 1px solid #2196f3;
   padding: 0.5rem 1rem;
   font-size: 1rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   transition: background-color 0.2s, color 0.2s, border-color 0.2s,
     box-shadow 0.2s;
   border-radius: 3px;
