@@ -16,8 +16,8 @@ class Info extends Component {
     this.state = {
       organizationNo: "",
       companyName: "",
-      PostalcodeNo: "",
-      City: "",
+      zipcode: "",
+      postaladdress: "",
       isWrongOrganizationNo: false,
       checkCompanyName: false,
       isWrongPostalcodeFormat: false,
@@ -41,15 +41,15 @@ class Info extends Component {
               isExistingOrganization: true,
               organizationNo: response.data.organizationno,
               companyName: response.data.organizationname,
-              PostalcodeNo: response.data.Postalcode,
-              City: response.data.City,
+              zipcode: response.data.zipcode,
+              postaladdress: response.data.postaladdress,
             });
           } else {
             this.setState({
               isExistingOrganization: false,
               companyName: "",
-              PostalcodeNo: "",
-              City: "",
+              zipcode: "",
+              postaladdress: "",
             });
           }
         })
@@ -78,23 +78,23 @@ class Info extends Component {
       isExistingOrganization,
       organizationNo,
       companyName,
-      PostalcodeNo,
-      City,
+      zipcode,
+      postaladdress,
     } = this.state;
 
     let addNewOrganization = {
       organizationname: "",
       organizationno: "",
-      Postalcode: "",
-      City: "",
+      zipcode: "",
+      postaladdress: "",
     };
 
     if (!isExistingOrganization) {
       addNewOrganization = {
         organizationname: companyName,
         organizationno: organizationNo,
-        Postalcode: PostalcodeNo,
-        City: City,
+        zipcode: zipcode,
+        postaladdress: postaladdress,
       };
       axios
         .post("/postOrganizationDetails", addNewOrganization)
@@ -113,7 +113,7 @@ class Info extends Component {
       });
     } else {
       this.setState({
-        City: e.target.value,
+        postaladdress: e.target.value,
         checkCity: true,
       });
     }
@@ -122,7 +122,7 @@ class Info extends Component {
   PostalcodeOnChange(e) {
     if (e.value != null) {
       this.setState({
-        PostalcodeNo: e.value,
+        zipcode: e.value,
       });
 
       let PostalcodeLength = e.value.toString().length;
@@ -136,16 +136,16 @@ class Info extends Component {
         });
     } else {
       this.setState({
-        PostalcodeNo: "",
+        zipcode: "",
       });
     }
   }
 
   NEXTClick() {
-    const { organizationNo, companyName, PostalcodeNo, City } =
+    const { organizationNo, companyName, zipcode, postaladdress } =
       this.state;
     let orginizationNoLength = organizationNo.toString().length;
-    let PostalcodeLength = PostalcodeNo.toString().length;
+    let PostalcodeLength = zipcode.toString().length;
   }
 
   errorMessage() {
@@ -161,15 +161,15 @@ class Info extends Component {
       isWrongOrganizationNo,
       organizationNo,
       companyName,
-      PostalcodeNo,
-      City,
+      zipcode,
+      postaladdress,
     } = this.state;
 
     if (
       organizationNo == "" ||
       companyName == "" ||
-      PostalcodeNo == "" ||
-      City == ""
+      zipcode == "" ||
+      postaladdress == ""
     )
       isAllFieldsFilled = false;
     else isAllFieldsFilled = true;
@@ -242,7 +242,7 @@ class Info extends Component {
                   id="Postalcode"
                   placeholder="The zip code must consist of 5 digits"
                   inputId="withoutgrouping"
-                  value={this.state.PostalcodeNo}
+                  value={this.state.zipcode}
                   onValueChange={(e) => this.PostalcodeOnChange(e)}
                   mode="decimal"
                   useGrouping={false}
@@ -259,17 +259,15 @@ class Info extends Component {
                 <InputText
                   id="City"
                   placeholder="mandatory field"
-                  value={this.state.City}
+                  value={this.state.postaladdress}
                   onChange={(e) =>
-                    this.companyNameAndCityOnChange(e, "City")
+                    this.companyNameAndCityOnChange(e, "postaladdress")
                   }
                 />
 
                 <div className="warningDiv">
                   {this.state.checkCity &&
-                  //city length... length <=1 -> error 
-                    // (this.state.City == "") && (
-                      (this.state.City.trim().length<=1) && (
+                      (this.state.postaladdress.trim().length<=1) && (
                       <label className="warningLabel">
                         City is mandatory
                       </label>
@@ -282,7 +280,7 @@ class Info extends Component {
               {this.state.isWrongOrganizationNo ||
               this.state.isWrongPostalcodeFormat ||
               this.state.companyName == "" ||
-              this.state.City == "" ? (
+              this.state.postaladdress == "" ? (
                 <Button
                   label="NEXT"
                   aria-label="Annual Report"

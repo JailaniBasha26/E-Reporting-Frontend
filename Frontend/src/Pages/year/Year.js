@@ -6,6 +6,7 @@ import Header from "../Header/header";
 import Steps from "../Steps/steps";
 import "./Year.css";
 
+let test=[],yearCount=[],financialYearDetails={}
 class Year extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +14,61 @@ class Year extends Component {
       date1: "",
       date2: "",
       selected_year: null,
+      dummy:''
     };
 
     this.fisical_year = [
-      { name: "0" },
-      { name: "1" },
-      { name: "2" },
-      { name: "3+" },
+      { id:0,name: "0" },
+      { id:1,name: "1" },
+      { id:2,name: "2" },
+      { id:3,name: "3" },
     ];
+
+    this.dateOnChange = this.dateOnChange.bind(this);
+    this.yearCountOnChange = this.yearCountOnChange.bind(this);
+  }
+
+  dateOnChange(dateValue,Idx,postion){
+    console.log('DATE : ',dateValue.value)
+    console.log('INDEX : ',Idx)
+    console.log('POSITION : ',postion)
+    if(postion == 'from' && Idx == 0) 
+    this.setState({
+      date1:dateValue.value
+    })
+    if(postion == 'to' && Idx == 0) 
+    this.setState({
+      date2:dateValue.value
+    })
+
+   // financialYearDetails[Idx]
+
+  }
+
+  yearCountOnChange(e){
+    console.log('COUNT : ',e.value)
+    let userSelectedYearCount = 0;
+    yearCount=[]
+    userSelectedYearCount = e.target.value.id
+
+    if (userSelectedYearCount == 1){
+      yearCount.push('ONE')
+    }
+
+    if (userSelectedYearCount == 2){
+      yearCount.push('ONE')
+      yearCount.push('TWO')
+    }
+
+    if (userSelectedYearCount == 3){
+      yearCount.push('ONE')
+      yearCount.push('TWO')
+      yearCount.push('THREE')
+    }
+
+    this.setState({
+      selected_year:e.value
+    })
   }
 
   navigateToIncomeStatementPage() {
@@ -28,6 +76,48 @@ class Year extends Component {
   }
 
   render() {
+    let elements = [];
+    let financialYearCount = test.length
+    //console.log(yearCount,'????',this.state.dummy,yearCount.length)
+
+    if(this.state.selected_year != null)
+    {
+      console.log(this.state.selected_year.name,'--------')
+      for(var i=0;i<this.state.selected_year.id; i++) {
+        elements.push(
+        <div>
+          <div className="year-cal-label">
+              <span className="year-cal-label-1">
+                Beginning of the financial year
+              </span>
+              <span className="year-cal-label-2">
+                End of the financial year
+              </span>
+            </div>
+            <div className="year-cal-box">
+              <Calendar
+                id="icon"
+                value={this.state.date1}
+               // onChange={(e) => this.setState({ date1: e.value })}
+                onChange={(e)=> {this.dateOnChange(e,this.state.selected_year.id[i],'from')}}
+                showIcon
+                dateFormat="yy-mm-dd"
+                placeholder="YYYY-MM-DD"
+              />
+              <Calendar
+                id="icon"
+                value={this.state.date2}
+               // onChange={(e) => this.setState({ date2: e.value })}
+                onChange={(e)=> {this.dateOnChange(e,this.state.selected_year.id[i],'to')}}
+                showIcon
+                dateFormat="yy-mm-dd"
+                placeholder="YYYY-MM-DD"
+              />
+            </div>
+        </div>
+        )
+      }
+    }
     return (
       <div>
         <Header />
@@ -58,14 +148,20 @@ class Year extends Component {
               <Calendar
                 id="icon"
                 value={this.state.date1}
-                onChange={(e) => this.setState({ date1: e.value })}
+                //onChange={(e) => this.setState({ date1: e.value })}
+                onChange={(e)=> {this.dateOnChange(e,0,'from')}}
                 showIcon
+                dateFormat="yy-mm-dd"
+                placeholder="YYYY-MM-DD"
               />
               <Calendar
                 id="icon"
                 value={this.state.date2}
                 onChange={(e) => this.setState({ date2: e.value })}
+                //onChange={(e)=> {this.dateOnChange(e,0,'to')}}
                 showIcon
+                dateFormat="yy-mm-dd"
+                placeholder="YYYY-MM-DD"
               />
             </div>
 
@@ -78,13 +174,55 @@ class Year extends Component {
               <Dropdown
                 value={this.state.selected_year}
                 options={this.fisical_year}
-                onChange={(e) => this.setState({ selected_year: e.value })}
+                //onChange={(e) => this.setState({ selected_year: e.value })}
+               onChange={(e) => this.yearCountOnChange(e)}
                 optionLabel="name"
                 placeholder="Choose"
                 className="year-drop-option"
               />
             </div>
+            <br></br>
+            {/* {elements} */}
+          
 
+            {
+               yearCount.map((i,idx)=>{
+                console.log(i,'------',idx)
+                return(
+                  <div>
+                  <div className="year-cal-label">
+                      <span className="year-cal-label-1">
+                        Beginning of the financial year
+                      </span>
+                      <span className="year-cal-label-2">
+                        End of the financial year
+                      </span>
+                    </div>
+                    <div className="year-cal-box">
+                      <Calendar
+                        id="icon"
+                        value={this.state.date1}
+                       // onChange={(e) => this.setState({ date1: e.value })}
+                        onChange={(e)=> {this.dateOnChange(e,idx+1,'from')}}
+                        showIcon
+                        dateFormat="yy-mm-dd"
+                        placeholder="YYYY-MM-DD"
+                      />
+                      <Calendar
+                        id="icon"
+                        value={this.state.date2}
+                       // onChange={(e) => this.setState({ date2: e.value })}
+                        onChange={(e)=> {this.dateOnChange(e,idx+1,'to')}}
+                        showIcon
+                        dateFormat="yy-mm-dd"
+                        placeholder="YYYY-MM-DD"
+                      />
+                    </div>
+                </div>
+                )
+              })
+            }
+            <br></br>
             <div className="year-btn-div">
               <Button
                 label="Move On"
