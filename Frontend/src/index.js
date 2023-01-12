@@ -16,7 +16,7 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import reducers from "./Reducers/index";
+import reducers from "./reducers/index";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
