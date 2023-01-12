@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { InputNumber } from "primereact/inputnumber";
 import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
+import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -28,9 +29,14 @@ let getIncomeStatementFieldsArray = [],
   finalResultObj = {};
 
 let SheetWisefinalResultObj = {
-    value: { year: "", selectedSheet: "", result: {} },
+    value: { year: "", incomeStatement: {}, balanceSheet: {} },
   },
+  tabYearOptionArray = [],
   resultArray = [];
+
+let financialYearResultObj,
+  tabYearOptionObj = { name: "", value: "", label: "" };
+
 class IncomeStatement extends Component {
   constructor(props) {
     super(props);
@@ -40,9 +46,11 @@ class IncomeStatement extends Component {
       activeIndex1: 0,
       selectedFinancialYear: "",
       selectedSheet: "",
+      selectedFinancialYearTabValue: "",
     };
     this.amountOnChange = this.amountOnChange.bind(this);
     this.navigateToBalanceSheet = this.navigateToBalanceSheet.bind(this);
+    this.yearOnClick = this.yearOnClick.bind(this);
   }
 
   navigateToBalanceSheet() {
@@ -55,26 +63,18 @@ class IncomeStatement extends Component {
     } = this.props;
 
     const { selectedFinancialYear, selectedSheet } = this.state;
-    // let yearAndSheetWisefinalResultObj = {}
-    // yearAndSheetWisefinalResultObj.finalResultObj
-
-    // yearAndSheetWisefinalResultObj = {};
 
     let SheetWisefinalResultObj = {
       value: { year: "", selectedSheet: "", result: {} },
     };
-
-    // finalResultObj = { finalResultObj };
 
     SheetWisefinalResultObj.value.result = { finalResultObj };
     SheetWisefinalResultObj.value.selectedSheet = selectedSheet;
     SheetWisefinalResultObj.value.year = selectedFinancialYear;
     resultArray.push(SheetWisefinalResultObj);
 
-    // finalResultObj = resultArray;
-
     incomeStatement.values = resultArray;
-    console.log(incomeStatement.values);
+    finalResultObj = {};
   }
   componentDidMount() {
     const {
@@ -85,21 +85,33 @@ class IncomeStatement extends Component {
     } = this.props;
 
     let year = "";
+
     if (financialYear != undefined) {
-      let arr = Object.values(financialYear);
-      arr &&
-        arr.length &&
-        arr.map((i, idx) => {
+      financialYearResultObj = Object.values(financialYear);
+      financialYearResultObj &&
+        financialYearResultObj.length &&
+        financialYearResultObj.map((i, idx) => {
+          let formattedFromDate = moment(i.from).format("YYYY-MM-DD");
+          let formattedToDate = moment(i.to).format("YYYY-MM-DD");
+
+          tabYearOptionObj = { name: "", value: "" };
+
+          tabYearOptionObj.name = formattedFromDate + "  -  " + formattedToDate;
+
+          tabYearOptionObj.value =
+            formattedFromDate + "  -  " + formattedToDate;
+
+          tabYearOptionArray.push(tabYearOptionObj);
+
           if (idx == 0) {
             year = moment(i.from).format("YYYY");
             this.setState({
               selectedFinancialYear: year,
               selectedSheet: "Income Statement",
+              selectedFinancialYearTabValue: tabYearOptionObj.name,
             });
           }
         });
-
-      console.log(financialYear, "+++++++++++++", year);
 
       getIncomeStatementFieldsArray = [];
       axios
@@ -145,6 +157,7 @@ class IncomeStatement extends Component {
     headerIdx,
     fieldIdx
   ) {
+    const { selectedFinancialYear, selectedSheet } = this.state;
     let amount = value.value;
     this.setState({
       Merchandise: 0,
@@ -152,6 +165,10 @@ class IncomeStatement extends Component {
 
     finalResultObj[fieldName] = amount;
     total = total + amount;
+
+    SheetWisefinalResultObj.value.year = selectedFinancialYear;
+    SheetWisefinalResultObj.value.incomeStatement = finalResultObj;
+    // SheetWisefinalResultObj.value.result = finalResultObj;
 
     if (acceptOnlyNegativeValues == "true") {
       if (amount > 0) {
@@ -177,20 +194,67 @@ class IncomeStatement extends Component {
     headerWiseAmountArray[headerIdx] = amountArray;
   }
 
+  yearOnClick(e) {
+    // let selectedTabYear = moment(e).format("YYYY");
+    let selectedTabYear = e.value.split("-")[0];
+    this.setState({
+      activeIndex1: 0,
+      selectedFinancialYear: selectedTabYear,
+      selectedFinancialYearTabValue: e.value,
+    });
+
+    getIncomeStatementFieldsArray = [];
+    headerWiseAmountArray = [];
+    //sum = 0;
+    axios
+      .get("/getIncomeStatementFieldsByYear/" + selectedTabYear)
+      .then((response) => {
+        let getIncomeStatementFieldsResponse = response.data;
+
+        Object.keys(getIncomeStatementFieldsResponse).map((i) => {
+          let getIncomeStatementFieldsResponseObj = {
+            header: "",
+            fields: [],
+          };
+
+          getIncomeStatementFieldsResponseObj.header = i;
+          getIncomeStatementFieldsResponse[i] &&
+            getIncomeStatementFieldsResponse[i].length > 0 &&
+            getIncomeStatementFieldsResponse[i].map((j) => {
+              getIncomeStatementFieldsResponseObj.fields.push(
+                j.name +
+                  "@#%#@" +
+                  j.issumfield +
+                  "@#%#@" +
+                  j.acceptonlynegativevalues
+              );
+            });
+          getIncomeStatementFieldsArray.push(
+            getIncomeStatementFieldsResponseObj
+          );
+
+          this.setState({
+            incomeStatementFieldsObj: response.data,
+          });
+        });
+      })
+      .catch((error) => {});
+  }
   render() {
-    const { incomeStatementFieldsObj, activeIndex1 } = this.state;
-    const { financialYear } = this.props;
+    const {
+      incomeStatementFieldsObj,
+      activeIndex1,
+      selectedFinancialYearTabValue,
+    } = this.state;
+    const { financialYear, incomeStatement } = this.props;
+
+    let sum = 0;
 
     let operatingResults,
       profitAfterFinancialItems = 0,
       profitBeforeTax = 0,
       thisYearResults = 0,
       totalSumObj = {};
-
-    let financialYearResultObj;
-    if (financialYear != undefined) {
-      financialYearResultObj = Object.values(financialYear);
-    }
 
     return (
       <div className="carousel-demo">
@@ -201,24 +265,12 @@ class IncomeStatement extends Component {
           <div>
             <div className="card">
               <div className="pt-2 pb-4">
-                {financialYearResultObj.map((i, idx) => {
-                  return (
-                    <Button
-                      onClick={() =>
-                        this.setState({
-                          activeIndex1: 0,
-                          selectedFinancialYear: moment(i.from).format("YYYY"),
-                        })
-                      }
-                      className="p-button-text mr-1"
-                      label={
-                        moment(i.from).format("YYYY-MM-DD") +
-                        "-" +
-                        moment(i.to).format("YYYY-MM-DD")
-                      }
-                    />
-                  );
-                })}
+                <SelectButton
+                  value={selectedFinancialYearTabValue}
+                  options={tabYearOptionArray}
+                  onChange={(e) => this.yearOnClick(e)}
+                  optionLabel="name"
+                />
               </div>
 
               <TabView
@@ -235,7 +287,6 @@ class IncomeStatement extends Component {
                     <div className="incomeStatementPadding">
                       {getIncomeStatementFieldsArray.map((result, idx) => {
                         let headerIdx = result.header.split("@#%#@")[0];
-                        let sum = 0;
                         if (headerWiseAmountArray[headerIdx] != undefined) {
                           sum = headerWiseAmountArray[headerIdx].reduce(
                             (partialSum, a) => partialSum + a,
