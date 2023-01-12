@@ -16,13 +16,11 @@ import { HashRouter, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import reducers from "./reducers/index.js";
+import reducers from "./Reducers/index";
 import "primeicons/primeicons.css";
 import "primereact/resources/themes/saga-blue/theme.css";
 import "primereact/resources/primereact.css";
 import "primeflex/primeflex.css"; //icons
-import Fill_SIE from "../src/Pages/SIE/Fill_SIE";
-import Home from "../src/Pages/YYY";
 import "primeflex/primeflex.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";

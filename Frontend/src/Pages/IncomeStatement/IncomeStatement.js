@@ -1,68 +1,141 @@
 import React, { Component } from "react";
 import { InputNumber } from "primereact/inputnumber";
-import { InputText } from "primereact/inputtext";
+import { TabView, TabPanel } from "primereact/tabview";
 import { Button } from "primereact/button";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Header from "../../Pages/Header/header";
 import Steps from "../Steps/steps";
+import { connect } from "react-redux";
+import moment from "moment";
 import "./IncomeStatement.css";
+
+const mapStateToProps = (state) => {
+  return {
+    annualReportType: state.annualReportType.annualReportType.values,
+    companyInformation: state.companyInformation.companyInformation.values,
+    financialYear: state.financialYear.financialYear.values,
+    incomeStatement: state.incomeStatement.incomeStatement,
+  };
+};
 
 let getIncomeStatementFieldsArray = [],
   wrongFields = [],
   headerWiseAmountArray = {},
   amountArray = [],
-  total = 0;
+  total = 0,
+  finalResultObj = {};
+
+let SheetWisefinalResultObj = {
+    value: { year: "", selectedSheet: "", result: {} },
+  },
+  resultArray = [];
 class IncomeStatement extends Component {
   constructor(props) {
     super(props);
     this.state = {
       incomeStatementFieldsObj: {},
-      netSales: 0,
-      changeOfStock: 0,
-      acivatedWork: 0,
-      OtherOperatingIcome: 0,
-      rawMaterilas: 0,
       Merchandise: 0,
+      activeIndex1: 0,
+      selectedFinancialYear: "",
+      selectedSheet: "",
     };
     this.amountOnChange = this.amountOnChange.bind(this);
+    this.navigateToBalanceSheet = this.navigateToBalanceSheet.bind(this);
+  }
+
+  navigateToBalanceSheet() {
+    //navigateToBalanceSheet;
+    const {
+      annualReportType,
+      incomeStatement,
+      companyInformation,
+      financialYear,
+    } = this.props;
+
+    const { selectedFinancialYear, selectedSheet } = this.state;
+    // let yearAndSheetWisefinalResultObj = {}
+    // yearAndSheetWisefinalResultObj.finalResultObj
+
+    // yearAndSheetWisefinalResultObj = {};
+
+    let SheetWisefinalResultObj = {
+      value: { year: "", selectedSheet: "", result: {} },
+    };
+
+    // finalResultObj = { finalResultObj };
+
+    SheetWisefinalResultObj.value.result = { finalResultObj };
+    SheetWisefinalResultObj.value.selectedSheet = selectedSheet;
+    SheetWisefinalResultObj.value.year = selectedFinancialYear;
+    resultArray.push(SheetWisefinalResultObj);
+
+    // finalResultObj = resultArray;
+
+    incomeStatement.values = resultArray;
+    console.log(incomeStatement.values);
   }
   componentDidMount() {
-    getIncomeStatementFieldsArray = [];
-    axios
-      .get("/getIncomeStatementFields")
-      .then((response) => {
-        let getIncomeStatementFieldsResponse = response.data;
+    const {
+      annualReportType,
+      incomeStatement,
+      companyInformation,
+      financialYear,
+    } = this.props;
 
-        Object.keys(getIncomeStatementFieldsResponse).map((i) => {
-          let getIncomeStatementFieldsResponseObj = {
-            header: "",
-            fields: [],
-          };
-
-          getIncomeStatementFieldsResponseObj.header = i;
-          getIncomeStatementFieldsResponse[i] &&
-            getIncomeStatementFieldsResponse[i].length > 0 &&
-            getIncomeStatementFieldsResponse[i].map((j) => {
-              getIncomeStatementFieldsResponseObj.fields.push(
-                j.name +
-                  "@#%#@" +
-                  j.issumfield +
-                  "@#%#@" +
-                  j.acceptonlynegativevalues
-              );
+    let year = "";
+    if (financialYear != undefined) {
+      let arr = Object.values(financialYear);
+      arr &&
+        arr.length &&
+        arr.map((i, idx) => {
+          if (idx == 0) {
+            year = moment(i.from).format("YYYY");
+            this.setState({
+              selectedFinancialYear: year,
+              selectedSheet: "Income Statement",
             });
-          getIncomeStatementFieldsArray.push(
-            getIncomeStatementFieldsResponseObj
-          );
-
-          this.setState({
-            incomeStatementFieldsObj: response.data,
-          });
+          }
         });
-      })
-      .catch((error) => {});
+
+      console.log(financialYear, "+++++++++++++", year);
+
+      getIncomeStatementFieldsArray = [];
+      axios
+        .get("/getIncomeStatementFieldsByYear/" + year)
+        .then((response) => {
+          let getIncomeStatementFieldsResponse = response.data;
+
+          Object.keys(getIncomeStatementFieldsResponse).map((i) => {
+            let getIncomeStatementFieldsResponseObj = {
+              header: "",
+              fields: [],
+            };
+
+            getIncomeStatementFieldsResponseObj.header = i;
+            getIncomeStatementFieldsResponse[i] &&
+              getIncomeStatementFieldsResponse[i].length > 0 &&
+              getIncomeStatementFieldsResponse[i].map((j) => {
+                getIncomeStatementFieldsResponseObj.fields.push(
+                  j.name +
+                    "@#%#@" +
+                    j.issumfield +
+                    "@#%#@" +
+                    j.acceptonlynegativevalues
+                );
+              });
+            getIncomeStatementFieldsArray.push(
+              getIncomeStatementFieldsResponseObj
+            );
+
+            this.setState({
+              incomeStatementFieldsObj: response.data,
+            });
+          });
+        })
+        .catch((error) => {});
+    }
   }
 
   amountOnChange(
@@ -77,6 +150,7 @@ class IncomeStatement extends Component {
       Merchandise: 0,
     });
 
+    finalResultObj[fieldName] = amount;
     total = total + amount;
 
     if (acceptOnlyNegativeValues == "true") {
@@ -104,156 +178,226 @@ class IncomeStatement extends Component {
   }
 
   render() {
-    const { incomeStatementFieldsObj } = this.state;
+    const { incomeStatementFieldsObj, activeIndex1 } = this.state;
+    const { financialYear } = this.props;
+
     let operatingResults,
       profitAfterFinancialItems = 0,
       profitBeforeTax = 0,
       thisYearResults = 0,
       totalSumObj = {};
+
+    let financialYearResultObj;
+    if (financialYear != undefined) {
+      financialYearResultObj = Object.values(financialYear);
+    }
+
     return (
       <div className="carousel-demo">
         <Header />
-        {/* <Steps pageName="incomeStatement" /> */}
-        <div className="incomeStatement">
-          <div className="incomeStatementPadding">
-            {getIncomeStatementFieldsArray.map((result, idx) => {
-              let headerIdx = result.header.split("@#%#@")[0];
-              let sum = 0;
-              if (headerWiseAmountArray[headerIdx] != undefined) {
-                sum = headerWiseAmountArray[headerIdx].reduce(
-                  (partialSum, a) => partialSum + a,
-                  0
-                );
-              }
+        <Steps pageName="incomeStatement" />
 
-              totalSumObj[headerIdx] = sum;
-              operatingResults = totalSumObj[1] + totalSumObj[2];
-              profitAfterFinancialItems = operatingResults + totalSumObj[3];
-              profitBeforeTax = profitAfterFinancialItems + totalSumObj[4];
-              thisYearResults = profitBeforeTax + totalSumObj[5];
-              let i = 0;
-              return (
-                <div>
-                  <h5 className="incomeStatementHeader" key={idx}>
-                    <Row className="fields">
-                      <Col xs={8} sm={8} md={8} lg={8} xl={8} id="headingStyle">
-                        {result.header.split("@#%#@")[1]}
-                      </Col>
+        {financialYear != undefined && (
+          <div>
+            <div className="card">
+              <div className="pt-2 pb-4">
+                {financialYearResultObj.map((i, idx) => {
+                  return (
+                    <Button
+                      onClick={() =>
+                        this.setState({
+                          activeIndex1: 0,
+                          selectedFinancialYear: moment(i.from).format("YYYY"),
+                        })
+                      }
+                      className="p-button-text mr-1"
+                      label={
+                        moment(i.from).format("YYYY-MM-DD") +
+                        "-" +
+                        moment(i.to).format("YYYY-MM-DD")
+                      }
+                    />
+                  );
+                })}
+              </div>
 
-                      <Col xs={4} sm={4} md={4} lg={4} xl={4} id="headingStyle">
-                        SEK {sum}
-                      </Col>
-                    </Row>
-                  </h5>
-                  {result.fields.map((fields, idx) => {
-                    let splittedFieldsValue = [];
-                    splittedFieldsValue = fields.split("@#%#@");
-                    i++;
-                    console.log(i, idx);
-                    return (
-                      <div>
-                        <Row className="fields">
-                          <Col
-                            xs={8}
-                            sm={8}
-                            md={8}
-                            lg={8}
-                            xl={8}
-                            id="fieldsCol"
-                          >
-                            {splittedFieldsValue[1] == "false" ? (
-                              <label key={fields}>
-                                {splittedFieldsValue[0]}
-                              </label>
-                            ) : (
-                              <label className="isSumField" key={fields}>
-                                {splittedFieldsValue[0]}
-                              </label>
-                            )}
-                            <br />
-                            <br />
-                          </Col>
-                          <Col
-                            xs={4}
-                            sm={4}
-                            md={4}
-                            lg={4}
-                            xl={4}
-                            id="fieldsCol"
-                          >
-                            {splittedFieldsValue[1] == "false" ? (
-                              <div className="inputFieldWithWarning">
-                                <InputNumber
-                                  mode="decimal"
-                                  inputId="integeronly"
-                                  style={{ height: "24px" }}
-                                  onValueChange={(e) => {
-                                    this.amountOnChange(
-                                      e,
-                                      splittedFieldsValue[0],
-                                      splittedFieldsValue[2],
-                                      headerIdx,
-                                      idx
-                                    );
-                                  }}
-                                />
+              <TabView
+                activeIndex={this.state.activeIndex1}
+                onTabChange={(e) =>
+                  this.setState({
+                    activeIndex1: e.index,
+                    selectedSheet: e.originalEvent.target.innerText,
+                  })
+                }
+              >
+                <TabPanel header="Income Statement">
+                  <div className="incomeStatement">
+                    <div className="incomeStatementPadding">
+                      {getIncomeStatementFieldsArray.map((result, idx) => {
+                        let headerIdx = result.header.split("@#%#@")[0];
+                        let sum = 0;
+                        if (headerWiseAmountArray[headerIdx] != undefined) {
+                          sum = headerWiseAmountArray[headerIdx].reduce(
+                            (partialSum, a) => partialSum + a,
+                            0
+                          );
+                        }
 
-                                {wrongFields.includes(
-                                  splittedFieldsValue[0]
-                                ) && (
-                                  <div>
-                                    &nbsp;&nbsp;
-                                    <i
-                                      className="fa fa-exclamation-triangle"
-                                      id="negativeNumberWarningIcon"
-                                    ></i>
-                                    &nbsp;&nbsp;
-                                    <label className="negativeNumber">
-                                      Enter Negative Number
-                                    </label>
-                                  </div>
-                                )}
-                              </div>
-                            ) : (
-                              <label style={{ height: "30px" }}>
-                                SEK {""}
-                                {splittedFieldsValue[0] == "Operating results"
-                                  ? operatingResults
-                                  : splittedFieldsValue[0] ==
-                                    "Profit after financial items"
-                                  ? profitAfterFinancialItems
-                                  : splittedFieldsValue[0] ==
-                                    "Profit before tax"
-                                  ? profitBeforeTax
-                                  : thisYearResults}
-                              </label>
-                            )}
-                          </Col>
-                        </Row>
-                      </div>
-                    );
-                  })}
-                </div>
-              );
-            })}
-            <center>
-              <Button
-                label="Save & Continue"
-                aria-label="Annual Report"
-                onClick={() => this.navigateToIncomeStatementPage()}
-                id="annualReportBtn"
-                className="btn_Annual"
-                style={{
-                  width: "227px",
-                  height: "44px",
-                  fontSize: "1.2rem",
-                }}
-              />
-            </center>
+                        totalSumObj[headerIdx] = sum;
+                        operatingResults = totalSumObj[1] + totalSumObj[2];
+                        profitAfterFinancialItems =
+                          operatingResults + totalSumObj[3];
+                        profitBeforeTax =
+                          profitAfterFinancialItems + totalSumObj[4];
+                        thisYearResults = profitBeforeTax + totalSumObj[5];
+                        let i = 0;
+                        return (
+                          <div>
+                            <h5 className="incomeStatementHeader" key={idx}>
+                              <Row className="fields">
+                                <Col
+                                  xs={8}
+                                  sm={8}
+                                  md={8}
+                                  lg={8}
+                                  xl={8}
+                                  id="headingStyle"
+                                >
+                                  {result.header.split("@#%#@")[1]}
+                                </Col>
+
+                                <Col
+                                  xs={4}
+                                  sm={4}
+                                  md={4}
+                                  lg={4}
+                                  xl={4}
+                                  id="headingStyle"
+                                >
+                                  SEK {sum}
+                                </Col>
+                              </Row>
+                            </h5>
+                            {result.fields.map((fields, idx) => {
+                              let splittedFieldsValue = [];
+                              splittedFieldsValue = fields.split("@#%#@");
+                              i++;
+                              return (
+                                <div>
+                                  <Row className="fields">
+                                    <Col
+                                      xs={8}
+                                      sm={8}
+                                      md={8}
+                                      lg={8}
+                                      xl={8}
+                                      id="fieldsCol"
+                                    >
+                                      {splittedFieldsValue[1] == "false" ? (
+                                        <label key={fields}>
+                                          {splittedFieldsValue[0]}
+                                        </label>
+                                      ) : (
+                                        <label
+                                          className="isSumField"
+                                          key={fields}
+                                        >
+                                          {splittedFieldsValue[0]}
+                                        </label>
+                                      )}
+                                      <br />
+                                      <br />
+                                    </Col>
+                                    <Col
+                                      xs={4}
+                                      sm={4}
+                                      md={4}
+                                      lg={4}
+                                      xl={4}
+                                      id="fieldsCol"
+                                    >
+                                      {splittedFieldsValue[1] == "false" ? (
+                                        <div className="inputFieldWithWarning">
+                                          <InputNumber
+                                            mode="decimal"
+                                            inputId="integeronly"
+                                            style={{ height: "24px" }}
+                                            onValueChange={(e) => {
+                                              this.amountOnChange(
+                                                e,
+                                                splittedFieldsValue[0],
+                                                splittedFieldsValue[2],
+                                                headerIdx,
+                                                idx
+                                              );
+                                            }}
+                                          />
+
+                                          {wrongFields.includes(
+                                            splittedFieldsValue[0]
+                                          ) && (
+                                            <div>
+                                              &nbsp;&nbsp;
+                                              <i
+                                                className="fa fa-exclamation-triangle"
+                                                id="negativeNumberWarningIcon"
+                                              ></i>
+                                              &nbsp;&nbsp;
+                                              <label className="negativeNumber">
+                                                Enter Negative Number
+                                              </label>
+                                            </div>
+                                          )}
+                                        </div>
+                                      ) : (
+                                        <label style={{ height: "30px" }}>
+                                          SEK {""}
+                                          {splittedFieldsValue[0] ==
+                                          "Operating results"
+                                            ? operatingResults
+                                            : splittedFieldsValue[0] ==
+                                              "Profit after financial items"
+                                            ? profitAfterFinancialItems
+                                            : splittedFieldsValue[0] ==
+                                              "Profit before tax"
+                                            ? profitBeforeTax
+                                            : thisYearResults}
+                                        </label>
+                                      )}
+                                    </Col>
+                                  </Row>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        );
+                      })}
+                      <center>
+                        <Button
+                          label="Save & Continue"
+                          aria-label="Annual Report"
+                          onClick={() => this.navigateToBalanceSheet()}
+                          id="annualReportBtn"
+                          className="btn_Annual"
+                          style={{
+                            width: "227px",
+                            height: "44px",
+                            fontSize: "1.2rem",
+                          }}
+                        />
+                      </center>
+                    </div>
+                  </div>
+                </TabPanel>
+                <TabPanel header="Balance Sheet">
+                  <p>Work in progress</p>
+                </TabPanel>
+              </TabView>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
 }
-export default IncomeStatement;
+export default connect(mapStateToProps, null)(IncomeStatement);

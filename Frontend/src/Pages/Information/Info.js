@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
-import { InputMask } from 'primereact/inputmask';
+import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import Header from "../Header/header";
 import Steps from "../Steps/steps";
 import axios from "axios";
+import { connect } from "react-redux";
 import "./Info.css";
+
+const mapStateToProps = (state) => {
+  return {
+    annualReportType: state.annualReportType.annualReportType.values,
+    companyInformation: state.companyInformation.companyInformation,
+  };
+};
 
 let isAllFieldsFilled = false;
 class Info extends Component {
@@ -29,6 +37,25 @@ class Info extends Component {
       this.companyNameAndCityOnChange.bind(this);
     this.PostalcodeOnChange = this.PostalcodeOnChange.bind(this);
     this.NEXTClick = this.NEXTClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { annualReportType, companyInformation } = this.props;
+
+    console.log(companyInformation, ">> INFO");
+    if (
+      companyInformation != undefined &&
+      companyInformation.values != undefined
+    ) {
+      this.setState({
+        organizationNo: companyInformation.values.organizationno,
+        companyName: companyInformation.values.organizationname,
+        zipcode: companyInformation.values.zipcode,
+        postaladdress: companyInformation.values.postaladdress,
+        isExistingOrganization:
+          companyInformation.values.isExistingOrganization,
+      });
+    }
   }
 
   organizationNoOnChange(e) {
@@ -69,10 +96,8 @@ class Info extends Component {
         });
       }
     }
-
   }
-  
-  
+
   navigateToYearPage() {
     const {
       isExistingOrganization,
@@ -82,27 +107,32 @@ class Info extends Component {
       postaladdress,
     } = this.state;
 
-    let addNewOrganization = {
-      organizationname: "",
-      organizationno: "",
-      zipcode: "",
-      postaladdress: "",
+    let { companyInformation } = this.props;
+
+    let organizationDetails = {
+      organizationname: companyName,
+      organizationno: organizationNo,
+      zipcode: zipcode,
+      postaladdress: postaladdress,
     };
 
+    companyInformation.values = organizationDetails;
+    companyInformation.values.isExistingOrganization = isExistingOrganization;
+
     if (!isExistingOrganization) {
-      addNewOrganization = {
-        organizationname: companyName,
-        organizationno: organizationNo,
-        zipcode: zipcode,
-        postaladdress: postaladdress,
-      };
       axios
-        .post("/postOrganizationDetails", addNewOrganization)
+        .post("/postOrganizationDetails", organizationDetails)
         .then((data) => {
           this.props.history.push("/year");
+          // IncomeStatement
+          // this.props.history.push("/IncomeStatement");
         })
         .catch((err) => {});
-    } else this.props.history.push("/year");
+    } else {
+      this.props.history.push("/year");
+      //IncomeStatement
+      // this.props.history.push("/IncomeStatement");
+    }
   }
 
   companyNameAndCityOnChange(e, field) {
@@ -142,8 +172,7 @@ class Info extends Component {
   }
 
   NEXTClick() {
-    const { organizationNo, companyName, zipcode, postaladdress } =
-      this.state;
+    const { organizationNo, companyName, zipcode, postaladdress } = this.state;
     let orginizationNoLength = organizationNo.toString().length;
     let PostalcodeLength = zipcode.toString().length;
   }
@@ -174,11 +203,10 @@ class Info extends Component {
       isAllFieldsFilled = false;
     else isAllFieldsFilled = true;
 
-    console.log(isAllFieldsFilled, "+++");
-
     return (
       <div>
         <Header />
+        <Steps pageName="companyInformation" />
         <Toast
           ref={(el) => {
             this.toast = el;
@@ -196,8 +224,6 @@ class Info extends Component {
             <div className="Text-label">
               <span className="Text-label-1">Organization Number</span>
               <div className="fieldsStyle">
-
-
                 <InputMask
                   id="Organization_no"
                   mask="999999-9999"
@@ -229,7 +255,6 @@ class Info extends Component {
                 <div className="warningDiv">
                   {this.state.checkCompanyName &&
                     this.state.companyName == "" && (
-                      
                       <label className="warningLabel">
                         Company name is mandatory
                       </label>
@@ -267,10 +292,8 @@ class Info extends Component {
 
                 <div className="warningDiv">
                   {this.state.checkCity &&
-                      (this.state.postaladdress.trim().length<=1) && (
-                      <label className="warningLabel">
-                        City is mandatory
-                      </label>
+                    this.state.postaladdress.trim().length <= 1 && (
+                      <label className="warningLabel">City is mandatory</label>
                     )}
                 </div>
               </div>
@@ -316,4 +339,4 @@ class Info extends Component {
   }
 }
 
-export default Info;
+export default connect(mapStateToProps, null)(Info);

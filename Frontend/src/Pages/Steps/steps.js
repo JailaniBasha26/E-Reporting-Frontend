@@ -3,7 +3,17 @@ import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 import { Route } from "react-router-dom";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import "./steps.css";
+
+const mapStateToProps = (state) => {
+  return {
+    annualReportType: state.annualReportType.annualReportType.values,
+    companyInformation: state.companyInformation.companyInformation.values,
+    financialYear: state.financialYear.financialYear.values,
+    incomeStatement: state.incomeStatement.incomeStatement.values,
+  };
+};
 
 let selectedStepIndex = 0;
 class StepsComponent extends Component {
@@ -21,6 +31,7 @@ class StepsComponent extends Component {
     this.state = {
       activeIndex: 0,
     };
+    this.errorMessage = this.errorMessage.bind(this);
 
     this.items = [
       {
@@ -42,16 +53,56 @@ class StepsComponent extends Component {
     ];
   }
 
+  errorMessage() {
+    this.toast.show({
+      severity: "error",
+      summary: "Incomplete",
+      detail: "Please complete the current step",
+      life: 2000,
+    });
+  }
+
   componentWillMount() {
-    const { pageName, isInvalid } = this.props;
-    console.log(pageName, ">>", isInvalid);
-    if (pageName == "SIE File") selectedStepIndex = 0;
-    if (pageName == "companyInformation") selectedStepIndex = 1;
-    if (pageName == "financialYear") selectedStepIndex = 2;
-    if (pageName == "incomeStatement") selectedStepIndex = 3;
+    const {
+      pageName,
+      isInvalid,
+      annualReportType,
+      companyInformation,
+      incomeStatement,
+    } = this.props;
+
+    console.log(">> ANNAUL REPORT : ", annualReportType);
+    console.log(">> COMPANY INFO : ", companyInformation);
+    console.log(">> INCOME STATEMENT : ", incomeStatement);
+
+    if (annualReportType != undefined)
+      if (annualReportType.status == undefined) {
+        console.log("UNDEFINED");
+      }
+
+    if (pageName == "SIE File") {
+      selectedStepIndex = 0;
+    }
+    if (pageName == "companyInformation") {
+      selectedStepIndex = 1;
+    }
+    if (pageName == "financialYear") {
+      selectedStepIndex = 2;
+    }
+    if (pageName == "incomeStatement") {
+      selectedStepIndex = 3;
+    }
   }
   render() {
-    const { pageName, isInvalid } = this.props;
+    const {
+      pageName,
+      isInvalid,
+      annualReportType,
+      companyInformation,
+      financialYear,
+      incomeStatement,
+    } = this.props;
+
     return (
       <div className="steps-demo">
         <Toast
@@ -60,32 +111,37 @@ class StepsComponent extends Component {
           }}
         ></Toast>
 
-        <div className="card">
+        <div className="stepsCard">
           <Route
             render={({ history }) => (
               <Steps
                 model={this.items}
                 activeIndex={selectedStepIndex}
                 onSelect={(e) => {
+                  console.log("... CONT MOVE INSIDE", annualReportType);
                   selectedStepIndex = e.index;
                   if (selectedStepIndex == 0) {
                     history.push("/fileSIE");
                   }
                   if (selectedStepIndex == 1) {
-                    history.push("/info");
+                    if (annualReportType != undefined) {
+                      history.push("/info");
+                    } else {
+                      this.errorMessage();
+                    }
                   }
                   if (selectedStepIndex == 2) {
-                    if (isInvalid) {
-                      alert("ERROR");
-                    } else {
+                    if (companyInformation != undefined) {
                       history.push("/year");
+                    } else {
+                      this.errorMessage();
                     }
                   }
                   if (selectedStepIndex == 3) {
-                    if (isInvalid) {
-                      alert("ERROR");
-                    } else {
+                    if (financialYear != undefined) {
                       history.push("/IncomeStatement");
+                    } else {
+                      this.errorMessage();
                     }
                   }
                 }}
@@ -99,4 +155,4 @@ class StepsComponent extends Component {
   }
 }
 
-export default StepsComponent;
+export default connect(mapStateToProps, null)(StepsComponent);

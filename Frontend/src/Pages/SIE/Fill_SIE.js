@@ -6,23 +6,36 @@ import Row from "react-bootstrap/Row";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
 import Steps from "../Steps/steps";
+import { connect } from "react-redux";
 import "./Fill_SIE.css";
+
+const mapStateToProps = (state) => {
+  return {
+    annualReportType: state.annualReportType.annualReportType,
+  };
+};
 
 class Fill_SIE extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
-  navigateToInformationPage() {
+  navigateToInformationPage(e) {
+    let { annualReportType } = this.props;
+    const reportType = {
+      type: e,
+    };
+    annualReportType.values = reportType;
+    annualReportType.values.status = true;
     this.props.history.push("/info");
   }
+
   render() {
     return (
       <div>
         <Header />
-        {/* <Steps pageName="SIE File" isInvalid={true} /> */}
+        <Steps pageName="SIE File" />
         <center>
           <div className="fill-sub">
             <div>
@@ -35,7 +48,9 @@ class Fill_SIE extends Component {
               <Button
                 label="Fill in by hand"
                 aria-label="Annual Report"
-                onClick={() => this.navigateToInformationPage()}
+                onClick={(e) =>
+                  this.navigateToInformationPage("Fill in by hand")
+                }
                 id="annualReportBtn"
                 className="btn_Annual"
               />
@@ -43,6 +58,9 @@ class Fill_SIE extends Component {
               <Button
                 label="Import SIE File"
                 aria-label="Annual Report"
+                onClick={(e) =>
+                  this.navigateToInformationPage("Import SIE File")
+                }
                 id="annualReportBtn"
                 className="btn_Annual"
               />
@@ -54,4 +72,4 @@ class Fill_SIE extends Component {
   }
 }
 
-export default Fill_SIE;
+export default connect(mapStateToProps, null)(Fill_SIE);

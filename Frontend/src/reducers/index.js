@@ -1,10 +1,14 @@
-import { combineReducers } from 'redux'
-import stateDataStore from './reducer-data.js'
-import companyListData from './reducer-companiesList.js'
+import { combineReducers } from "redux";
+import annualReportType from "./reducer-annualReportType";
+import companyInformation from "./reducer-companyInformation";
+import financialYear from "./reducer-financialYear";
+import incomeStatement from "./reducer-incomeStatement";
 
 const rootReducer = combineReducers({
-    // stateData: stateDataStore,
-    // companyList: companyListData
-})
+  annualReportType: annualReportType,
+  companyInformation: companyInformation,
+  financialYear: financialYear,
+  incomeStatement: incomeStatement,
+});
 
-export default rootReducer
+export default rootReducer;

@@ -4,7 +4,15 @@ import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
+import { connect } from "react-redux";
 
+const mapStateToProps = (state) => {
+  return {
+    annualReportType: state.annualReportType.annualReportType.values,
+    companyInformation: state.companyInformation.companyInformation.values,
+    incomeStatement: state.incomeStatement.incomeStatement,
+  };
+};
 class home extends Component {
   constructor(props) {
     super(props);
@@ -81,4 +89,5 @@ class home extends Component {
     );
   }
 }
-export default home;
+
+export default connect(mapStateToProps, null)(home);
