@@ -31,7 +31,7 @@ class Info extends Component {
       isWrongPostalcodeFormat: false,
       checkCity: false,
       isExistingOrganization: false,
-      fetchOrgNoApiCallStatus:false
+      fetchOrgNoApiCallStatus: false,
     };
     this.organizationNoOnChange = this.organizationNoOnChange.bind(this);
     this.companyNameAndCityOnChange =
@@ -60,7 +60,7 @@ class Info extends Component {
   }
 
   organizationNoOnChange(e) {
-    if (e.value != null  ) {
+    if (e.value != null) {
       axios
         .get("/getOrganizationDetails/" + e.value)
         .then((response) => {
@@ -85,17 +85,19 @@ class Info extends Component {
       this.setState({
         organizationNo: e.value,
       });
-      
-      if (orginizationNoLength != 10) {
+
+      let orginizationNoLength = e.value.toString().length;
+
+      if (orginizationNoLength != 11) {
         this.setState({
           isWrongOrganizationNo: true,
         });
       } else {
         this.setState({
           isWrongOrganizationNo: false,
-        }); 
+        });
       }
-  }
+    }
   }
 
   navigateToYearPage() {

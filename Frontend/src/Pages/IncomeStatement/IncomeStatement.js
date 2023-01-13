@@ -36,7 +36,6 @@ let SheetWisefinalResultObj = {
 
 let financialYearResultObj,
   tabYearOptionObj = { name: "", value: "", label: "" };
-
 class IncomeStatement extends Component {
   constructor(props) {
     super(props);
@@ -67,11 +66,34 @@ class IncomeStatement extends Component {
     let SheetWisefinalResultObj = {
       value: { year: "", selectedSheet: "", result: {} },
     };
+    let replaceIdx;
+    let isYearAlreadyPresent = false;
 
     SheetWisefinalResultObj.value.result = { finalResultObj };
     SheetWisefinalResultObj.value.selectedSheet = selectedSheet;
     SheetWisefinalResultObj.value.year = selectedFinancialYear;
-    resultArray.push(SheetWisefinalResultObj);
+
+    resultArray.length &&
+      resultArray.map((i, idx) => {
+        if (i.value.year == selectedFinancialYear) {
+          replaceIdx = idx;
+          isYearAlreadyPresent = true;
+          let finalResultObjValue = i.value.result.finalResultObj;
+          finalResultObj = {
+            ...finalResultObjValue,
+            ...finalResultObj,
+          };
+        }
+      });
+    if (!isYearAlreadyPresent) {
+      resultArray.push(SheetWisefinalResultObj);
+    } else {
+      if (replaceIdx > -1) {
+        resultArray.splice(replaceIdx, 1);
+        SheetWisefinalResultObj.value.result = { finalResultObj };
+        resultArray.push(SheetWisefinalResultObj);
+      }
+    }
 
     incomeStatement.values = resultArray;
     finalResultObj = {};
@@ -86,6 +108,7 @@ class IncomeStatement extends Component {
 
     let year = "";
 
+    tabYearOptionArray = [];
     if (financialYear != undefined) {
       financialYearResultObj = Object.values(financialYear);
       financialYearResultObj &&
@@ -168,7 +191,6 @@ class IncomeStatement extends Component {
 
     SheetWisefinalResultObj.value.year = selectedFinancialYear;
     SheetWisefinalResultObj.value.incomeStatement = finalResultObj;
-    // SheetWisefinalResultObj.value.result = finalResultObj;
 
     if (acceptOnlyNegativeValues == "true") {
       if (amount > 0) {

@@ -6,6 +6,7 @@ import Header from "../Header/header";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
+import { Toast } from "primereact/toast";
 import "./Year.css";
 
 let test = [],
@@ -16,7 +17,8 @@ let test = [],
     to: "",
   },
   from = "",
-  to = "";
+  to = "",
+  redirectStatus = true;
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
@@ -30,7 +32,7 @@ class Year extends Component {
     this.state = {
       date1: "",
       date2: "",
-      selected_year: null,
+      selected_year: { id: 0, name: "0" },
       dummy: "",
     };
 
@@ -102,14 +104,20 @@ class Year extends Component {
     this.setState({
       selected_year: e.value,
     });
+
+    let tempFinancialYearDetails = {};
+    Object.keys(financialYearDetails).map((i, idx) => {
+      if (idx <= e.value.id) {
+        tempFinancialYearDetails[idx] = financialYearDetails[i];
+      }
+    });
+
+    financialYearDetails = tempFinancialYearDetails;
   }
 
   componentDidMount() {
     const { financialYear } = this.props;
-    if (financialYear.values != undefined) {
-      // yearCount =
-      console.log(financialYear.values, "**");
-    }
+
     // from = "";
     // to = "";
 
@@ -128,12 +136,51 @@ class Year extends Component {
 
   navigateToIncomeStatementPage() {
     const { financialYear } = this.props;
-    console.log(yearCount, " >> YEAR COUNT");
+    const { selected_year } = this.state;
+
     financialYear.values = financialYearDetails;
     this.setState({
       dummy: "",
     });
-    this.props.history.push("/IncomeStatement");
+
+    redirectStatus = true;
+    let check = false;
+    if (Object.keys(financialYearDetails).length === 0) {
+      this.toast.show({
+        severity: "error",
+        summary: "Incomplete",
+        detail: "Please fill the dates",
+        life: 2000,
+      });
+      redirectStatus = false;
+    } else {
+      Object.keys(financialYearDetails).map((i, idx) => {
+        if (
+          financialYearDetails[i].from == "" ||
+          financialYearDetails[i].from == null ||
+          financialYearDetails[i].to == "" ||
+          financialYearDetails[i].to == null ||
+          selected_year.id + 1 != Object.keys(financialYearDetails).length
+        ) {
+          if (!check) {
+            this.toast.show({
+              severity: "error",
+              summary: "Incomplete",
+              detail: "Please fill the dates",
+              life: 2000,
+            });
+            redirectStatus = false;
+            check = true;
+          }
+        }
+      });
+    }
+
+    if (redirectStatus) {
+      this.props.history.push("/IncomeStatement");
+    }
+
+    // this.props.history.push("/IncomeStatement");
   }
 
   render() {
@@ -157,6 +204,11 @@ class Year extends Component {
       <div>
         <Header />
         <Steps pageName="financialYear" />
+        <Toast
+          ref={(el) => {
+            this.toast = el;
+          }}
+        ></Toast>
         <center>
           <div className="year-main-container">
             <div>
@@ -223,7 +275,6 @@ class Year extends Component {
             {yearCount.map((i, idx) => {
               if (financialYear.values != undefined) {
                 let arr = Object.values(financialYear.values);
-                console.log(arr, ">> ARR");
                 arr &&
                   arr.length &&
                   arr.map((arrI, arrIdx) => {
@@ -239,7 +290,6 @@ class Year extends Component {
                     // }
                   });
               }
-              console.log(mnm, ">> mnm", idx, "YEAR : ", yearCount);
               return (
                 <div key={idx}>
                   <div className="year-cal-label">
@@ -254,7 +304,11 @@ class Year extends Component {
                     <Calendar
                       id="icon"
                       value={
-                        Object.keys(mnm).length === 0 ? "" : mnm[idx + 2].from
+                        Object.keys(mnm).length === 0
+                          ? ""
+                          : mnm[idx + 2] == undefined
+                          ? ""
+                          : mnm[idx + 2].from
                       }
                       // onChange={(e) => this.setState({ date1: e.value })}
                       onChange={(e) => {
@@ -267,7 +321,11 @@ class Year extends Component {
                     <Calendar
                       id="icon"
                       value={
-                        Object.keys(mnm).length === 0 ? "" : mnm[idx + 2].to
+                        Object.keys(mnm).length === 0
+                          ? ""
+                          : mnm[idx + 2] == undefined
+                          ? ""
+                          : mnm[idx + 2].to
                       }
                       // onChange={(e) => this.setState({ date2: e.value })}
                       onChange={(e) => {
