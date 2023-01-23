@@ -53,6 +53,7 @@ class IncomeStatement extends Component {
   }
 
   navigateToBalanceSheet() {
+    //console.log('yes');
     //navigateToBalanceSheet;
     const {
       annualReportType,

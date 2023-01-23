@@ -44,11 +44,16 @@ font-size: 10px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.year-cal-label-1,
-.year-cal-label-2 {
+.year-cal-label-1 {
   margin: 10px;
   margin-left: 50px;
+  
 }
+.year-cal-label-2 {
+  padding-top: 9px;
+  padding-left: 180px;
+}
+
 
 .year-cal-label-1:first-child,
 .year-cal-label-2:first-child {
@@ -139,4 +144,17 @@ font-size: 10px;
 button.p-button.p-component.p-datepicker-trigger.p-button-icon-only {
   background: red;
   border-color: red;
+}
+
+.warningDiv {
+  padding-left: 100px;
+}
+
+.warningLabel {
+  position: relative;
+  text-align: start;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+  padding-left: 280px;
+ 
 }

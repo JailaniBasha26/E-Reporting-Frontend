@@ -85,9 +85,8 @@ class Info extends Component {
       this.setState({
         organizationNo: e.value,
       });
-
+      
       let orginizationNoLength = e.value.toString().length;
-
       if (orginizationNoLength != 11) {
         this.setState({
           isWrongOrganizationNo: true,
@@ -302,12 +301,24 @@ class Info extends Component {
             </div>
 
             <div className="btn_div">
+            <Button
+                  label="Previous"
+                  aria-label="Annual Report"
+                  onClick={() => this.props.history.push('/fileSIE')}
+                  id="annualReportBtn"
+                  className="btn_Annual"
+                  style={{
+                    width: "157px",
+                    height: "44px",
+                    fontSize: "1.2rem",
+                  }}
+                />
               {this.state.isWrongOrganizationNo ||
               this.state.isWrongPostalcodeFormat ||
               this.state.companyName == "" ||
               this.state.postaladdress == "" ? (
                 <Button
-                  label="NEXT"
+                  label="Next"
                   aria-label="Annual Report"
                   id="annualReportBtn"
                   className="btn_Annual"
@@ -321,7 +332,7 @@ class Info extends Component {
                 />
               ) : (
                 <Button
-                  label="NEXT"
+                  label="Next"
                   aria-label="Annual Report"
                   onClick={() => this.navigateToYearPage()}
                   id="annualReportBtn"
