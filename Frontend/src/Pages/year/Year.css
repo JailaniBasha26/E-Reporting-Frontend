@@ -54,6 +54,10 @@ font-size: 10px;
   padding-left: 180px;
 }
 
+.year-cal-label-2 {
+  margin: 10px;
+  margin-left: 180px;
+}
 
 .year-cal-label-1:first-child,
 .year-cal-label-2:first-child {

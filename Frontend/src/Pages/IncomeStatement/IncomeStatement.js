@@ -282,7 +282,7 @@ class IncomeStatement extends Component {
 
     return (
       <div className="carousel-demo">
-        <NavBar /><br></br><br></br>
+        <NavBar /><br></br>
         <Steps pageName="incomeStatement" />
 
         {financialYear != undefined && (
@@ -448,6 +448,18 @@ class IncomeStatement extends Component {
                         );
                       })}
                       <center>
+                        <Button
+                          label="Previous"
+                          aria-label="Annual Report"
+                          onClick={() => this.props.history.push('/year')}
+                          id="annualReportBtn"
+                          className="btn_Annual"
+                          style={{
+                            width: "157px",
+                            height: "44px",
+                            fontSize: "1.2rem",
+                          }}
+                        />
                         <Button
                           label="Save & Continue"
                           aria-label="Annual Report"

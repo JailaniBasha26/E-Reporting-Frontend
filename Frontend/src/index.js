@@ -10,6 +10,7 @@ import home from "../src/Pages/Home/home";
 import Info from "../src/Pages/Information/Info";
 import Header from "../src/Pages/Header/header";
 import Steps from "../src/Pages/Steps/steps";
+import TabLS from "../src/Pages/Tab LS/TabLS";
 import MenubarDemo from "../src/Pages/Zeenath Demo/MenubarDemo";
 import Navbar from "../src/Pages/Zeenath Demo/Navbar";
 //import RebelSkool_Logo from "../..Zeenath Demo/RebelSkool_Logo.jpg";

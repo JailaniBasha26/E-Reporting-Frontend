@@ -5,11 +5,10 @@ import { Steps } from "primereact/steps";
 import { Toast } from "primereact/toast";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import "./steps.css";
 
-
+import "./TabLS.css";
 let selectedStepIndex = 0;
-class steps extends Component {
+class TabLS extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,8 +64,8 @@ class steps extends Component {
     ];
   }
   Newtablist(e) {
-    if(e.target.value.name ==  '+ New Annual Report') {
-       this.props.history.push("/year");
+    if(e.value.name ==  '+ New Annual Report') {
+      this.props.history.push("/fileSIE");
     } 
 
   }
@@ -131,8 +130,7 @@ class steps extends Component {
 
                 <Route
                   render={({ history }) => (
-                    <span>  
-                    <Dropdown 
+                    <span>  <Dropdown 
                     value={this.state.Newrecord} 
                     options={this.list} 
                     onChange={(e) => this.Newtablist(e)}
@@ -185,7 +183,6 @@ class steps extends Component {
        }
       }
 
-export default steps;
-
-
+// export default connect(mapStateToProps, null)(TabLS);
+export default TabLS;
 

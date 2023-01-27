@@ -230,7 +230,7 @@ class Year extends Component {
 
     return (
       <div>
-        <NavBar /><br></br><br></br>
+        <NavBar /><br></br>
         <Steps pageName="financialYear" />
         <Toast
           ref={(el) => {

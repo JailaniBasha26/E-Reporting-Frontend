@@ -40,37 +40,27 @@ class Navbar extends Component {
                 cName:'nav-links'
             }
         ]
-
-        // navigateToNextPage() {
-        //     console.log('Hi');
-        // }
         
         return(
             <nav className='NavbarItems'>
-                {/* <h1 className='navbar-logo'>Logo</h1> */}
-                {/* <div className='menu-icon' onClick={this.handleClick}>
-
-                </div> */}
                 
                 <Route
-            render={({ history }) => (
+                    render={({ history }) => (
                 <button
                 type="button"
                 onClick={() => {
                  history.push("/");
                 }}
                 class="headerButton">
-<Image
+            <Image
                   src={logo}
                   alt="Image"
                   width="200"
                   className="rebelSkoolLogo"
                 />
-
                 </button>
             )}/>
                 
-
                 <ul className='nav-menu'>
                     {MenuItems.map((item, index) => {
                         return(

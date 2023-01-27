@@ -180,6 +180,23 @@ class Info extends Component {
   }
 
   errorMessage() {
+    this.setState({
+      isWrongOrganizationNo :true
+    })
+
+    this.setState({
+      checkCompanyName:true,
+      CompanyName:""
+    } );
+
+    this.setState({
+      isWrongPostalcodeFormat:true
+    })
+
+    this.setState({
+      checkCity:true,
+    })
+
 
     this.setState({
       isWrongOrganizationNo: true,
@@ -231,7 +248,7 @@ class Info extends Component {
 
     return (
       <div>
-        <NavBar /><br></br><br></br>
+        <NavBar /><br></br>
         <Steps pageName="companyInformation" />
         <Toast
           ref={(el) => {
