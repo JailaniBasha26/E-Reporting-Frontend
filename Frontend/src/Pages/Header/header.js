@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     incomeStatement: state.incomeStatement.incomeStatement,
   };
 };
+
 class headers extends Component {
   constructor(props) {
     super(props);
@@ -51,16 +52,17 @@ class headers extends Component {
                 }}
                 class="headerButton"
               >
+                
                 <Image
                   src={logo}
                   alt="Image"
                   width="200"
                   className="rebelSkoolLogo"
                 />
-              </button>
-            )}
-          />
-        </div>
+              </button>              
+              )}
+            />
+        </div>        
       </div>
     );
   }

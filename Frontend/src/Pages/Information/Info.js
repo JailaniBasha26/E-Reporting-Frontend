@@ -5,6 +5,7 @@ import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import Header from "../Header/header";
+import NavBar from "../Zeenath Demo/Navbar"
 import Steps from "../Steps/steps";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -179,6 +180,27 @@ class Info extends Component {
   }
 
   errorMessage() {
+
+    this.setState({
+      isWrongOrganizationNo: true,
+    });
+
+    this.setState({
+      checkCompanyName : true,
+      companyName : "",
+      
+    })
+
+    this.setState({
+      isWrongPostalcodeFormat: true,
+    });
+
+    this.setState({
+      checkCity : true,
+      postaladdress : ""
+      
+    })
+
     this.toast.show({
       severity: "error",
       summary: "Incomplete",
@@ -204,9 +226,12 @@ class Info extends Component {
       isAllFieldsFilled = false;
     else isAllFieldsFilled = true;
 
+    let postalAddressLength = postaladdress.trim().length;
+    console.log(postalAddressLength);
+
     return (
       <div>
-        <Header />
+        <NavBar /><br></br><br></br>
         <Steps pageName="companyInformation" />
         <Toast
           ref={(el) => {

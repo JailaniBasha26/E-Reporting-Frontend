@@ -4,6 +4,7 @@ import { Toast } from "primereact/toast";
 import { Route } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+
 import "./steps.css";
 
 const mapStateToProps = (state) => {
@@ -35,10 +36,6 @@ class StepsComponent extends Component {
 
     this.items = [
       {
-        label: "Import SIE or Fill By Hand",
-        command: (event) => {},
-      },
-      {
         label: "Company Information",
         command: (event) => {},
       },
@@ -47,7 +44,11 @@ class StepsComponent extends Component {
         command: (event) => {},
       },
       {
-        label: "Income Statement",
+        label: "Financial Details",
+        command: (event) => {},
+      },
+      {
+        label: "Notes",
         command: (event) => {},
       },
     ];
@@ -71,25 +72,25 @@ class StepsComponent extends Component {
       incomeStatement,
     } = this.props;
 
-    console.log(">> ANNAUL REPORT : ", annualReportType);
-    console.log(">> COMPANY INFO : ", companyInformation);
-    console.log(">> INCOME STATEMENT : ", incomeStatement);
+    // console.log(">> ANNAUL REPORT : ", annualReportType);
+    // console.log(">> COMPANY INFO : ", companyInformation);
+    // console.log(">> INCOME STATEMENT : ", incomeStatement);
 
     if (annualReportType != undefined)
       if (annualReportType.status == undefined) {
         console.log("UNDEFINED");
       }
 
-    if (pageName == "SIE File") {
+    if (pageName == "companyInformation") {
       selectedStepIndex = 0;
     }
-    if (pageName == "companyInformation") {
+    if (pageName == "financialYear") {
       selectedStepIndex = 1;
     }
-    if (pageName == "financialYear") {
+    if (pageName == "incomeStatement") {
       selectedStepIndex = 2;
     }
-    if (pageName == "incomeStatement") {
+    if (pageName == "") {
       selectedStepIndex = 3;
     }
   }
@@ -115,29 +116,27 @@ class StepsComponent extends Component {
           <Route
             render={({ history }) => (
               <Steps
+              orientation = "vertical"
                 model={this.items}
                 activeIndex={selectedStepIndex}
                 onSelect={(e) => {
                   console.log("... CONT MOVE INSIDE", annualReportType);
                   selectedStepIndex = e.index;
                   if (selectedStepIndex == 0) {
-                    history.push("/fileSIE");
-                  }
-                  if (selectedStepIndex == 1) {
                     if (annualReportType != undefined) {
                       history.push("/info");
                     } else {
                       this.errorMessage();
                     }
                   }
-                  if (selectedStepIndex == 2) {
+                  if (selectedStepIndex == 1) {
                     if (companyInformation != undefined) {
                       history.push("/year");
                     } else {
                       this.errorMessage();
                     }
                   }
-                  if (selectedStepIndex == 3) {
+                  if (selectedStepIndex == 2) {
                     if (financialYear != undefined) {
                       history.push("/IncomeStatement");
                     } else {

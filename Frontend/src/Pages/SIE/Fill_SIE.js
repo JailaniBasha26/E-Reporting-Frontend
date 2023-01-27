@@ -8,6 +8,7 @@ import Header from "../Header/header";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import "./Fill_SIE.css";
+import NavBar from "../Zeenath Demo/Navbar"
 
 const mapStateToProps = (state) => {
   return {
@@ -34,8 +35,8 @@ class Fill_SIE extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <Steps pageName="SIE File" />
+        <NavBar />
+        {/* <Steps pageName="SIE File" /> */}
         <center>
           <div className="fill-sub">
             <div>

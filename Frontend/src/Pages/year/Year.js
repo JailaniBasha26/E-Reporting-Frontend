@@ -3,6 +3,7 @@ import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
+import NavBar from "../Zeenath Demo/Navbar"
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -35,6 +36,7 @@ class Year extends Component {
       selected_year: { id: 0, name: "0" },
       dummy: "",
       isEndingDateEarlier:false,
+      isAllFieldsEmpty:false,
     };
 
     this.fisical_year = [
@@ -187,6 +189,10 @@ class Year extends Component {
         detail: "Please fill all the fields",
         life: 2000,
       });
+
+      this.setState({
+        isAllFieldsEmpty: true,
+      });
     } else if(financialYearDetails[0].from == "" || financialYearDetails[0].to == "" ) {
       this.toast.show({
                       severity: "error",
@@ -224,7 +230,7 @@ class Year extends Component {
 
     return (
       <div>
-        <Header />
+        <NavBar /><br></br><br></br>
         <Steps pageName="financialYear" />
         <Toast
           ref={(el) => {
@@ -242,6 +248,15 @@ class Year extends Component {
                 previous years.
               </p>
             </div>
+
+            <center>
+            <div className="fieldsWarningDiv">
+              
+                  {this.state.isAllFieldsEmpty && (
+                   <label className="warningLabel">Please fill all the fields</label>
+                   )} 
+                </div>
+                </center>
 
             <div className="year-cal-label">
               <span className="year-cal-label-1">Starting Date</span>
@@ -402,6 +417,7 @@ class Year extends Component {
                   fontSize: "1.2rem",
                 }}
               />
+              
             </div>
           </div>
         </center>

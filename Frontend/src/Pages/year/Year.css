@@ -156,5 +156,13 @@ button.p-button.p-component.p-datepicker-trigger.p-button-icon-only {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15px;
   padding-left: 280px;
- 
+}
+
+.fieldsWarningDiv {
+  position: relative;
+  text-align: start;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+  align-items: center;
+  /* border: 1px solid black; */
 }

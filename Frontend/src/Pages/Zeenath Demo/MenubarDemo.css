@@ -1,0 +1,18 @@
+/* .home-menu {
+  padding-left: 100px;
+  color: aqua;
+  background-color: blue;
+} */
+
+.p-menubar.p-component.home-menu {
+  padding-left: 1200px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  
+}
+
+div.p-menubar.p-component.home-menu {
+  height: 6em;
+}
+.p-menubar.p-menuitem-link {
+  color: #e10404;
+}

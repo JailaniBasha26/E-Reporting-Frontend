@@ -6,11 +6,13 @@ import AddOrganization from "../src/Pages/AddOrganization";
 import IncomeStatement from "../src/Pages/IncomeStatement/IncomeStatement";
 import File_SIE from "../src/Pages/SIE/Fill_SIE";
 import Year from "../src/Pages/year/Year";
-import yearDemo from "../src/Pages/Zeenath Demo/yearDemo";
 import home from "../src/Pages/Home/home";
 import Info from "../src/Pages/Information/Info";
 import Header from "../src/Pages/Header/header";
 import Steps from "../src/Pages/Steps/steps";
+import MenubarDemo from "../src/Pages/Zeenath Demo/MenubarDemo";
+import Navbar from "../src/Pages/Zeenath Demo/Navbar";
+//import RebelSkool_Logo from "../..Zeenath Demo/RebelSkool_Logo.jpg";
 import "./index.css";
 import { Provider } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
@@ -25,6 +27,7 @@ import "primeflex/primeflex.css"; //icons
 import "primeflex/primeflex.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Nav } from "react-bootstrap";
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));

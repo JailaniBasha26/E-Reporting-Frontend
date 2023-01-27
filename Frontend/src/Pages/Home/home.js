@@ -4,6 +4,7 @@ import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
+import NavBar from "../Zeenath Demo/Navbar"
 import { connect } from "react-redux";
 
 const mapStateToProps = (state) => {
@@ -53,7 +54,7 @@ class home extends Component {
     const { carouselUrls, incomeStatementFieldsObj } = this.state;
     return (
       <div className="carousel-demo">
-        <Header />
+        <NavBar />
         <div className="carouselCard">
           <Carousel
             value={carouselUrls}
