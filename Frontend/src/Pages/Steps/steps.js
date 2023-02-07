@@ -64,12 +64,6 @@ class steps extends Component {
         { name: 'settings', id: 'list2' },
     ];
   }
-  Newtablist(e) {
-    if(e.target.value.name ==  '+ New Annual Report') {
-       this.props.history.push("/year");
-    } 
-
-  }
 
   errorMessage() {
     this.toast.show({
@@ -126,31 +120,35 @@ class steps extends Component {
           }}
         ></Toast>
        
-            <div className="TabLS">
-              
-
+            <div className="TabLS">           
                 <Route
                   render={({ history }) => (
                     <span>  
                     <Dropdown 
-                    value={this.state.Newrecord} 
-                    options={this.list} 
-                    onChange={(e) => this.Newtablist(e)}
+                       options={this.list} 
+                       onChange={(e) => {
+                    if(e.value.name=='+ New Annual Report'){
+                          history.push('/fileSIE')
+                        }
+                    }
+                    
+                    }
                     optionLabel="name" 
                     placeholder="New +" 
                     id="dropdown-id"
                     /></span>
                     
-                    )}
+                    )
+                  }
                 />
                
                       <span>
                       <Steps className="steps"
-                model={this.items}
-                activeIndex={selectedStepIndex}
-                onSelect={(e) => {
-                  console.log("... CONT MOVE INSIDE", annualReportType);
-                  selectedStepIndex = e.index;
+                          model={this.items}
+                          activeIndex={selectedStepIndex}
+                          onSelect={(e) => {
+                            console.log("... CONT MOVE INSIDE", annualReportType);
+                            selectedStepIndex = e.index;
 
                   if (selectedStepIndex == 0) {
                     if (annualReportType != undefined) {

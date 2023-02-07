@@ -4,6 +4,7 @@ import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
 import Header from "../Header/header";
 import NavBar from "../Zeenath Demo/Navbar"
+import Sidebar from "../SideBar/Sidebar";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -231,7 +232,8 @@ class Year extends Component {
     return (
       <div>
         <NavBar /><br></br>
-        <Steps pageName="financialYear" />
+        {/* <Steps pageName="financialYear" /> */}
+        <Sidebar/>
         <Toast
           ref={(el) => {
             this.toast = el;

@@ -7,6 +7,7 @@ import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Header from "../../Pages/Header/header";
+import Sidebar from "../SideBar/Sidebar";
 import NavBar from "../Zeenath Demo/Navbar"
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
@@ -283,7 +284,8 @@ class IncomeStatement extends Component {
     return (
       <div className="carousel-demo">
         <NavBar /><br></br>
-        <Steps pageName="incomeStatement" />
+        {/* <Steps pageName="incomeStatement" /> */}
+        <Sidebar/>
 
         {financialYear != undefined && (
           <div>

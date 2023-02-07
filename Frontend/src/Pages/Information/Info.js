@@ -10,6 +10,7 @@ import Steps from "../Steps/steps";
 import axios from "axios";
 import { connect } from "react-redux";
 import "./Info.css";
+import Sidebar from "../SideBar/Sidebar";
 
 const mapStateToProps = (state) => {
   return {
@@ -249,7 +250,8 @@ class Info extends Component {
     return (
       <div>
         <NavBar /><br></br>
-        <Steps pageName="companyInformation" />
+        {/* <Steps pageName="companyInformation" /> */}
+        <Sidebar/>
         <Toast
           ref={(el) => {
             this.toast = el;

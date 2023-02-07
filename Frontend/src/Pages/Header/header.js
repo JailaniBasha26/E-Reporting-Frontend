@@ -21,7 +21,6 @@ class headers extends Component {
     this.state = {};
   }
   test() {
-    // console.log("*******");
 
     let {
       annualReportType,
@@ -35,9 +34,6 @@ class headers extends Component {
     incomeStatement.values = undefined;
     financialYear.values = undefined;
 
-    // console.log("!! AFTER ANNAUL REPORT : ", annualReportType);
-    // console.log("!! AFTER COMPANY INFO : ", companyInformation);
-    // console.log("!! AFTER INCOME STATEMENT : ", incomeStatement);
   }
   render() {
     return (

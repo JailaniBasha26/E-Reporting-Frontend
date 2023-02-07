@@ -14,11 +14,11 @@ class Navbar extends Component {
     }
     render() {
         const MenuItems = [
-            {
-                title : 'Home',
-                url:'#',
-                cName:'nav-links'
-            },
+            // {
+            //     title : 'Home',
+            //     url:'#',
+            //     cName:'nav-links'
+            // },
             {
                 title : 'Our Services',
                 url:'#/fileSIE',
@@ -78,6 +78,7 @@ class Navbar extends Component {
                 </ul>
                     <Button className='btn-login'>Login</Button>
                     <Button className='btn-signup'>Sign Up</Button>
+
             </nav>
         )
     }
