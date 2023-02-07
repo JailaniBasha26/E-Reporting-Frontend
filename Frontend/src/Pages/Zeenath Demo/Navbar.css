@@ -1,5 +1,5 @@
 .NavbarItems {
-    background-color: grey;
+    background-color: rgb(222, 220, 220);
     color: white;
     height: 80px;
     display: flex;
@@ -65,7 +65,7 @@
 
 .headerButton {
     border: none;
-    /* box-shadow: 0 0 5px rgb(0 0 1); */
+    
     background: white;
     background-color: white;
     transition: transform 2s;
@@ -74,4 +74,8 @@
 
   img{
     height: 70px;
+  }
+
+  .demo {
+    background-color: blue;
   }

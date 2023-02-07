@@ -30,6 +30,7 @@ class Fill_SIE extends Component {
     annualReportType.values = reportType;
     annualReportType.values.status = true;
     this.props.history.push("/info");
+    console.log("Its navigating");
   }
 
   render() {

@@ -170,3 +170,36 @@ button.p-button.p-component.p-datepicker-trigger.p-button-icon-only {
   align-items: center;
   /* border: 1px solid black; */
 }
+
+/* .fields-WarningDiv {
+  position: relative;
+  text-align: start;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 15px;
+  padding-left: 100px;
+}
+
+.fields-WarningDiv1,.fields-WarningDiv2 {
+  margin-left: 100px;
+} */
+
+.fields-WarningDiv {
+  display: flex;
+  width: 100%;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.fields-WarningDiv1 {
+  margin-top: 10px;
+  margin-left: 100px;
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.fields-WarningDiv2 {
+  margin-top: 10px;
+  margin-left: 300px;
+  color: red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
