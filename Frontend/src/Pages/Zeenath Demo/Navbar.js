@@ -6,12 +6,31 @@ import { Button } from 'primereact/button';
 import logo from "./RebelSkool_Logo.jpg";
 import { Image } from "primereact/image";
 import { Route } from "react-router-dom";
+import { InputSwitch } from 'primereact/inputswitch';
 
 
 class Navbar extends Component {
     constructor(props) {
          super(props);
+         this.state={
+            checked : false,
+         }
     }
+    
+    checkSettedValue(e) {
+        console.log(e.value);
+        this.setState({ checked: !this.state.checked })
+        if(e.value === true) {
+            console.log("yes");
+            return(
+                <div className='demo'>
+                   <p>Hi Hello</p>
+                </div>
+            ) ;
+        }
+       
+    }
+
     render() {
         const MenuItems = [
             // {
@@ -78,7 +97,6 @@ class Navbar extends Component {
                 </ul>
                     <Button className='btn-login'>Login</Button>
                     <Button className='btn-signup'>Sign Up</Button>
-
             </nav>
         )
     }

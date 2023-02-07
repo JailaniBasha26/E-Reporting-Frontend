@@ -9,6 +9,7 @@ import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
 import { Toast } from "primereact/toast";
+import Sidebar from "../Sidebar/Sidebar";
 import "./Year.css";
 
 let 
@@ -177,6 +178,9 @@ class Year extends Component {
   }
 
   navigateToIncomeStatementPage() {
+
+    //console.log(financialYearDetails);
+
     const { financialYear } = this.props;
     financialYear.values = financialYearDetails;
     this.setState({
@@ -233,7 +237,7 @@ class Year extends Component {
       <div>
         <NavBar /><br></br>
         {/* <Steps pageName="financialYear" /> */}
-        <Sidebar/>
+        <Sidebar />
         <Toast
           ref={(el) => {
             this.toast = el;
@@ -250,15 +254,6 @@ class Year extends Component {
                 previous years.
               </p>
             </div>
-
-            <center>
-            <div className="fieldsWarningDiv">
-              
-                  {this.state.isAllFieldsEmpty && (
-                   <label className="warningLabel">Please fill all the fields</label>
-                   )} 
-                </div>
-                </center>
 
             <div className="year-cal-label">
               <span className="year-cal-label-1">Starting Date</span>
@@ -281,6 +276,13 @@ class Year extends Component {
                 placeholder="YYYY-MM-DD"
                 maxDate={new Date()}
               />
+              
+                  {/* <span className="fields-WarningDiv2">
+                      {this.state.isAllFieldsEmpty && (
+                       <label className="warningLabel">Please fill all the fields</label>
+                       )} 
+                    </span> */}
+
               <Calendar
                 id="icon"
                 value={
@@ -299,6 +301,14 @@ class Year extends Component {
                 //   financialYearDetails[0] && financialYearDetails[0].from
                 // }
               />
+              {/* <center>
+            <div className="fields-WarningDiv">
+              
+                  {this.state.isAllFieldsEmpty && (
+                   <label className="warningLabel">Please fill all the fields</label>
+                   )} 
+                </div>
+                </center> */}
               
             </div>
             <center>
@@ -307,6 +317,24 @@ class Year extends Component {
                   {this.state.isEndingDateEarlier && (
                    <label className="warningLabel">The Ending Date shouldn't be earlier than the Starting Date</label>
                    )} 
+                </div>
+                </center>
+
+                <center>
+                
+            <div className="fields-WarningDiv">               
+            
+                <span className="fields-WarningDiv1">
+                  {this.state.isAllFieldsEmpty && (
+                   <label>Please fill all the fields</label>
+                   )} 
+                   </span>
+
+                   <span className="fields-WarningDiv2">
+                  {this.state.isAllFieldsEmpty && (
+                   <label>Please fill all the fields</label>
+                   )} 
+                   </span>
                 </div>
                 </center>
 
@@ -325,6 +353,14 @@ class Year extends Component {
                 className="year-drop-option"
               />
             </div>
+            {/* <center>
+            <div className="fieldsWarningDiv">
+              
+                  {this.state.isAllFieldsEmpty && (
+                   <label className="warningLabel">Please fill all the fields</label>
+                   )} 
+                </div> */}
+                {/* </center> */}
             <br></br>
 
             {yearCount.map((i, idx) => {

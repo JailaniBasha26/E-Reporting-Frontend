@@ -1,0 +1,11 @@
+.fields {
+    flex-direction: row;
+    display: flex;
+    padding: 4px;
+    height: 40px;
+  }
+  
+  #fieldsCol {
+    height: 100%;
+  }
+  

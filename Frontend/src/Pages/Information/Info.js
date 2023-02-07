@@ -9,6 +9,7 @@ import NavBar from "../Zeenath Demo/Navbar"
 import Steps from "../Steps/steps";
 import axios from "axios";
 import { connect } from "react-redux";
+import Sidebar from "../Sidebar/Sidebar";
 import "./Info.css";
 import Sidebar from "../SideBar/Sidebar";
 
@@ -45,7 +46,7 @@ class Info extends Component {
   componentDidMount() {
     const { annualReportType, companyInformation } = this.props;
 
-    console.log(companyInformation, ">> INFO");
+    //console.log(companyInformation, ">> INFO");
     if (
       companyInformation != undefined &&
       companyInformation.values != undefined
@@ -102,6 +103,37 @@ class Info extends Component {
   }
 
   navigateToYearPage() {
+    ////////////////////////////////////////
+    ////////////////////////////////////////
+    let localData = localStorage.getItem('localData');
+    let localArray = JSON.parse(localData);
+   
+    if(localData){
+      const obj = {
+        id:localArray.length + 1,
+        organizationNumber:this.state.organizationNo,
+        companyName : this.state.companyName,
+        zipCode:this.state.zipcode,
+        postalAddress : this.state.postaladdress
+      };
+      
+      localArray.push(obj);
+      localStorage.setItem('localData',JSON.stringify(localArray));
+    } else {
+      const arryObj = [];
+      const obj = {
+        id: 1,
+        organizationNumber:this.state.organizationNo,
+        companyName : this.state.companyName,
+        zipCode:this.state.zipcode,
+        postalAddress : this.state.postaladdress
+      };
+      arryObj.push(obj);
+      localStorage.setItem('localData',JSON.stringify(arryObj)); 
+    }
+    console.log(localArray);
+    ////////////////////////////////////////
+    ////////////////////////////////////////
     const {
       isExistingOrganization,
       organizationNo,
@@ -245,13 +277,14 @@ class Info extends Component {
     else isAllFieldsFilled = true;
 
     let postalAddressLength = postaladdress.trim().length;
-    console.log(postalAddressLength);
+    //console.log(postalAddressLength);
 
     return (
       <div>
         <NavBar /><br></br>
-        {/* <Steps pageName="companyInformation" /> */}
-        <Sidebar/>
+        {/* {/* <Steps pageName="companyInformation" /> */}
+        <Sidebar/> */}
+        <Sidebar />
         <Toast
           ref={(el) => {
             this.toast = el;

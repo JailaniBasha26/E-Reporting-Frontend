@@ -13,6 +13,7 @@ import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
 import "./IncomeStatement.css";
+import Sidebar from "../Sidebar/Sidebar";
 
 const mapStateToProps = (state) => {
   return {
@@ -30,6 +31,8 @@ let getIncomeStatementFieldsArray = [],
   total = 0,
   finalResultObj = {};
 
+  
+
 let SheetWisefinalResultObj = {
     value: { year: "", incomeStatement: {}, balanceSheet: {} },
   },
@@ -39,6 +42,7 @@ let SheetWisefinalResultObj = {
 let financialYearResultObj,
   tabYearOptionObj = { name: "", value: "", label: "" };
 class IncomeStatement extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -52,8 +56,9 @@ class IncomeStatement extends Component {
     this.amountOnChange = this.amountOnChange.bind(this);
     this.navigateToBalanceSheet = this.navigateToBalanceSheet.bind(this);
     this.yearOnClick = this.yearOnClick.bind(this);
+    
   }
-
+  
   navigateToBalanceSheet() {
     //console.log('yes');
     //navigateToBalanceSheet;
@@ -266,6 +271,7 @@ class IncomeStatement extends Component {
       .catch((error) => {});
   }
   render() {
+     console.log(getIncomeStatementFieldsArray,'///****//');
     const {
       incomeStatementFieldsObj,
       activeIndex1,
@@ -280,7 +286,8 @@ class IncomeStatement extends Component {
       profitBeforeTax = 0,
       thisYearResults = 0,
       totalSumObj = {};
-
+//console.log(financialYear);
+console.log(selectedFinancialYearTabValue);
     return (
       <div className="carousel-demo">
         <NavBar /><br></br>
@@ -450,6 +457,8 @@ class IncomeStatement extends Component {
                         );
                       })}
                       <center>
+                
+
                         <Button
                           label="Previous"
                           aria-label="Annual Report"
