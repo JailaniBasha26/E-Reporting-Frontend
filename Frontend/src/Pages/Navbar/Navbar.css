@@ -1,0 +1,94 @@
+.NavbarItems {
+    background-color: rgb(255, 255, 255);
+    color: #e0dbd0;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+/* .navbar-logo{
+    color: white;
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
+} */
+
+.nav-menu {
+    display: grid;
+    grid-template-columns: repeat(5,auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 50vw;
+    justify-content: end;
+    margin-right: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    margin-top:22px;
+}
+
+.nav-links {
+    color: black;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+   font-weight: 300;
+}
+
+.nav-links:hover {
+    background-color: white;
+    color: #2d86d4;
+    border-radius:4px; 
+    transition: all 0.2s ease-out;
+    text-decoration: underline;
+}
+
+.p-button.p-component.btn-login,
+.p-button.p-component.btn-signup {
+    font-size: 18px;
+    background-color:  #2ecc71;
+    color: white;
+    margin-left: 20px;
+    margin-bottom: 12px;
+    font-family: 'Open Sans', sans-serif;
+    border: none;
+    margin-top:15px;
+}
+
+.p-button.p-component.btn-login{
+    background-color: #4e8bc0;
+}
+.p-button.p-component.btn-signup {
+    margin-right: 20px;
+    width: 110px;
+}
+
+.p-button.p-component.btn-login:hover,
+.p-button.p-component.btn-signup:hover{
+    background-color: #337ab7;
+    color: whitesmoke;
+    border-radius:4px; 
+    transition: all 0.2s ease-out;
+    border: none;
+}
+.p-button.p-component.btn-signup:hover{
+    background-color: #1da054;
+}
+
+/* 
+.headerButton {
+    border: none;
+    background: white;
+    background-color: white;
+    transition: transform 2s;
+    margin-left: 120px;
+  } */
+
+  img{
+    height: 70px;
+  }
+
+
+
+
