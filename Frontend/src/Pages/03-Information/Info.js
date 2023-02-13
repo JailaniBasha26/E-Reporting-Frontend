@@ -4,12 +4,11 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import Header from "../Header/header";
-import NavBar from "../Zeenath Demo/Navbar"
-import Steps from "../Steps/steps";
+import NavBar from "../Navbar/Navbar"
 import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
+import ScrolltoTop from "../ScrollTop/ScrollTop";
 import "./Info.css";
 
 const mapStateToProps = (state) => {
@@ -280,8 +279,7 @@ class Info extends Component {
 
     return (
       <div>
-        <NavBar /><br></br>
-        {/* <Steps pageName="companyInformation" /> */}
+        <NavBar />
         <Sidebar />
         <Toast
           ref={(el) => {
@@ -422,6 +420,7 @@ class Info extends Component {
             </div>
           </div>
         </center>
+        <ScrolltoTop />
       </div>
     );
   }

@@ -1,13 +1,12 @@
-* {
+
+.main-container {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.main-container {
   display: flex;
   position: absolute;
+  margin-left: -40px;
 }
 main {
   padding: 10px;
@@ -19,19 +18,17 @@ main {
   place-items: center;
 }
 
-/* Sidebar */
 .sidebar {
   background: rgb(217, 66, 66);
   color: white;
   height: 100vh;
   overflow-y: auto;
-  margin-top: -24px;
 }
 
 .top_section {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   padding: 15px 10px;
 }
 .logo {
@@ -82,14 +79,13 @@ main {
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   color: black;
 }
-/* .active {
-  border-right: 4px solid white;
-  background: rgb(45, 51, 89);
-} */
+
 .link_text {
   white-space: nowrap;
   font-size: 15px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 10px;
+  
 }
 
 .menu {
@@ -100,6 +96,7 @@ main {
   border-right: 4px solid transparent;
   transition: 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045);
   justify-content: space-between;
+  font-size: 20px;
 }
 .menu_item {
   display: flex;
@@ -112,4 +109,8 @@ main {
 .menu_container .link {
   padding-left: 20px;
   border-bottom: #fff 0.5px solid;
+}
+
+.icon{
+ font-size: 25px;
 }

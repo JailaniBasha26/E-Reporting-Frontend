@@ -6,13 +6,13 @@ import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Header from "../../Pages/Header/header";
-import NavBar from "../Zeenath Demo/Navbar"
+import NavBar from "../Navbar/Navbar"
+import ScrolltoTop from "../ScrollTop/ScrollTop";
+import Sidebar from "../Sidebar/Sidebar"
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
 import "./IncomeStatement.css";
-import Sidebar from "../Sidebar/Sidebar";
 
 const mapStateToProps = (state) => {
   return {
@@ -289,9 +289,8 @@ class IncomeStatement extends Component {
 console.log(selectedFinancialYearTabValue);
     return (
       <div className="carousel-demo">
-        <NavBar /><br></br>
-        {/* <Steps pageName="incomeStatement" /> */}
-        <Sidebar/>
+        <NavBar />
+        {/* <Sidebar/> */}
 
         {financialYear != undefined && (
           <div>
@@ -493,6 +492,7 @@ console.log(selectedFinancialYearTabValue);
             </div>
           </div>
         )}
+        <ScrolltoTop />
       </div>
     );
   }

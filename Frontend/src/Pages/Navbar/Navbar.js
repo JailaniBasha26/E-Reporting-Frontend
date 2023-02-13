@@ -7,7 +7,11 @@ import logo from "./RebelSkool_Logo.jpg";
 import { Image } from "primereact/image";
 import { Route } from "react-router-dom";
 import { InputSwitch } from 'primereact/inputswitch';
-
+import DarkTheme from "../DarkTheme/DarkTheme";
+import { FaUser } from "react-icons/fa";
+import { RiEnglishInput } from "react-icons/ri";
+import { Dropdown } from 'primereact/dropdown';
+import Login from '../Login/Login';
 
 class Navbar extends Component {
     constructor(props) {
@@ -15,6 +19,13 @@ class Navbar extends Component {
          this.state={
             checked : false,
          }
+
+         this.lang = [
+            {icon:<RiEnglishInput />,
+            name:'Swedish'},
+            {icon:<RiEnglishInput />,
+            name:'English'},
+         ];
     }
     
     checkSettedValue(e) {
@@ -61,8 +72,8 @@ class Navbar extends Component {
         ]
         
         return(
+            <div>
             <nav className='NavbarItems'>
-                
                 <Route
                     render={({ history }) => (
                 <button
@@ -95,14 +106,21 @@ class Navbar extends Component {
                     })}
                     
                 </ul>
-                    <Button className='btn-login'>Login</Button>
-                    <Button className='btn-signup'>Sign Up</Button>
-                    <InputSwitch 
-                        checked={this.state.checked} 
-                        onChange={(e) => {this.checkSettedValue(e)}} 
-                        //onClick={() => this.setState({ checked: !this.state.checked })}
-                        />
+                    {/* <Button className='btn-login'>Login</Button>
+                    <Button className='btn-signup'>Sign Up</Button> */}
+                    
+                    <DarkTheme />
+                    <Login />
+                    <Dropdown 
+                        //value={selectedCity} 
+                        //onChange={(e) => setSelectedCity(e.value)} 
+                        options={this.lang} 
+                        optionLabel="name" 
+                        placeholder="Svenksa" 
+                        className="lang-drop" 
+                    />
             </nav>
+            </div>
         )
     }
 }

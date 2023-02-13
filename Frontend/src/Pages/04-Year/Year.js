@@ -2,13 +2,12 @@ import React, { Component } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import Header from "../Header/header";
-import NavBar from "../Zeenath Demo/Navbar"
-import Steps from "../Steps/steps";
+import NavBar from "../Navbar/Navbar"
 import { connect } from "react-redux";
 import moment from "moment";
 import { Toast } from "primereact/toast";
 import Sidebar from "../Sidebar/Sidebar";
+import ScrolltoTop from "../ScrollTop/ScrollTop";
 import "./Year.css";
 
 let 
@@ -234,8 +233,7 @@ class Year extends Component {
 
     return (
       <div>
-        <NavBar /><br></br>
-        {/* <Steps pageName="financialYear" /> */}
+        <NavBar />
         <Sidebar />
         <Toast
           ref={(el) => {
@@ -458,6 +456,7 @@ class Year extends Component {
             </div>
           </div>
         </center>
+        <ScrolltoTop />
       </div>
     );
   }

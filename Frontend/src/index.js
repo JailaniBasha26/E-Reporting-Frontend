@@ -1,17 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
-import YYY from "../src/Pages/YYY";
-import AddOrganization from "../src/Pages/AddOrganization";
-import IncomeStatement from "../src/Pages/IncomeStatement/IncomeStatement";
-import File_SIE from "../src/Pages/SIE/Fill_SIE";
-import Year from "../src/Pages/year/Year";
-import home from "../src/Pages/Home/home";
-import Info from "../src/Pages/Information/Info";
-import Sidebar from "./Pages/Sidebar/Sidebar";
-import Header from "../src/Pages/Header/header";
+import IncomeStatement from "../src/Pages/05-IncomeStatement/IncomeStatement";
+import File_SIE from "./Pages/02-SIE/Fill_SIE";
+import Year from "./Pages/04-Year/Year";
+import home from "./Pages/01-Home/home";
+import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
-import Navbar from "../src/Pages/Zeenath Demo/Navbar";
+import Navbar from "./Pages/Navbar/Navbar";
+import DarkTheme from "./Pages/DarkTheme/DarkTheme";
+import Login from "./Pages/Login/Login";
+import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 
 import "./index.css";
 import { Provider } from "react-redux";
@@ -28,7 +27,11 @@ import "primeflex/primeflex.css"; //icons
 import "primeflex/primeflex.css";
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav } from "react-bootstrap";
+import Sidebar from "./Pages/Sidebar/Sidebar";
+import steps from "../src/Pages/Steps/steps";
+
+// import { ThemeToggler } from "./ThemeToggler";
+// import { useDarkMode } from "./useDarkMode";
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -40,11 +43,10 @@ render(
         <Route exact path="/" component={home} />
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
-        <Route exact path="/addOrganization/" component={AddOrganization} />
         <Route exact path="/incomeStatement/" component={IncomeStatement} />
         <Route exact path="/fileSIE/" component={File_SIE} />
-        <Route exact path="/header" component={Header} />
         <Route exact path="/steps" component={Steps} />
+        
       </Switch>
     </HashRouter>
   </Provider>,

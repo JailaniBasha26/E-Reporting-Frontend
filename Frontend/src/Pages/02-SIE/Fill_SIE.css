@@ -9,6 +9,7 @@
   box-shadow: 5px 10px 8px #888888;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   box-sizing: border-box;
+  position: relative;
 }
 
 .fill-sub2 {
@@ -35,8 +36,6 @@
   font-size: 25px;
   border: none;
   border-radius: 10px;
-  /* border-radius: 18px; */
-  /* border-color: #e10404; */
   color: black;
   cursor: pointer;
   position: relative;
