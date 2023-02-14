@@ -8,6 +8,9 @@ import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
 import Navbar from "./Pages/Navbar/Navbar";
+
+import NavbarCorporate from "./Pages/00-Corporate Page/NavbarCorporate";
+
 import DarkTheme from "./Pages/DarkTheme/DarkTheme";
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";

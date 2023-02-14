@@ -10,7 +10,6 @@ function Login() {
 
   return (
     <div>
-      <div className="card flex justify-content-center">
         <Button className="user-btn" onClick={() => setVisible(true)}>
           <FaUser />
         </Button>
@@ -58,7 +57,7 @@ function Login() {
             </div>
           </div>
         </Sidebar>
-      </div>
+      
     </div>
   );
 }

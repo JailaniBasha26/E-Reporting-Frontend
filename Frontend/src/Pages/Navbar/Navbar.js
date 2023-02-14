@@ -106,9 +106,6 @@ class Navbar extends Component {
                     })}
                     
                 </ul>
-                    {/* <Button className='btn-login'>Login</Button>
-                    <Button className='btn-signup'>Sign Up</Button> */}
-                    
                     <DarkTheme />
                     <Login />
                     <Dropdown 

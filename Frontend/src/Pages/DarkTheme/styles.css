@@ -1,9 +1,8 @@
-body {
-    /* margin: 2rem; */
+/* body {
     display: grid;
     place-items: center;
     transition:  0.5s linear;
-  }
+  } */
   .dark-mode {
     background-color: rgb(28, 26, 26) !important;
     color: #fff;
@@ -18,7 +17,7 @@ body {
     padding-bottom: 5px;
     padding-left: 4px;
     border: 1px solid black;
-    margin-left: -80px;
+    /* margin-left: -80px; */
   }
 
   .btn-light {
@@ -29,7 +28,7 @@ body {
     padding-bottom: 5px;
     padding-left: 0px;
     border: 1px solid black;
-    margin-left: -80px;
+    /* margin-left: -80px; */
   }
 
   

@@ -58,7 +58,7 @@ const routes = [
         
         name: "Notes",
         icon: <BsStickies className="icon"/>,
-        path:'/info',
+        path:'/fileSIE',
       },
       {
         
