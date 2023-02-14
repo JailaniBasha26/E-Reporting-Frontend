@@ -6,7 +6,7 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   display: flex;
   position: absolute;
-  margin-left: -40px;
+  float: left;
 }
 main {
   padding: 10px;

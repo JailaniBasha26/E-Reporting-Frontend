@@ -21,15 +21,7 @@ export default class DarkTheme extends Component {
       <UseDarkModeHookWrapperComponent
         render={(darkMode, setDarkMode) => {
           return (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "200px",
-                gap: "2rem",
-                maxWidth: "50%",
-                placeItems: "center"
-              }}
-            >
+            <div>
               <ThemeToggler darkMode={darkMode} setDarkMode={setDarkMode} />
               
             </div>
