@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 
-import { FaBars } from "react-icons/fa";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { MdSend,MdOutlineLiveHelp,MdOutlineCorporateFare,MdPayment,MdSendToMobile } from "react-icons/md";
 import { BsFileEarmarkPdf,BsCalendarDate,BsFileEarmarkSpreadsheet,BsStickies } from "react-icons/bs";
@@ -9,233 +8,167 @@ import { BiSupport } from "react-icons/bi";
 import {AiFillDashboard } from "react-icons/ai";
 import {TbFileInvoice,TbSignature } from "react-icons/tb";
 import {CgNotes } from "react-icons/cg";
-
+import {RxDoubleArrowRight,RxDoubleArrowLeft } from "react-icons/rx";
+import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-// import Dashboard from "./Dashboard";
-// import Users from "./Users";
-// import Messages from "./Messages";
-// import FileManager from "./FileManager";
-// import Analytics from "./Analytics";
-// import Order from "./Order";
-// import Saved from "./Saved";
-// import Settings from "./Settings";
 import SidebarMenu from "./SidebarMenu";
-import "./SideBar.css";
+import Steps from "../Steps/steps";
 
 
-const route = [
+import './SideBar.css';
+const routes = [
   {
     
     name: "My Dashboard",
-    icon: <AiFillDashboard />,
-    url:'/#'
+    icon: <AiFillDashboard className="icon" />,
+    path:'/year',
+    subRoutes : <Steps />
   },
   {
    
     name: "Annual Report",
-    icon: <HiOutlineDocumentReport />,
-    url:'/info',
+    icon: <HiOutlineDocumentReport className="icon" />,
+    path:'/info',
     subRoutes: [
       {
        
         name: "Company Information ",
-        icon: <MdOutlineCorporateFare />,
-        
+        icon: <MdOutlineCorporateFare className="icon"/>,
+        path:'/info',
       },
       {
         
         name: "Financial Year",
-        icon: <BsCalendarDate />,
+        icon: <BsCalendarDate className="icon"/>,
+        path:'/info',
       },
       {
         
         name: "Income Statement",
-        icon: <TbFileInvoice />,
+        icon: <TbFileInvoice className="icon"/>,
+        path:'/info',
       },
       {
         
         name: "Balance Sheet",
-        icon: <BsFileEarmarkSpreadsheet />,
+        icon: <BsFileEarmarkSpreadsheet className="icon"/>,
+        path:'/info',
       },
       {
         
         name: "Notes",
-        icon: <BsStickies />,
+        icon: <BsStickies className="icon"/>,
+        path:'/info',
       },
       {
         
         name: "Management Statement",
-        icon: <CgNotes />,
+        icon: <CgNotes className="icon"/>,
+        path:'/info',
       },
     ]
   },
   {
     
     name: "Send Annual Report",
-    icon: <MdSend />,
-    url:'#/fileSIE',
+    icon: <MdSend className="icon"/>,
+    path:'#/fileSIE',
     subRoutes: [
       {
         
         name: "Digital Signature",
-        icon: <TbSignature />,
+        icon: <TbSignature className="icon"/>,
+        path:'/info',
       },
       {
        
         name: "Pay",
-        icon: <MdPayment />,
+        icon: <MdPayment className="icon"/>,
+        path:'/info',
       },
       {
        
         name: "Send",
-        icon: <MdSendToMobile />,
+        icon: <MdSendToMobile className="icon" />,
+        path:'/info',
       },
     ]
   },
   {
     
     name: "View PDF",
-    icon: <BsFileEarmarkPdf />,
-    url:'#/fileSIE',
+    icon: <BsFileEarmarkPdf className="icon"/>,
+    path:'#/fileSIE',
   },
   {
     
     name: "Help/Example Report",
-    icon: <MdOutlineLiveHelp />,
-    url:'#/fileSIE',
+    icon: <MdOutlineLiveHelp className="icon"/>,
+    path:'#/fileSIE',
   },
   {
     
     name: "Contact Support",
-    icon: <BiSupport />,
-    url:'#/fileSIE',
+    icon: <BiSupport className="icon" />,
+    path:'#/fileSIE',
   },
 ];
 
-// const inputAnimation = {
-//   hidden: {
-//     width: 0,
-//     padding: 0,
-//     transition: {
-//       duration: 0.2,
-//     },
-//   },
-//   show: {
-//     width: "140px",
-//     padding: "5px 15px",
-//     transition: {
-//       duration: 0.2,
-//     },
-//   },
-// };
-
-const showAnimation = {
-  hidden: {
-    width: 0,
-    opacity: 0,
-    transition: {
-      duration: 0.5,
+const Sidebar = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+  const inputAnimation = {
+    hidden: {
+      width: 0,
+      padding: 0,
+      transition: {
+        duration: 0.2,
+      },
     },
-  },
-  show: {
-    opacity: 1,
-    width: "auto",
-    transition: {
-      duration: 0.5,
+    show: {
+      width: "140px",
+      padding: "5px 15px",
+      transition: {
+        duration: 0.2,
+      },
     },
-  },
-};
+  };
 
-let mytable;
-class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      Open: false,
-      selectedPage: "",
-    };
+  const showAnimation = {
+    hidden: {
+      width: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+    show: {
+      opacity: 1,
+      width: "auto",
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
 
-    //this.navi = this.navi.bind(this);
-  }
-
-  
-  // Dashboard() {
-  //   return <Dashboard />;
-  // }
-
-  // Users() {
-  //   return <Users />;
-  // }
-
-  // Messages() {
-  //   return <Messages />;
-  // }
-
-  // FileManager() {
-  //   return <FileManager />;
-  // }
-
-  // Analytics() {
-  //   return <Analytics />;
-  // }
-
-  // Order() {
-  //   return <Order />;
-  // }
-
-  // Saved() {
-  //   return <Saved />;
-  // }
-
-  // Settings() {
-  //   return <Settings />;
-  // }
-
-  render() {
-    const { Open,selectedPage } = this.state;   //false,''
-    // if(selectedPage == 'Dashboard')
-    //  mytable = this.Dashboard()
-     
-    //  if(selectedPage == 'Users')
-    //  mytable = this.Users()
-
-    //  if(selectedPage == 'Messages')
-    //  mytable = this.Messages()
-
-    //  if(selectedPage == 'FileManager')
-    //  mytable = this.FileManager()
-
-    //  if(selectedPage == 'Analytics')
-    //  mytable = this.Analytics()
-
-    //  if(selectedPage == 'Order')
-    //  mytable = this.Order()
-
-    //  if(selectedPage == 'Saved')
-    //  mytable = this.Saved()
-
-    //  if(selectedPage == 'Setting')
-    //  mytable = this.Settings()
-
-
-    console.log(mytable, "(((((",selectedPage);
-    return (
+  return (
+    <div>
       <div className="main-container">
         <motion.div
           animate={{
-            width: Open ? "250px" : "50px",
+            width: isOpen ? "250px" : "50px",
 
             transition: {
               duration: 0.5,
               type: "spring",
-               damping: 10,
+              damping: 10,
             },
           }}
           className={`sidebar `}
         >
           <div className="top_section">
             <AnimatePresence>
-              {Open && (
+              {isOpen && (
                 <motion.h1
                   variants={showAnimation}
                   initial="hidden"
@@ -243,39 +176,60 @@ class Sidebar extends Component {
                   exit="hidden"
                   className="logo"
                 >
-                  
                 </motion.h1>
               )}
             </AnimatePresence>
 
             <div className="bars">
-              <FaBars onClick={() => this.setState({ Open: !Open })} />
+            {isOpen == true 
+            ?
+            <RxDoubleArrowLeft className="icon" onClick={toggle} />
+              :
+              <RxDoubleArrowRight className="icon" onClick={toggle} />
+            }
+              {/* <FaBars onClick={toggle} /> */}
             </div>
           </div>
-          
-          <section className="routes" >
-            {route.map((route, index) => {
-              // if(route.subRoutes) {
-              //   console.log('yes');
-              //   return(
-              //     <SidebarMenu
-              //       Open={Open}
-              //       route={route}
-              //       showAnimation={showAnimation}
-              //       />
-              //   )
-              // }
+          {/* <div className="search">
+            <div className="search_icon">
+              <BiSearch />
+            </div>
+            <AnimatePresence>
+              {isOpen && (
+                <motion.input
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  variants={inputAnimation}
+                  type="text"
+                  placeholder="Search"
+                />
+              )}
+            </AnimatePresence>
+          </div> */}
+          <section className="routes">
+            {routes.map((route, index) => {
+              if (route.subRoutes) {
+                return (
+                  <SidebarMenu
+                    setIsOpen={setIsOpen}
+                    route={route}
+                    showAnimation={showAnimation}
+                    isOpen={isOpen}
+                  />
+                );
+              }
+
               return (
-                <div key={index}>
                 <NavLink
-                  to={route.url}
+                  to={route.path}
+                  key={index}
                   className="link"
                   activeClassName="active"
-                  onClick={() => {this.setState({selectedPage:route.name})}}
                 >
                   <div className="icon">{route.icon}</div>
                   <AnimatePresence>
-                    {Open && (
+                    {isOpen && (
                       <motion.div
                         variants={showAnimation}
                         initial="hidden"
@@ -288,15 +242,15 @@ class Sidebar extends Component {
                     )}
                   </AnimatePresence>
                 </NavLink>
-                </div>
               );
             })}
           </section>
         </motion.div>
 
-        <main>{mytable}</main>
+        <main>{children}</main>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
 export default Sidebar;

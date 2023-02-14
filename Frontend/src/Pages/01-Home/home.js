@@ -3,9 +3,9 @@ import { Carousel } from "primereact/carousel";
 import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
-import Header from "../Header/header";
-import NavBar from "../Zeenath Demo/Navbar"
+import NavBar from "../Navbar/Navbar"
 import { connect } from "react-redux";
+import ScrolltoTop from "../ScrollTop/ScrollTop";
 
 const mapStateToProps = (state) => {
   return {
@@ -82,10 +82,12 @@ class home extends Component {
                   id="annualReportBtn"
                   className="btn_Annual"
                 />
+                
               </center>
             </div>
           </div>
         </div>
+        <ScrolltoTop />
       </div>
     );
   }

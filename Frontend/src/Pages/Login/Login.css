@@ -1,0 +1,11 @@
+.user-btn {
+    border: 1px solid black;
+}
+
+ .p-sidebar.p-component.user-sidebar.p-sidebar-right.p-sidebar-active.p-sidebar-enter-done {
+    top: 68px;
+    right: 19px;
+    width: 25rem;
+    height: 70%;
+} 
+

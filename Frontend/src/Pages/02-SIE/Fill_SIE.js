@@ -4,11 +4,13 @@ import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Button } from "primereact/button";
-import Header from "../Header/header";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import "./Fill_SIE.css";
-import NavBar from "../Zeenath Demo/Navbar"
+import NavBar from "../Navbar/Navbar"
+import Sidebar from "../Sidebar/Sidebar";
+import ScrolltoTop from "../ScrollTop/ScrollTop";
+
 
 const mapStateToProps = (state) => {
   return {
@@ -37,7 +39,7 @@ class Fill_SIE extends Component {
     return (
       <div>
         <NavBar />
-
+        <Sidebar />
         <center>
           <div className="fill-sub">
             <div>
@@ -61,14 +63,16 @@ class Fill_SIE extends Component {
                 label="Import SIE File"
                 aria-label="Annual Report"
                 onClick={(e) =>
-                  this.navigateToInformationPage("Import SIE File")
+                  this.props.history.push("/HooksTry")
                 }
                 id="annualReportBtn"
                 className="btn_Annual"
               />
+              
             </div>
           </div>
         </center>
+        <ScrolltoTop />
       </div>
     );
   }
