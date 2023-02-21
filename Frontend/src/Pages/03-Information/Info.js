@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import "./Info.css";
+import Sidebar from "../SideBar/Sidebar";
 
 const mapStateToProps = (state) => {
   return {

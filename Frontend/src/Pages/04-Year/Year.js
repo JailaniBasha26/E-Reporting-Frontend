@@ -463,3 +463,4 @@ class Year extends Component {
 }
 
 export default connect(mapStateToProps, null)(Year);
+

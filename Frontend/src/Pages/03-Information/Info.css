@@ -3,7 +3,9 @@
   box-shadow: 5px 10px 8px #888888;
   border: 1px solid white;
   margin-top: 130px;
+  margin-left: 500px;
   width: 900px;
+  position: absolute;
   /* height: 650px; */
 }
 
