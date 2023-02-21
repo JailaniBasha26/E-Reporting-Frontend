@@ -6,7 +6,7 @@ import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import NavBar from "../Navbar/Navbar"
+import Navbar from "../00-Corporate Page/Navbar"
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Sidebar from "../Sidebar/Sidebar"
 import Steps from "../Steps/steps";
@@ -289,7 +289,7 @@ class IncomeStatement extends Component {
 console.log(selectedFinancialYearTabValue);
     return (
       <div className="carousel-demo">
-        <NavBar />
+        <Navbar />
         {/* <Sidebar/> */}
 
         {financialYear != undefined && (

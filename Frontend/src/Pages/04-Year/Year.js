@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import NavBar from "../Navbar/Navbar"
+import Navbar from "../00-Corporate Page/Navbar"
 import { connect } from "react-redux";
 import moment from "moment";
 import { Toast } from "primereact/toast";
@@ -233,7 +233,7 @@ class Year extends Component {
 
     return (
       <div>
-        <NavBar />
+        <Navbar />
         <Sidebar />
         <Toast
           ref={(el) => {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button } from './Button';
-import map from "./map.png";
+import  {Button}  from './Button';
+import map from "../../Assests/map.png";
 import { Image } from "primereact/image";
 import { BsPlayCircleFill } from "react-icons/bs";
 import './HeroSection.css';

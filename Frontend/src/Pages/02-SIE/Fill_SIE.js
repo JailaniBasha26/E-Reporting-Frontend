@@ -7,10 +7,9 @@ import { Button } from "primereact/button";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import "./Fill_SIE.css";
-import NavBar from "../Navbar/Navbar"
+import Navbar from "../00-Corporate Page/Navbar"
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import Theme from "../Theme/Theme";
 
 
 const mapStateToProps = (state) => {
@@ -39,7 +38,7 @@ class Fill_SIE extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <Navbar />
         <Sidebar />
         <center>
           <div className="fill-sub">
@@ -73,7 +72,6 @@ class Fill_SIE extends Component {
             </div>
           </div>
         </center>
-        <Theme />
         <ScrolltoTop />
       </div>
     );

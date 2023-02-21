@@ -6,9 +6,10 @@ import HeroSection from './HeroSection';
 import Testimonial from './Testimonial';
 import Subscribe from './Subscribe';
 import Footer from './Footer';
-import simple from './simple.webp';
-import afford from './afford.jpg';
-import lock from './lock.jpg';
+import galaxy from '../../Assests/galaxy.jpg';
+import simple from '../../Assests/simple.webp'
+import afford from '../../Assests/afford.jpg';
+import lock from '../../Assests/lock.jpg';
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 
 
@@ -59,10 +60,11 @@ function Cards() {
         </div>
       </div>
     </div>
+    
     <Testimonial />
     <Subscribe />
     <Footer />
-   <ScrolltoTop /> 
+    
     </div>
   );
 }

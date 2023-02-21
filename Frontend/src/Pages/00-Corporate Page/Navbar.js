@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image } from "primereact/image";
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
-import logo from "./RebelSkool_Logo.jpg";
+import logo from "../../Assests/RebelSkoolLogo.jpg";
 import { Dropdown } from 'primereact/dropdown';
 import Login from '../Login/Login';
 import {FaBars} from 'react-icons/fa'
@@ -88,14 +88,6 @@ function Navbar() {
           </ul>
           {/* {button && <Button buttonStyle='btn--outline'>SIGN UP</Button>} */}
           <Login />
-                    {/* <Dropdown 
-                        //value={selectedCity} 
-                        //onChange={(e) => setSelectedCity(e.value)} 
-                        options={this.lang} 
-                        optionLabel="name" 
-                        placeholder="Svenksa" 
-                        className="lang-drop" 
-                    /> */}
         </div>
       </nav>
     </div>

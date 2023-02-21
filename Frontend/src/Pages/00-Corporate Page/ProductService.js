@@ -1,4 +1,4 @@
-import person from './person.png'
+import person from '../../Assests/person.png'
 
 export const ProductService = {
     getProductsData() {

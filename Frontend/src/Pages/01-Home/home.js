@@ -3,9 +3,10 @@ import { Carousel } from "primereact/carousel";
 import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
-import NavBar from "../Navbar/Navbar"
+ import Navbar from "../00-Corporate Page/Navbar"
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
+
 
 const mapStateToProps = (state) => {
   return {
@@ -54,7 +55,7 @@ class home extends Component {
     const { carouselUrls, incomeStatementFieldsObj } = this.state;
     return (
       <div className="carousel-demo">
-        <NavBar />
+        <Navbar />
         <div className="carouselCard">
           <Carousel
             value={carouselUrls}

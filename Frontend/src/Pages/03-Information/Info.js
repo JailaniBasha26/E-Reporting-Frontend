@@ -4,7 +4,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import NavBar from "../Navbar/Navbar"
+import Navbar from "../00-Corporate Page/Navbar"
 import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
@@ -279,7 +279,7 @@ class Info extends Component {
 
     return (
       <div>
-        <NavBar />
+        <Navbar />
         <Sidebar />
         <Toast
           ref={(el) => {

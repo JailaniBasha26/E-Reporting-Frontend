@@ -7,18 +7,13 @@ import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
-// import Navbar from "./Pages/Navbar/Navbar";
 
-import NavbarCorporate from "./Pages/00-Corporate Page/NavbarCorporate";
-
-import DarkTheme from "./Pages/DarkTheme/DarkTheme";
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 
 import "./index.css";
 import { Provider } from "react-redux";
 import { HashRouter, Route, Switch } from "react-router-dom";
-//import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -32,17 +27,10 @@ import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./Pages/Sidebar/Sidebar";
 import steps from "../src/Pages/Steps/steps";
-// import Navbar from "../src/Pages/Demo/Navbar";
-// import HeroSection from "../src/Pages/Demo/HeroSection";
-// import Button from "../src/Pages/Demo/Button";
-// import CardItem from "../src/Pages/Demo/CardItem";
-// import Cards from "./Pages/Demo/Cards";
-// import Subscribe from "./Pages/Demo/Subscribe";
-// import Testimonial from "./Pages/Demo/Testimonial";
+ import Cards from "./Pages/00-Corporate Page/Cards";
 import Theme from "./Pages/Theme/Theme";
-
-// import { ThemeToggler } from "./ThemeToggler";
-// import { useDarkMode } from "./useDarkMode";
+import { CgAwards } from "react-icons/cg";
+ 
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
