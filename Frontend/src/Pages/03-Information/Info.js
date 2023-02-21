@@ -4,13 +4,12 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import Navbar from "../00-Corporate Page/Navbar"
+import Navbar from "../00-Corporate Page/Navbar";
 import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import "./Info.css";
-import Sidebar from "../SideBar/Sidebar";
 
 const mapStateToProps = (state) => {
   return {
@@ -87,7 +86,7 @@ class Info extends Component {
       this.setState({
         organizationNo: e.value,
       });
-      
+
       let orginizationNoLength = e.value.toString().length;
       if (orginizationNoLength != 11) {
         this.setState({
@@ -104,31 +103,31 @@ class Info extends Component {
   navigateToYearPage() {
     ////////////////////////////////////////
     ////////////////////////////////////////
-    let localData = localStorage.getItem('localData');
+    let localData = localStorage.getItem("localData");
     let localArray = JSON.parse(localData);
-   
-    if(localData){
+
+    if (localData) {
       const obj = {
-        id:localArray.length + 1,
-        organizationNumber:this.state.organizationNo,
-        companyName : this.state.companyName,
-        zipCode:this.state.zipcode,
-        postalAddress : this.state.postaladdress
+        id: localArray.length + 1,
+        organizationNumber: this.state.organizationNo,
+        companyName: this.state.companyName,
+        zipCode: this.state.zipcode,
+        postalAddress: this.state.postaladdress,
       };
-      
+
       localArray.push(obj);
-      localStorage.setItem('localData',JSON.stringify(localArray));
+      localStorage.setItem("localData", JSON.stringify(localArray));
     } else {
       const arryObj = [];
       const obj = {
         id: 1,
-        organizationNumber:this.state.organizationNo,
-        companyName : this.state.companyName,
-        zipCode:this.state.zipcode,
-        postalAddress : this.state.postaladdress
+        organizationNumber: this.state.organizationNo,
+        companyName: this.state.companyName,
+        zipCode: this.state.zipcode,
+        postalAddress: this.state.postaladdress,
       };
       arryObj.push(obj);
-      localStorage.setItem('localData',JSON.stringify(arryObj)); 
+      localStorage.setItem("localData", JSON.stringify(arryObj));
     }
     console.log(localArray);
     ////////////////////////////////////////
@@ -213,42 +212,39 @@ class Info extends Component {
 
   errorMessage() {
     this.setState({
-      isWrongOrganizationNo :true
-    })
-
-    this.setState({
-      checkCompanyName:true,
-      CompanyName:""
-    } );
-
-    this.setState({
-      isWrongPostalcodeFormat:true
-    })
-
-    this.setState({
-      checkCity:true,
-    })
-
-
-    this.setState({
       isWrongOrganizationNo: true,
     });
 
     this.setState({
-      checkCompanyName : true,
-      companyName : "",
-      
-    })
+      checkCompanyName: true,
+      CompanyName: "",
+    });
 
     this.setState({
       isWrongPostalcodeFormat: true,
     });
 
     this.setState({
-      checkCity : true,
-      postaladdress : ""
-      
-    })
+      checkCity: true,
+    });
+
+    this.setState({
+      isWrongOrganizationNo: true,
+    });
+
+    this.setState({
+      checkCompanyName: true,
+      companyName: "",
+    });
+
+    this.setState({
+      isWrongPostalcodeFormat: true,
+    });
+
+    this.setState({
+      checkCity: true,
+      postaladdress: "",
+    });
 
     this.toast.show({
       severity: "error",
@@ -375,18 +371,18 @@ class Info extends Component {
             </div>
 
             <div className="btn_div">
-            <Button
-                  label="Previous"
-                  aria-label="Annual Report"
-                  onClick={() => this.props.history.push('/fileSIE')}
-                  id="annualReportBtn"
-                  className="btn_Annual"
-                  style={{
-                    width: "157px",
-                    height: "44px",
-                    fontSize: "1.2rem",
-                  }}
-                />
+              <Button
+                label="Previous"
+                aria-label="Annual Report"
+                onClick={() => this.props.history.push("/fileSIE")}
+                id="annualReportBtn"
+                className="btn_Annual"
+                style={{
+                  width: "157px",
+                  height: "44px",
+                  fontSize: "1.2rem",
+                }}
+              />
               {this.state.isWrongOrganizationNo ||
               this.state.isWrongPostalcodeFormat ||
               this.state.companyName == "" ||
