@@ -42,8 +42,8 @@ render(
         <Route exact path="/" component={home} />
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
-        <Route exact path="/incomeStatement/" component={IncomeStatement} />
-        <Route exact path="/incomeStatement02/" component={IncomeStatement02} />
+        <Route exact path="/incomeStatementOld/" component={IncomeStatement} />
+        <Route exact path="/incomeStatement/" component={IncomeStatement02} />
         <Route exact path="/fileSIE/" component={File_SIE} />
         <Route exact path="/steps" component={Steps} />
       </Switch>

@@ -3,15 +3,15 @@ import { Carousel } from "primereact/carousel";
 import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
- import Navbar from "../00-Corporate Page/Navbar"
+import Navbar from "../00-Corporate Page/Navbar";
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-
 
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
     companyInformation: state.companyInformation.companyInformation.values,
+    financialYear: state.financialYear.financialYear,
     incomeStatement: state.incomeStatement.incomeStatement,
   };
 };
@@ -25,6 +25,19 @@ class home extends Component {
   }
 
   componentDidMount() {
+    let { companyInformation, financialYear } = this.props;
+
+    if (companyInformation != undefined) {
+      companyInformation.isExistingOrganization = false;
+      companyInformation.organizationname = "";
+      companyInformation.organizationno = "";
+      companyInformation.postaladdress = "";
+      companyInformation.zipcode = "";
+    }
+
+    if (financialYear != undefined) {
+      financialYear.values = {};
+    }
     axios
       .get("/getCarouselImages")
       .then((response) => {
@@ -83,7 +96,6 @@ class home extends Component {
                   id="annualReportBtn"
                   className="btn_Annual"
                 />
-                
               </center>
             </div>
           </div>

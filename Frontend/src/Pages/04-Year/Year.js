@@ -193,6 +193,14 @@ class Year extends Component {
 
   componentDidMount() {
     const { financialYear } = this.props;
+
+    if (JSON.stringify(financialYear.values) === "{}") {
+      financialYearDetails = {};
+      this.setState({
+        dummy: "",
+      });
+      yearCount = [];
+    }
   }
 
   navigateToIncomeStatementPage() {
@@ -226,7 +234,7 @@ class Year extends Component {
         life: 2000,
       });
     } else {
-      this.props.history.push("/IncomeStatement02");
+      this.props.history.push("/IncomeStatement");
     }
   }
 
@@ -250,6 +258,8 @@ class Year extends Component {
 
     if (financialYearDetails[0] != undefined) {
     }
+
+    console.log(financialYear, "@@ RENDER", financialYearDetails);
 
     return (
       <div>

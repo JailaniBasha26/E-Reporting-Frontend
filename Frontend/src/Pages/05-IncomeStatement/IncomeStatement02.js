@@ -17,6 +17,7 @@ import "./IncomeStatement02.css";
 let mockResponse = {};
 let financialYears = "";
 let selectedFY = [];
+let formattedYearHeader = [];
 
 const mapStateToProps = (state) => {
   return {
@@ -37,9 +38,16 @@ class IncomeStatement02 extends Component {
 
     let financialYearValues = financialYear.values;
     let selectedFinancialYears = [];
+    formattedYearHeader = [];
     Object.keys(financialYearValues).map(function (key) {
       selectedFinancialYears.push(
         moment(financialYearValues[key].from).format("YYYY")
+      );
+
+      formattedYearHeader.push(
+        moment(financialYearValues[key].from).format("YYYY-MM-DD") +
+          " - " +
+          moment(financialYearValues[key].to).format("YYYY-MM-DD")
       );
     });
     const uniqueFinancialYears = Array.from(new Set(selectedFinancialYears));
@@ -66,7 +74,7 @@ class IncomeStatement02 extends Component {
           <Row>
             <div className="parentX">
               <Col xl={5}></Col>
-              {selectedFY.map((i, idx) => {
+              {formattedYearHeader.map((i, idx) => {
                 return (
                   <div className="child">
                     <Col
