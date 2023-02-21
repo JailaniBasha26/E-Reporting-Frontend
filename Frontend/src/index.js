@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
 import IncomeStatement from "../src/Pages/05-IncomeStatement/IncomeStatement";
+import IncomeStatement02 from "../src/Pages/05-IncomeStatement/IncomeStatement02";
 import File_SIE from "./Pages/02-SIE/Fill_SIE";
 import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
@@ -27,10 +28,9 @@ import "font-awesome/css/font-awesome.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Sidebar from "./Pages/Sidebar/Sidebar";
 import steps from "../src/Pages/Steps/steps";
- import Cards from "./Pages/00-Corporate Page/Cards";
+import Cards from "./Pages/00-Corporate Page/Cards";
 import Theme from "./Pages/Theme/Theme";
 import { CgAwards } from "react-icons/cg";
- 
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -43,9 +43,9 @@ render(
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
         <Route exact path="/incomeStatement/" component={IncomeStatement} />
+        <Route exact path="/incomeStatement02/" component={IncomeStatement02} />
         <Route exact path="/fileSIE/" component={File_SIE} />
         <Route exact path="/steps" component={Steps} />
-        
       </Switch>
     </HashRouter>
   </Provider>,

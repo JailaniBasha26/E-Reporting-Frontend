@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import Navbar from "../00-Corporate Page/Navbar"
+import Navbar from "../00-Corporate Page/Navbar";
 import { connect } from "react-redux";
 import moment from "moment";
 import { Toast } from "primereact/toast";
@@ -10,8 +10,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import "./Year.css";
 
-let 
-  yearCount = [],
+let yearCount = [],
   financialYearDetails = {},
   financialYearDetailsObj = {
     from: "",
@@ -35,8 +34,8 @@ class Year extends Component {
       date2: "",
       selected_year: { id: 0, name: "0" },
       dummy: "",
-      isEndingDateEarlier:false,
-      isAllFieldsEmpty:false,
+      isEndingDateEarlier: false,
+      isAllFieldsEmpty: false,
     };
 
     this.fisical_year = [
@@ -50,12 +49,7 @@ class Year extends Component {
     this.yearCountOnChange = this.yearCountOnChange.bind(this);
   }
 
-  
-
   dateOnChange(dateValue, Idx, postion) {
-
-    
-    
     financialYearDetailsObj = {
       from: "",
       to: "",
@@ -71,30 +65,35 @@ class Year extends Component {
       financialYearDetailsObj.to = dateValue.value;
     }
 
-
     financialYearDetails[Idx] = financialYearDetailsObj;
 
     let autoDate = {};
-    if (Idx>0){
-    autoDate.from = moment(financialYearDetails[Idx].from).subtract(12,'month')._d;
-    autoDate.to = moment(financialYearDetails[Idx].from).subtract(1,'day')._d;
-    financialYearDetails[Idx+1] = autoDate;
+    if (Idx > 0) {
+      autoDate.from = moment(financialYearDetails[Idx].from).subtract(
+        12,
+        "month"
+      )._d;
+      autoDate.to = moment(financialYearDetails[Idx].from).subtract(
+        1,
+        "day"
+      )._d;
+      financialYearDetails[Idx + 1] = autoDate;
     }
-///////////////////////
-    if(financialYearDetails[Idx].to !== '' ) {
-      if(financialYearDetails[Idx].to <= financialYearDetails[Idx].from) {
+    ///////////////////////
+    if (financialYearDetails[Idx].to !== "") {
+      if (financialYearDetails[Idx].to <= financialYearDetails[Idx].from) {
         //console.log(financialYearDetails[Idx].to,'Hi');
         this.setState({
-          isEndingDateEarlier:true,
+          isEndingDateEarlier: true,
         });
       } else {
         this.setState({
-          isEndingDateEarlier:false,
+          isEndingDateEarlier: false,
         });
       }
     }
-    
-////////////////////
+
+    ////////////////////
     this.setState({
       dummy: "",
     });
@@ -108,67 +107,88 @@ class Year extends Component {
         detail: "Please fill the starting date and ending date",
         life: 5000,
       });
-    } 
-        if (financialYearDetails[0].from !== "" && financialYearDetails[0].to !== "") {
-          let userSelectedYearCount = 0;
-          yearCount = [];
-          userSelectedYearCount = e.target.value.id;
-          let tempFinancialYearDetails = {};
-          Object.keys(financialYearDetails).map((i, idx) => {
-            if (idx <= e.value.id) {
-              tempFinancialYearDetails[idx] = financialYearDetails[i];
-            }
-          });
-          if (userSelectedYearCount == 1) {
-            yearCount.push("ONE");
-
-            for (let i = 0; i < userSelectedYearCount; i++) {
-              let autoDate = {};
-              autoDate.from = moment(financialYearDetails[i].from).subtract(12,"month")._d;
-              autoDate.to = moment(financialYearDetails[i].from).subtract(1,"day")._d;
-              tempFinancialYearDetails[i+1] = autoDate;
-              financialYearDetails = tempFinancialYearDetails;
-            } 
-          }
-
-          if (userSelectedYearCount == 2) {
-            yearCount.push("ONE");
-            yearCount.push("TWO");
-
-            for (let i = 0; i < userSelectedYearCount; i++) {
-              let autoDate = {};
-              autoDate.from = moment(financialYearDetails[i].from).subtract(12,"month")._d;
-              autoDate.to = moment(financialYearDetails[i].from).subtract(1,"day")._d;
-              tempFinancialYearDetails[i+1] = autoDate;
-              financialYearDetails = tempFinancialYearDetails;
-            }
-          }
-
-          if (userSelectedYearCount == 3) {
-            yearCount.push("ONE");
-            yearCount.push("TWO");
-            yearCount.push("THREE");
-
-            for (let i = 0; i < userSelectedYearCount; i++) {
-              let autoDate = {};
-              autoDate.from = moment(financialYearDetails[i].from).subtract(12,"month")._d;
-              autoDate.to = moment(financialYearDetails[i].from).subtract(1,"day")._d;
-              tempFinancialYearDetails[i+1] = autoDate;
-              financialYearDetails = tempFinancialYearDetails;
-            }
-          }
-
-          this.setState({
-            selected_year: e.value,
-          });
-        } else {
-          this.toast.show({
-                severity: "error",
-                summary: "Incomplete",
-                detail: "Please fill all the fields",
-                life: 2000,
-              });
+    }
+    if (
+      financialYearDetails[0].from !== "" &&
+      financialYearDetails[0].to !== ""
+    ) {
+      let userSelectedYearCount = 0;
+      yearCount = [];
+      userSelectedYearCount = e.target.value.id;
+      let tempFinancialYearDetails = {};
+      Object.keys(financialYearDetails).map((i, idx) => {
+        if (idx <= e.value.id) {
+          tempFinancialYearDetails[idx] = financialYearDetails[i];
         }
+      });
+      if (userSelectedYearCount == 1) {
+        yearCount.push("ONE");
+
+        for (let i = 0; i < userSelectedYearCount; i++) {
+          let autoDate = {};
+          autoDate.from = moment(financialYearDetails[i].from).subtract(
+            12,
+            "month"
+          )._d;
+          autoDate.to = moment(financialYearDetails[i].from).subtract(
+            1,
+            "day"
+          )._d;
+          tempFinancialYearDetails[i + 1] = autoDate;
+          financialYearDetails = tempFinancialYearDetails;
+        }
+      }
+
+      if (userSelectedYearCount == 2) {
+        yearCount.push("ONE");
+        yearCount.push("TWO");
+
+        for (let i = 0; i < userSelectedYearCount; i++) {
+          let autoDate = {};
+          autoDate.from = moment(financialYearDetails[i].from).subtract(
+            12,
+            "month"
+          )._d;
+          autoDate.to = moment(financialYearDetails[i].from).subtract(
+            1,
+            "day"
+          )._d;
+          tempFinancialYearDetails[i + 1] = autoDate;
+          financialYearDetails = tempFinancialYearDetails;
+        }
+      }
+
+      if (userSelectedYearCount == 3) {
+        yearCount.push("ONE");
+        yearCount.push("TWO");
+        yearCount.push("THREE");
+
+        for (let i = 0; i < userSelectedYearCount; i++) {
+          let autoDate = {};
+          autoDate.from = moment(financialYearDetails[i].from).subtract(
+            12,
+            "month"
+          )._d;
+          autoDate.to = moment(financialYearDetails[i].from).subtract(
+            1,
+            "day"
+          )._d;
+          tempFinancialYearDetails[i + 1] = autoDate;
+          financialYearDetails = tempFinancialYearDetails;
+        }
+      }
+
+      this.setState({
+        selected_year: e.value,
+      });
+    } else {
+      this.toast.show({
+        severity: "error",
+        summary: "Incomplete",
+        detail: "Please fill all the fields",
+        life: 2000,
+      });
+    }
   }
 
   componentDidMount() {
@@ -176,7 +196,6 @@ class Year extends Component {
   }
 
   navigateToIncomeStatementPage() {
-
     //console.log(financialYearDetails);
 
     const { financialYear } = this.props;
@@ -196,18 +215,20 @@ class Year extends Component {
       this.setState({
         isAllFieldsEmpty: true,
       });
-    } else if(financialYearDetails[0].from == "" || financialYearDetails[0].to == "" ) {
+    } else if (
+      financialYearDetails[0].from == "" ||
+      financialYearDetails[0].to == ""
+    ) {
       this.toast.show({
-                      severity: "error",
-                      summary: "Incomplete",
-                      detail: "Please fill all the fields",
-                      life: 2000,
-                    });
-      } else {
-        this.props.history.push("/IncomeStatement");
-      }   
+        severity: "error",
+        summary: "Incomplete",
+        detail: "Please fill all the fields",
+        life: 2000,
+      });
+    } else {
+      this.props.history.push("/IncomeStatement02");
+    }
   }
-  
 
   render() {
     const { financialYear } = this.props;
@@ -229,7 +250,6 @@ class Year extends Component {
 
     if (financialYearDetails[0] != undefined) {
     }
-
 
     return (
       <div>
@@ -273,8 +293,8 @@ class Year extends Component {
                 placeholder="YYYY-MM-DD"
                 maxDate={new Date()}
               />
-              
-                  {/* <span className="fields-WarningDiv2">
+
+              {/* <span className="fields-WarningDiv2">
                       {this.state.isAllFieldsEmpty && (
                        <label className="warningLabel">Please fill all the fields</label>
                        )} 
@@ -306,34 +326,32 @@ class Year extends Component {
                    )} 
                 </div>
                 </center> */}
-              
             </div>
             <center>
-            <div className="warningDiv">
-              
-                  {this.state.isEndingDateEarlier && (
-                   <label className="warningLabel">The Ending Date shouldn't be earlier than the Starting Date</label>
-                   )} 
-                </div>
-                </center>
+              <div className="warningDiv">
+                {this.state.isEndingDateEarlier && (
+                  <label className="warningLabel">
+                    The Ending Date shouldn't be earlier than the Starting Date
+                  </label>
+                )}
+              </div>
+            </center>
 
-                <center>
-                
-            <div className="fields-WarningDiv">               
-            
+            <center>
+              <div className="fields-WarningDiv">
                 <span className="fields-WarningDiv1">
                   {this.state.isAllFieldsEmpty && (
-                   <label>Please fill all the fields</label>
-                   )} 
-                   </span>
+                    <label>Please fill all the fields</label>
+                  )}
+                </span>
 
-                   <span className="fields-WarningDiv2">
+                <span className="fields-WarningDiv2">
                   {this.state.isAllFieldsEmpty && (
-                   <label>Please fill all the fields</label>
-                   )} 
-                   </span>
-                </div>
-                </center>
+                    <label>Please fill all the fields</label>
+                  )}
+                </span>
+              </div>
+            </center>
 
             <div className="year-drop-label-main">
               <span className="year-drop-label">
@@ -357,7 +375,7 @@ class Year extends Component {
                    <label className="warningLabel">Please fill all the fields</label>
                    )} 
                 </div> */}
-                {/* </center> */}
+            {/* </center> */}
             <br></br>
 
             {yearCount.map((i, idx) => {
@@ -430,7 +448,7 @@ class Year extends Component {
               <Button
                 label="Previous"
                 aria-label="Annual Report"
-                onClick={() => this.props.history.push('/Info')}
+                onClick={() => this.props.history.push("/Info")}
                 id="annualReportBtn"
                 className="btn_Annual"
                 style={{
@@ -439,7 +457,7 @@ class Year extends Component {
                   fontSize: "1.2rem",
                 }}
               />
-              
+
               <Button
                 label="Next"
                 aria-label="Annual Report"
@@ -452,7 +470,6 @@ class Year extends Component {
                   fontSize: "1.2rem",
                 }}
               />
-              
             </div>
           </div>
         </center>
@@ -463,4 +480,3 @@ class Year extends Component {
 }
 
 export default connect(mapStateToProps, null)(Year);
-
