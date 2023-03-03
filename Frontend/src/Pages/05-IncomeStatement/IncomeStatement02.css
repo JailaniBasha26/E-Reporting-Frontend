@@ -5,16 +5,70 @@
 .incomeStatementAmountBox {
   height: 36px;
   column-width: 100px;
-  padding-right: 20px;
+  /* border: solid 9px #ffa348; */
+  /* border: solid 1px transparent;
+  width: 93%; */
+  border: solid 1px transparent;
+}
+
+.incomeStatementNegativeAmountBox {
+  /* height: 36px; */
+  column-width: 100px;
+  /* width: 93%;
+  border: solid 3px #ffa348; */
+  /* border: solid 3px #f7fbb6; */
+  box-shadow: 0px 0px 7px 1px #ff9a9a;
+}
+
+.incomeStatementLegend {
+  width: 91%;
+  text-align: end;
+  background-color: #f9f9f9;
+}
+
+.incomeStatementLegendInputNumber {
+  box-shadow: 0px 0px 7px 1px #ff9a9a;
+  height: 20px;
+  width: 40px;
+  /* text-align: end; */
+}
+
+.incomeStatementLegendAmountBoxDisabled {
+  height: 20px;
+  width: 40px;
+}
+
+.incomeStatementLegentText {
+  font-style: italic;
+  font-size: 10px;
 }
 
 .incomeStatementAmountBoxDisabled {
   height: 36px;
   column-width: 100px;
-  padding-right: 20px;
+  /* padding-right: 20px; */
+  /* border: solid 9px #ffa348; */
+  /* border: solid 1px transparent;
+  width: 93%; */
+  border: solid 1px transparent;
+}
+
+.incomeStatementHeadingSum {
+  height: 36px;
+  column-width: 100px;
+  text-align: center;
+  border-color: #ededed !important;
+  font-weight: 400 !important;
+  /* width: 85%; */
+
+  /* border: solid 9px #ffa348; */
 }
 
 .incomeStatementAmountBoxDisabled > input {
+  background: #8080802b;
+}
+
+.incomeStatementLegendAmountBoxDisabled > input {
   background: #8080802b;
 }
 
@@ -25,6 +79,7 @@
 .parent {
   display: flex;
   /* width: 21%; */
+  margin-right: 7%;
 }
 
 .parentX {
@@ -65,7 +120,7 @@
 }
 
 .incomeStatementFields {
-  height: 13px;
+  height: 23px;
 }
 
 .parent > div > span > input {
@@ -79,6 +134,7 @@
 .incomeStatementFieldsStyle {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15px;
+  line-height: 1.2;
 }
 
 .incomeStatementSaveBtn {
@@ -87,3 +143,20 @@
   font-size: 16px !important;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+.incomeStatementFYStyle {
+  margin-bottom: -2%;
+}
+
+.amountDiv {
+  width: 15em;
+}
+
+#negativeNumberWarningIcon {
+  position: absolute;
+  margin-top: 11px;
+  margin-left: 4px;
+  color: #d8d113;
+}
+
+/* //////////////////////////////////////////////////////////////////////////////////////////////////// */

@@ -8,7 +8,7 @@ import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
-
+import PlayGround from "../src/Pages/90-PlayGround/PlayGround";
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 
@@ -46,6 +46,7 @@ render(
         <Route exact path="/incomeStatement/" component={IncomeStatement02} />
         <Route exact path="/fileSIE/" component={File_SIE} />
         <Route exact path="/steps" component={Steps} />
+        <Route exact path="/playGround" component={PlayGround} />
       </Switch>
     </HashRouter>
   </Provider>,

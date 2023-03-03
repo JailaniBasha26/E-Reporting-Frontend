@@ -19,6 +19,10 @@ let yearCount = [],
   from = "",
   to = "",
   redirectStatus = true;
+
+let dataKeyIn = "",
+  Cust = false;
+
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
@@ -36,6 +40,9 @@ class Year extends Component {
       dummy: "",
       isEndingDateEarlier: false,
       isAllFieldsEmpty: false,
+      focused: false,
+      focus: true,
+      blur: false,
     };
 
     this.fisical_year = [
@@ -49,54 +56,99 @@ class Year extends Component {
     this.yearCountOnChange = this.yearCountOnChange.bind(this);
   }
 
-  dateOnChange(dateValue, Idx, postion) {
-    financialYearDetailsObj = {
-      from: "",
-      to: "",
-    };
-    if (financialYearDetails[Idx] != undefined) {
-      financialYearDetailsObj.from = financialYearDetails[Idx].from;
-      financialYearDetailsObj.to = financialYearDetails[Idx].to;
-    }
+  setFocus(a, Idx, postion) {
+    if (!a) {
+      dataKeyIn = dataKeyIn.replace("undefined", "");
+      dataKeyIn = dataKeyIn.replace("null", "");
 
-    if (postion == "from") {
-      financialYearDetailsObj.from = dateValue.value;
-    } else {
-      financialYearDetailsObj.to = dateValue.value;
-    }
-
-    financialYearDetails[Idx] = financialYearDetailsObj;
-
-    let autoDate = {};
-    if (Idx > 0) {
-      autoDate.from = moment(financialYearDetails[Idx].from).subtract(
-        12,
-        "month"
-      )._d;
-      autoDate.to = moment(financialYearDetails[Idx].from).subtract(
-        1,
-        "day"
-      )._d;
-      financialYearDetails[Idx + 1] = autoDate;
-    }
-    ///////////////////////
-    if (financialYearDetails[Idx].to !== "") {
-      if (financialYearDetails[Idx].to <= financialYearDetails[Idx].from) {
-        //console.log(financialYearDetails[Idx].to,'Hi');
-        this.setState({
-          isEndingDateEarlier: true,
-        });
-      } else {
-        this.setState({
-          isEndingDateEarlier: false,
-        });
+      if (dataKeyIn.length == 6) {
+        let kkr = { value: "" };
+        var year = dataKeyIn.substr(0, 2);
+        var month = dataKeyIn.substr(2, 2);
+        var date = dataKeyIn.substr(4, 4);
+        let formattedDate = "20" + "" + year + "-" + month + "-" + date;
+        Cust = true;
+        kkr.value = formattedDate;
+        this.dateOnChange(kkr, Idx, postion);
       }
-    }
 
-    ////////////////////
-    this.setState({
-      dummy: "",
-    });
+      if (dataKeyIn.length == 8) {
+        let kkr = { value: "" };
+        var year = dataKeyIn.substr(0, 4);
+        var month = dataKeyIn.substr(4, 2);
+        var date = dataKeyIn.substr(6, 5);
+        let formattedDate = year + "-" + month + "-" + date;
+        Cust = true;
+        kkr.value = formattedDate;
+        this.dateOnChange(kkr, Idx, postion);
+      }
+      dataKeyIn = "";
+    }
+  }
+
+  dateOnChange(dateValue, Idx, postion) {
+    let vv = dateValue.value;
+    dateValue.value = new Date(vv);
+    if (!Cust)
+      dataKeyIn = dataKeyIn + "" + dateValue.originalEvent.nativeEvent.data;
+
+    if (vv != null) {
+      vv = vv.toString();
+
+      financialYearDetailsObj = {
+        from: "",
+        to: "",
+      };
+
+      if (dateValue.value != "null") {
+        dateValue.value = new Date(dateValue.value);
+      }
+
+      if (financialYearDetails[Idx] != undefined) {
+        financialYearDetailsObj.from = financialYearDetails[Idx].from;
+        financialYearDetailsObj.to = financialYearDetails[Idx].to;
+      }
+
+      if (postion == "from") {
+        financialYearDetailsObj.from = dateValue.value;
+      } else {
+        financialYearDetailsObj.to = dateValue.value;
+      }
+
+      financialYearDetails[Idx] = financialYearDetailsObj;
+
+      let autoDate = {};
+      if (Idx > 0) {
+        autoDate.from = moment(financialYearDetails[Idx].from).subtract(
+          12,
+          "month"
+        )._d;
+        autoDate.to = moment(financialYearDetails[Idx].from).subtract(
+          1,
+          "day"
+        )._d;
+        financialYearDetails[Idx + 1] = autoDate;
+      }
+      ///////////////////////
+      if (financialYearDetails[Idx].to !== "") {
+        if (financialYearDetails[Idx].to <= financialYearDetails[Idx].from) {
+          //console.log(financialYearDetails[Idx].to,'Hi');
+          this.setState({
+            isEndingDateEarlier: true,
+          });
+        } else {
+          this.setState({
+            isEndingDateEarlier: false,
+          });
+        }
+      }
+
+      ////////////////////
+      this.setState({
+        dummy: "",
+      });
+      Cust = false;
+    }
   }
 
   yearCountOnChange(e) {
@@ -256,11 +308,6 @@ class Year extends Component {
         });
     }
 
-    if (financialYearDetails[0] != undefined) {
-    }
-
-    console.log(financialYear, "@@ RENDER", financialYearDetails);
-
     return (
       <div>
         <Navbar />
@@ -288,46 +335,54 @@ class Year extends Component {
             </div>
 
             <div className="year-cal-box">
-              <Calendar
-                id="icon"
-                value={
-                  financialYearDetails[0] != undefined
-                    ? financialYearDetails[0].from
-                    : ""
-                }
-                onChange={(e) => {
-                  this.dateOnChange(e, 0, "from");
-                }}
-                showIcon
-                dateFormat="yy-mm-dd"
-                placeholder="YYYY-MM-DD"
-                maxDate={new Date()}
-              />
-
+              <div
+                onFocus={this.setFocus.bind(this, true, 0, "from")}
+                onBlur={this.setFocus.bind(this, false, 0, "from")}
+              >
+                <Calendar
+                  id="icon"
+                  value={
+                    financialYearDetails[0] != undefined
+                      ? financialYearDetails[0].from
+                      : ""
+                  }
+                  onChange={(e) => {
+                    this.dateOnChange(e, 0, "from");
+                  }}
+                  showIcon
+                  dateFormat="yy-mm-dd"
+                  placeholder="YYYY-MM-DD"
+                  maxDate={new Date()}
+                />
+              </div>
               {/* <span className="fields-WarningDiv2">
                       {this.state.isAllFieldsEmpty && (
                        <label className="warningLabel">Please fill all the fields</label>
                        )} 
                     </span> */}
-
-              <Calendar
-                id="icon"
-                value={
-                  financialYearDetails[0] != undefined
-                    ? financialYearDetails[0].to
-                    : ""
-                }
-                onChange={(e) => {
-                  this.dateOnChange(e, 0, "to");
-                }}
-                showIcon
-                dateFormat="yy-mm-dd"
-                placeholder="YYYY-MM-DD"
-                maxDate={new Date()}
-                // minDate={
-                //   financialYearDetails[0] && financialYearDetails[0].from
-                // }
-              />
+              <div
+                onFocus={this.setFocus.bind(this, true, 0, "to")}
+                onBlur={this.setFocus.bind(this, false, 0, "to")}
+              >
+                <Calendar
+                  id="icon"
+                  value={
+                    financialYearDetails[0] != undefined
+                      ? financialYearDetails[0].to
+                      : ""
+                  }
+                  onChange={(e) => {
+                    this.dateOnChange(e, 0, "to");
+                  }}
+                  showIcon
+                  dateFormat="yy-mm-dd"
+                  placeholder="YYYY-MM-DD"
+                  maxDate={new Date()}
+                  // minDate={
+                  //   financialYearDetails[0] && financialYearDetails[0].from
+                  // }
+                />
+              </div>
               {/* <center>
             <div className="fields-WarningDiv">
               
@@ -412,43 +467,54 @@ class Year extends Component {
                     <span className="year-cal-label-2">Ending Date</span>
                   </div>
                   <div className="year-cal-box">
-                    <Calendar
-                      id="icon"
-                      value={
-                        financialYearDetails[idx + 1] != undefined
-                          ? financialYearDetails[idx + 1].from
-                          : ""
-                      }
-                      onChange={(e) => {
-                        this.dateOnChange(e, idx + 1, "from");
-                      }}
-                      showIcon
-                      dateFormat="yy-mm-dd"
-                      placeholder="YYYY-MM-DD"
-                      maxDate={new Date()}
-                    />
-                    <Calendar
-                      id="icon"
-                      value={
-                        financialYearDetails[idx + 1] != undefined
-                          ? financialYearDetails[idx + 1].to
-                          : ""
-                      }
-                      onChange={(e) => {
-                        this.dateOnChange(e, idx + 1, "to");
-                      }}
-                      showIcon
-                      dateFormat="yy-mm-dd"
-                      placeholder="YYYY-MM-DD"
-                      maxDate={
-                        financialYearDetails[idx + 1] &&
-                        financialYearDetails[idx + 1].to
-                      }
-                      minDate={
-                        financialYearDetails[idx + 1] &&
-                        financialYearDetails[idx + 1].to
-                      }
-                    />
+                    <div
+                      onFocus={this.setFocus.bind(this, true, idx + 1, "from")}
+                      onBlur={this.setFocus.bind(this, false, idx + 1, "from")}
+                    >
+                      <Calendar
+                        id="icon"
+                        value={
+                          financialYearDetails[idx + 1] != undefined
+                            ? financialYearDetails[idx + 1].from
+                            : ""
+                        }
+                        onChange={(e) => {
+                          this.dateOnChange(e, idx + 1, "from");
+                        }}
+                        showIcon
+                        dateFormat="yy-mm-dd"
+                        placeholder="YYYY-MM-DD"
+                        maxDate={new Date()}
+                      />
+                    </div>
+                    <div
+                      className="year-cal-box"
+                      onFocus={this.setFocus.bind(this, true, idx + 1, "to")}
+                      onBlur={this.setFocus.bind(this, false, idx + 1, "to")}
+                    >
+                      <Calendar
+                        id="icon"
+                        value={
+                          financialYearDetails[idx + 1] != undefined
+                            ? financialYearDetails[idx + 1].to
+                            : ""
+                        }
+                        onChange={(e) => {
+                          this.dateOnChange(e, idx + 1, "to");
+                        }}
+                        showIcon
+                        dateFormat="yy-mm-dd"
+                        placeholder="YYYY-MM-DD"
+                        maxDate={
+                          financialYearDetails[idx + 1] &&
+                          financialYearDetails[idx + 1].to
+                        }
+                        minDate={
+                          financialYearDetails[idx + 1] &&
+                          financialYearDetails[idx + 1].to
+                        }
+                      />
+                    </div>
                   </div>
                 </div>
               );
