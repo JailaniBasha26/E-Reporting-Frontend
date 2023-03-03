@@ -6,6 +6,7 @@ import { Button } from "primereact/button";
 import Navbar from "../00-Corporate Page/Navbar";
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
+import Footerpage from "../Footerpage/Footerpage";        
 
 const mapStateToProps = (state) => {
   return {
@@ -101,6 +102,7 @@ class home extends Component {
           </div>
         </div>
         <ScrolltoTop />
+        <Footerpage/>
       </div>
     );
   }

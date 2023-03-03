@@ -1,0 +1,103 @@
+
+.footer-body {
+    background-color: #353535;
+    padding: 2rem 0 2rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 18%;
+  }
+  
+  section.footer-sectiondiv {
+    display: flex;
+    width: 1000px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+  }
+  
+  .footer-subscription > p {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+      'Lucida Sans', Arial, sans-serif;
+  }
+  
+  p.footer-subscription-heading {
+    margin-bottom: 10px;
+    font-size: 55px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+  
+  p.footer-subscription-text {
+    margin-bottom: 24px;
+    font-size: 22px;
+  }
+
+
+.searchbox-wrap {
+  display: flex;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 50%;
+  margin-bottom: 20px;
+}
+
+.input-box {
+  flex: 1;
+  padding: 30px 20px;
+  font-size: 1.1em;
+  -webkit-border-top-left-radius: 25px;
+  -webkit-border-bottom-left-radius: 25px;
+  -moz-border-radius-topleft: 25px;
+  -moz-border-radius-bottomleft: 25px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  box-shadow: none;
+  border: none;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
+
+}
+
+.button-box {
+  padding-right: 10px;
+  background-color: #fff;
+  -webkit-border-top-right-radius: 25px;
+  -webkit-border-bottom-right-radius: 25px;
+  -moz-border-radius-topright: 25px;
+  -moz-border-radius-bottomright: 25px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.19);
+  border: none;
+  cursor: pointer;
+  cursor: hand;
+}
+
+.span-box {
+  margin-left: 50px;
+  padding: 24px 45px;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #fff;
+  background-color: #F54E59;
+  border-radius: 20px;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
+}
+
+.span-box:hover {
+  background-color: #d6121f;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.19);
+}
+
+
+p.footer-subscription-text2 {
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+

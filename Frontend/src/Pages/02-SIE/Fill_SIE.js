@@ -10,7 +10,7 @@ import "./Fill_SIE.css";
 import Navbar from "../00-Corporate Page/Navbar"
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-
+import Footerpage from "../Footerpage/Footerpage";         
 
 const mapStateToProps = (state) => {
   return {
@@ -73,6 +73,7 @@ class Fill_SIE extends Component {
           </div>
         </center>
         <ScrolltoTop />
+        <Footerpage/>
       </div>
     );
   }

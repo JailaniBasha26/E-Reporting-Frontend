@@ -69,3 +69,10 @@
   border-color: black;
 }
 
+#dropdown-id{
+  width: 200px;
+  height: 48px;
+  vertical-align: middle;
+  text-align: center;
+  margin-right: 7px;
+}
