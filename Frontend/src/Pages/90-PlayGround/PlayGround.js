@@ -208,8 +208,6 @@ class AccordionDemo extends Component {
   }
 
   render() {
-    console.log(headersList);
-
     return (
       <div>
         <NavBar />
@@ -274,10 +272,6 @@ class AccordionDemo extends Component {
                                       {i.name}
                                     </label>
                                   )}
-                                  <label className="ISFieldsStyle">
-                                    {/* {i.name} */}
-                                    {/* {i.issumfield ?'' } */}
-                                  </label>
                                 </Col>
                                 <Col
                                   xs={7}
@@ -303,7 +297,6 @@ class AccordionDemo extends Component {
                                     (selectedYear, fyIdx) => {
                                       let year = selectedYear.split("-")[0];
                                       let bb = i.name + "**" + selectedYear;
-                                      console.log(bb, "?? BB");
 
                                       let fieldTotalValue;
                                       let yearHeadingWiseSumForSelectedYear =
