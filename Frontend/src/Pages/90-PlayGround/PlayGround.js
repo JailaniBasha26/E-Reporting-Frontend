@@ -168,6 +168,45 @@ class AccordionDemo extends Component {
       });
   }
 
+  test(header) {
+    return (
+      <Row>
+        <Col
+          xs={5}
+          sm={5}
+          md={5}
+          lg={5}
+          xl={5}
+          style={{ width: "41%", marginTop: "7px" }}
+        >
+          <label className="ISFieldsStyle">{header}</label>
+        </Col>
+
+        <Col xs={7} sm={7} md={7} lg={7} xl={7} className="ISAmountBoxCol">
+          {formattedYearHeader.map((i, idx) => {
+            let sum = "SEK " + 0;
+
+            if (yearHeadingWiseSum[i] != undefined) {
+              if (yearHeadingWiseSum[i][header] != undefined) {
+                sum = "SEK " + yearHeadingWiseSum[i][header];
+              }
+            }
+
+            return (
+              <div className="ISTotalInHeading">
+                <InputText
+                  className="incomeStatementHeadingSum"
+                  value={sum}
+                  disabled={true}
+                />
+              </div>
+            );
+          })}
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
     console.log(headersList);
 
@@ -175,7 +214,14 @@ class AccordionDemo extends Component {
       <div>
         <NavBar />
         <Row style={{ width: "100%" }}>
-          <Col xs={1} sm={1} md={1} lg={1} xl={1} style={{ width: "64px" }}>
+          <Col
+            xs={1}
+            sm={1}
+            md={1}
+            lg={1}
+            xl={1}
+            style={{ width: "64px", zIndex: 1 }}
+          >
             <Sidebar />
           </Col>
 
@@ -198,31 +244,10 @@ class AccordionDemo extends Component {
                         inputId="integeronly"
                         className="ISFY"
                         placeholder={selectedYear}
-                        // disabled={true}
                       />
                     );
                   })}
                 </Col>
-                {/* {formattedYearHeader.map((i, idx) => {
-                  return (
-                    <div className="child">
-                      <Col
-                        xs={7}
-                        sm={7}
-                        md={7}
-                        lg={7}
-                        xl={7}
-                        className="incomeStatementAmountBoxCol"
-                      >
-                        <InputNumber
-                          mode="decimal"
-                          inputId="integeronly"
-                          className="incomeStatementAmountBox"
-                        />
-                      </Col>
-                    </div>
-                  );
-                })} */}
               </div>
             </Row>
 
@@ -230,17 +255,28 @@ class AccordionDemo extends Component {
               let responseArray = mockResponse[heading];
               let header = heading.split("@#%#@")[1];
               return (
-                <div>
+                <div className="ISAccordion">
                   <Accordion multiple activeIndex={[idx]}>
-                    <AccordionTab header={header}>
+                    <AccordionTab header={this.test(header)}>
                       {responseArray.map((i, idx) => {
+                        let yearsInResponse = i.year.split(",");
                         {
                           return (
                             <div>
                               <Row className="ISFields">
                                 <Col xs={5} sm={5} md={5} lg={5} xl={5}>
+                                  {i.issumfield ? (
+                                    <label className="ISTotalFieldsStyle">
+                                      {i.name}
+                                    </label>
+                                  ) : (
+                                    <label className="ISFieldsStyle">
+                                      {i.name}
+                                    </label>
+                                  )}
                                   <label className="ISFieldsStyle">
-                                    {i.name}
+                                    {/* {i.name} */}
+                                    {/* {i.issumfield ?'' } */}
                                   </label>
                                 </Col>
                                 <Col
@@ -251,7 +287,7 @@ class AccordionDemo extends Component {
                                   xl={7}
                                   className="ISAmountBoxCol"
                                 >
-                                  {formattedYearHeader.map(
+                                  {/* {formattedYearHeader.map(
                                     (selectedYear, fyIdx) => {
                                       return (
                                         <InputNumber
@@ -259,6 +295,192 @@ class AccordionDemo extends Component {
                                           inputId="integeronly"
                                           className="ISAmountBox"
                                         />
+                                      );
+                                    }
+                                  )} */}
+
+                                  {formattedYearHeader.map(
+                                    (selectedYear, fyIdx) => {
+                                      let year = selectedYear.split("-")[0];
+                                      let bb = i.name + "**" + selectedYear;
+                                      console.log(bb, "?? BB");
+
+                                      let fieldTotalValue;
+                                      let yearHeadingWiseSumForSelectedYear =
+                                        yearHeadingWiseSum[selectedYear];
+
+                                      if (
+                                        yearHeadingWiseSumForSelectedYear !=
+                                        undefined
+                                      ) {
+                                        if (i.name == "Operating results") {
+                                          if (
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] != undefined
+                                          ) {
+                                            fieldTotalValue =
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[0]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[1]
+                                              ];
+                                          }
+                                        }
+
+                                        if (
+                                          i.name ==
+                                          "Profit after financial items"
+                                        ) {
+                                          if (
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ] != undefined
+                                          ) {
+                                            fieldTotalValue =
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[0]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[1]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[2]
+                                              ];
+                                          }
+                                        }
+
+                                        if (i.name == "Profit before tax") {
+                                          if (
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[3]
+                                            ] != undefined
+                                          ) {
+                                            fieldTotalValue =
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[0]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[1]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[2]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[3]
+                                              ];
+                                          }
+                                        }
+                                        if (i.name == "This year's results") {
+                                          if (
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[3]
+                                            ] != undefined &&
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[4]
+                                            ] != undefined
+                                          ) {
+                                            fieldTotalValue =
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[0]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[1]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[2]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[3]
+                                              ] +
+                                              yearHeadingWiseSumForSelectedYear[
+                                                isSumFieldNames[4]
+                                              ];
+                                          }
+                                        }
+                                      }
+                                      return (
+                                        <div className="ISAmountBoxRowDiv">
+                                          {yearsInResponse.includes(year) ? (
+                                            <div>
+                                              {i.issumfield ? (
+                                                <InputNumber
+                                                  mode="decimal"
+                                                  inputId="integeronly"
+                                                  className="ISAmountBoxDisabled"
+                                                  disabled={true}
+                                                  placeholder={fieldTotalValue}
+                                                />
+                                              ) : (
+                                                <div>
+                                                  <InputNumber
+                                                    mode="decimal"
+                                                    inputId="integeronly"
+                                                    onValueChange={(e) => {
+                                                      this.amountOnChange(
+                                                        selectedYear,
+                                                        header,
+                                                        i.name,
+                                                        i.acceptonlynegativevalues,
+                                                        e
+                                                      );
+                                                    }}
+                                                    className={
+                                                      wrongFields.includes(bb)
+                                                        ? "ISNegativeAmountBox"
+                                                        : "ISAmountBox"
+                                                    }
+                                                  />
+                                                  {wrongFields.includes(bb) && (
+                                                    <i
+                                                      className="fa fa-exclamation-circle"
+                                                      id="negativeNumberWarningIcon"
+                                                      title="Negative Value is Recommended"
+                                                    ></i>
+                                                  )}
+                                                </div>
+                                              )}
+                                            </div>
+                                          ) : (
+                                            <div>
+                                              <InputNumber
+                                                mode="decimal"
+                                                inputId="integeronly"
+                                                className="ISAmountBoxDisabled"
+                                                disabled={true}
+                                                tooltip="This field is not applicable for the selected financial year"
+                                              />
+                                            </div>
+                                          )}
+                                        </div>
                                       );
                                     }
                                   )}
@@ -273,23 +495,6 @@ class AccordionDemo extends Component {
                 </div>
               );
             })}
-
-            {/* {headersList && headersList.length > 0 && (
-              <div>
-                <Accordion multiple activeIndex={[0]}>
-                  {headersList.map((accordiontHeading, Idx) => {
-                    return (
-                      <AccordionTab header={accordiontHeading}>
-                        <p>{accordiontHeading}</p>
-                        {responseArray.map((i, idx) => {
-
-                        })}
-                      </AccordionTab>
-                    );
-                  })}
-                </Accordion>
-              </div>
-            )} */}
           </Col>
         </Row>
       </div>
