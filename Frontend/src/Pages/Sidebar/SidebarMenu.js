@@ -1,4 +1,3 @@
-
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
@@ -101,7 +100,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
           </motion.div>
         )}{" "}
       </AnimatePresence>
-      </div>
+    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
+import Footerpage from "../Footerpage/Footerpage";   
 import "./Info.css";
 
 const mapStateToProps = (state) => {
@@ -418,6 +419,7 @@ class Info extends Component {
           </div>
         </center>
         <ScrolltoTop />
+        <Footerpage/>
       </div>
     );
   }
