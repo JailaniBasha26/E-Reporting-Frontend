@@ -8,7 +8,7 @@ import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
-import PlayGround from "../src/Pages/90-PlayGround/PlayGround";
+
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 
@@ -30,7 +30,11 @@ import Sidebar from "./Pages/Sidebar/Sidebar";
 import steps from "../src/Pages/Steps/steps";
 import Cards from "./Pages/00-Corporate Page/Cards";
 import Theme from "./Pages/Theme/Theme";
-import { CgAwards } from "react-icons/cg";
+//import social from "./Pages/Social Media Login/social";
+import ThemeTry from "./Pages/Theme/ThemeTry";
+import Merge from "./Pages/Merge/Merge";
+
+
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -42,11 +46,12 @@ render(
         <Route exact path="/" component={home} />
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
-        <Route exact path="/incomeStatementOld/" component={IncomeStatement} />
-        <Route exact path="/incomeStatement/" component={IncomeStatement02} />
+        <Route exact path="/incomeStatement/" component={IncomeStatement} />
+        <Route exact path="/incomeStatement02/" component={IncomeStatement02} />
         <Route exact path="/fileSIE/" component={File_SIE} />
         <Route exact path="/steps" component={Steps} />
-        <Route exact path="/playGround" component={PlayGround} />
+        <Route exact path="/ThemeTry" component={ThemeTry} />
+        <Route exact path="/merge" component={Merge} />
       </Switch>
     </HashRouter>
   </Provider>,

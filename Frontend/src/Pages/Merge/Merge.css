@@ -1,0 +1,33 @@
+.info-year-container {
+    background-color: rgb(222, 220, 220);
+    box-shadow: 5px 10px 8px #888888;
+    border: 1px solid white;
+    margin-top: 100px;
+    width: 1300px;
+  }
+
+.card {
+    border: 1px solid black;
+    margin: 50px;
+}
+label {
+    color: black;
+    padding-left: 20px;
+}
+
+.info-col {
+    background-color: white;
+    margin: 20px;
+}
+
+.info-org-no,.info-org-name,.info-org-postal,.info-org-city{
+    width: 500px;
+}
+
+p.info-warningLabel {
+    margin-left:10px ;
+    text-align: start;
+    color: red;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    position: absolute;
+  }

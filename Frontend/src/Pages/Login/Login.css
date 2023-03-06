@@ -1,5 +1,5 @@
 
- .p-sidebar.p-component.user-sidebar.p-sidebar-right.p-sidebar-active.p-sidebar-enter-done {
+.p-sidebar.p-component.user-sidebar.p-sidebar-right.p-sidebar-active.p-sidebar-enter-done {
     /* top: 68px; */
     /* right: 19px; */
     width: 20%;
@@ -37,7 +37,7 @@
 
 .head-one {
     font-size: 20px;
-    margin: 0px 70px; 
+    margin: 0px 60px; 
 }
 
 .p-inputtext{
@@ -91,4 +91,21 @@
     color: #ffffff;
     background: white;
     border: 1px solid rgb(129, 127, 127);
+}
+
+.error{
+    color: red;
+}
+
+.success-msg {
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 20px;
+    font-size: 20px;
+}
+
+.sign-icon{
+    font-size: 40px;
 }
