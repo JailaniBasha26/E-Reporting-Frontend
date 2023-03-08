@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-dom";
 import IncomeStatement from "../src/Pages/05-IncomeStatement/IncomeStatement";
-import IncomeStatement02 from "../src/Pages/05-IncomeStatement/IncomeStatement02";
 import File_SIE from "./Pages/02-SIE/Fill_SIE";
 import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
@@ -34,8 +33,6 @@ import Theme from "./Pages/Theme/Theme";
 import ThemeTry from "./Pages/Theme/ThemeTry";
 import Merge from "./Pages/Merge/Merge";
 
-
-
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
 
@@ -47,7 +44,6 @@ render(
         <Route exact path="/year" component={Year} />
         <Route exact path="/info" component={Info} />
         <Route exact path="/incomeStatement/" component={IncomeStatement} />
-        <Route exact path="/incomeStatement02/" component={IncomeStatement02} />
         <Route exact path="/fileSIE/" component={File_SIE} />
         <Route exact path="/steps" component={Steps} />
         <Route exact path="/ThemeTry" component={ThemeTry} />

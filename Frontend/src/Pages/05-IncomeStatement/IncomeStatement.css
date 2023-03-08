@@ -1,67 +1,164 @@
-.carousel-demo .product-item .product-item-content {
-  border: 1px solid var(--surface-d);
-  border-radius: 3px;
-  margin: 0.3rem;
+.ISAmountBox {
+  height: 36px;
+  column-width: 100px;
+  padding-right: 20px;
+}
+
+.ISAmountBoxDisabled {
+  height: 36px;
+  column-width: 100px;
+  padding-right: 20px;
+}
+
+.ISAmountBoxDisabled > input {
+  background-color: #e9e9e9;
+}
+.incomeStatementAmountBoxDisabled {
+  height: 36px;
+  column-width: 100px;
+  padding-right: 20px;
+}
+
+.incomeStatementAmountBoxDisabled > input {
+  background: #8080802b;
+}
+
+.ISAmountBoxCol {
+  display: flex;
+}
+
+.parent {
+  display: flex;
+}
+.ISTotalInHeading {
+  margin-right: 2%;
+  padding-right: 13%;
+}
+
+.ISTotalInHeading > input {
+  text-align: initial;
+  background: transparent;
+  border: 0px solid #ced4da;
+}
+.parentIS {
+  display: flex;
+}
+
+.child {
+  display: inline-block;
+  column-width: 14.5em;
   text-align: center;
-  padding: 2rem 0;
 }
 
-.carousel-demo .product-item .product-image {
+.financialYears {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 28px;
+}
+
+.incomeStatementHeaderStyle {
+  background-color: #ededed;
+  margin-bottom: 1%;
+  margin-top: -38px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: 600;
+}
+
+.ISFY {
+  height: 36px;
+  column-width: 100px;
+  border: solid 1px transparent;
+  padding-right: 13%;
+}
+
+.ISFY > input {
+  border: 0px solid #ced4da !important;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+span.p-accordion-header-text {
   width: 100%;
-  height: 50%;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.fields {
-  flex-direction: row;
+.ISFYStyle {
+  margin-bottom: 0%;
+}
+
+.ISFY :focus {
+  box-shadow: 0 0 0 0rem #a6d5fa !important;
+}
+
+.parentDivIncomeStatement {
+  padding: 3%;
+}
+
+.ISAmountBoxCol {
   display: flex;
-  padding: 4px;
-  height: 40px;
 }
 
-#fieldsCol {
-  height: 100%;
+.ISFields {
+  line-height: 49px;
 }
 
-.incomeStatement {
-  padding-left: 15%;
-  padding-right: 15%;
-  margin-bottom: 1em;
-  padding-top: 2em;
+.parent > div > span > input {
+  height: 32px;
+}
+
+.incomeStatementSaveBtnCenter {
+  margin-top: 2%;
+}
+
+.ISFieldsStyle {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 15px;
+  line-height: 1.2;
+}
+
+.ISTotalFieldsStyle {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.incomeStatementPadding {
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  padding: 1em;
-}
-
-.incomeStatementHeader {
-  background: #80808017;
-  margin-top: 5px;
-}
-
-#headingStyle {
-  font-size: 19px;
-  font-weight: bold;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-.isSumField {
+  font-size: 15px;
+  line-height: 1.2;
   font-style: italic;
-  font-weight: 150;
-  font-weight: bold;
-  font-size: 15px;
+  font-weight: 550;
 }
 
-.negativeNumber {
-  color: red;
-  font-size: 12px;
+.incomeStatementSaveBtn {
+  width: 185px !important;
+  height: 50px !important;
+  font-size: 16px !important;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.inputFieldWithWarning {
-  flex-direction: row;
-  display: flex;
+.ISNegativeAmountBox {
+  height: 36px;
+  margin-right: 21px;
+  box-shadow: 0px 0px 7px 1px #ff9a9a;
+}
+
+.ISAmountBoxRowDiv {
+  padding-right: 13%;
+}
+
+#negativeNumberWarningIcon {
+  position: absolute;
+  margin-top: 15px;
+  margin-left: -9px;
+  color: #d8d113;
+}
+
+.ISExapndCollapsToggleLbl {
+  width: 93%;
+  text-align: end;
+}
+
+.ISExpandCollapseLbl {
+  top: -7px;
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 2px;
+}
+.react-switch-bg {
+  background-color: #f36c6c !important;
 }

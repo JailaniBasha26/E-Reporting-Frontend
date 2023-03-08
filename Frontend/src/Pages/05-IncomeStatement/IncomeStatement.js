@@ -1,500 +1,551 @@
 import React, { Component } from "react";
+import { Accordion, AccordionTab } from "primereact/accordion";
 import { InputNumber } from "primereact/inputnumber";
 import { TabView, TabPanel } from "primereact/tabview";
+import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Navbar from "../00-Corporate Page/Navbar"
+import NavBar from "../00-Corporate Page/Navbar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import Sidebar from "../Sidebar/Sidebar"
+import Sidebar from "../Sidebar/Sidebar";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import moment from "moment";
+import Switch from "react-switch";
 import "./IncomeStatement.css";
+
+let mockResponse = {};
+let formattedYearHeader = [];
+let yearHeadingFieldWiseAmount = {};
+let yearHeadingWiseSum = {};
+let wrongFields = [];
+let isSumFieldNames = [
+  "Operating income, inventory changes, etc",
+  "Operating costs",
+  "Financial posts",
+  "Closing dispositions",
+  "Taxes",
+];
+let headersList = [];
 
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
     companyInformation: state.companyInformation.companyInformation.values,
-    financialYear: state.financialYear.financialYear.values,
-    incomeStatement: state.incomeStatement.incomeStatement,
+    financialYear: state.financialYear.financialYear,
+    sessionDetails: state.sessionDetails,
   };
 };
-
-let getIncomeStatementFieldsArray = [],
-  wrongFields = [],
-  headerWiseAmountArray = {},
-  amountArray = [],
-  total = 0,
-  finalResultObj = {};
-
-  
-
-let SheetWisefinalResultObj = {
-    value: { year: "", incomeStatement: {}, balanceSheet: {} },
-  },
-  tabYearOptionArray = [],
-  resultArray = [];
-
-let financialYearResultObj,
-  tabYearOptionObj = { name: "", value: "", label: "" };
 class IncomeStatement extends Component {
-  
   constructor(props) {
     super(props);
+    this.myRef = React.createRef();
     this.state = {
-      incomeStatementFieldsObj: {},
-      Merchandise: 0,
-      activeIndex1: 0,
-      selectedFinancialYear: "",
-      selectedSheet: "",
-      selectedFinancialYearTabValue: "",
+      activeIndex: [0],
+      test: "",
+      checked: true,
     };
     this.amountOnChange = this.amountOnChange.bind(this);
-    this.navigateToBalanceSheet = this.navigateToBalanceSheet.bind(this);
-    this.yearOnClick = this.yearOnClick.bind(this);
-    
   }
-  
-  navigateToBalanceSheet() {
-    //console.log('yes');
-    //navigateToBalanceSheet;
-    const {
-      annualReportType,
-      incomeStatement,
-      companyInformation,
-      financialYear,
-    } = this.props;
 
-    const { selectedFinancialYear, selectedSheet } = this.state;
+  handleChange(checkStatus) {
+    this.setState({ checked: checkStatus });
 
-    let SheetWisefinalResultObj = {
-      value: { year: "", selectedSheet: "", result: {} },
-    };
-    let replaceIdx;
-    let isYearAlreadyPresent = false;
-
-    SheetWisefinalResultObj.value.result = { finalResultObj };
-    SheetWisefinalResultObj.value.selectedSheet = selectedSheet;
-    SheetWisefinalResultObj.value.year = selectedFinancialYear;
-
-    resultArray.length &&
-      resultArray.map((i, idx) => {
-        if (i.value.year == selectedFinancialYear) {
-          replaceIdx = idx;
-          isYearAlreadyPresent = true;
-          let finalResultObjValue = i.value.result.finalResultObj;
-          finalResultObj = {
-            ...finalResultObjValue,
-            ...finalResultObj,
-          };
-        }
-      });
-    if (!isYearAlreadyPresent) {
-      resultArray.push(SheetWisefinalResultObj);
+    if (!checkStatus) {
+      let exp = [];
+      this.setState({ activeIndex: exp });
     } else {
-      if (replaceIdx > -1) {
-        resultArray.splice(replaceIdx, 1);
-        SheetWisefinalResultObj.value.result = { finalResultObj };
-        resultArray.push(SheetWisefinalResultObj);
-      }
-    }
-
-    incomeStatement.values = resultArray;
-    finalResultObj = {};
-  }
-  componentDidMount() {
-    const {
-      annualReportType,
-      incomeStatement,
-      companyInformation,
-      financialYear,
-    } = this.props;
-
-    let year = "";
-
-    tabYearOptionArray = [];
-    if (financialYear != undefined) {
-      financialYearResultObj = Object.values(financialYear);
-      financialYearResultObj &&
-        financialYearResultObj.length &&
-        financialYearResultObj.map((i, idx) => {
-          let formattedFromDate = moment(i.from).format("YYYY-MM-DD");
-          let formattedToDate = moment(i.to).format("YYYY-MM-DD");
-
-          tabYearOptionObj = { name: "", value: "" };
-
-          tabYearOptionObj.name = formattedFromDate + "  -  " + formattedToDate;
-
-          tabYearOptionObj.value =
-            formattedFromDate + "  -  " + formattedToDate;
-
-          tabYearOptionArray.push(tabYearOptionObj);
-
-          if (idx == 0) {
-            year = moment(i.from).format("YYYY");
-            this.setState({
-              selectedFinancialYear: year,
-              selectedSheet: "Income Statement",
-              selectedFinancialYearTabValue: tabYearOptionObj.name,
-            });
-          }
-        });
-
-      getIncomeStatementFieldsArray = [];
-      axios
-        .get("/getIncomeStatementFieldsByYear/" + year)
-        .then((response) => {
-          let getIncomeStatementFieldsResponse = response.data;
-
-          Object.keys(getIncomeStatementFieldsResponse).map((i) => {
-            let getIncomeStatementFieldsResponseObj = {
-              header: "",
-              fields: [],
-            };
-
-            getIncomeStatementFieldsResponseObj.header = i;
-            getIncomeStatementFieldsResponse[i] &&
-              getIncomeStatementFieldsResponse[i].length > 0 &&
-              getIncomeStatementFieldsResponse[i].map((j) => {
-                getIncomeStatementFieldsResponseObj.fields.push(
-                  j.name +
-                    "@#%#@" +
-                    j.issumfield +
-                    "@#%#@" +
-                    j.acceptonlynegativevalues
-                );
-              });
-            getIncomeStatementFieldsArray.push(
-              getIncomeStatementFieldsResponseObj
-            );
-
-            this.setState({
-              incomeStatementFieldsObj: response.data,
-            });
-          });
-        })
-        .catch((error) => {});
+      this.openAll();
     }
   }
 
   amountOnChange(
-    value,
-    fieldName,
-    acceptOnlyNegativeValues,
-    headerIdx,
-    fieldIdx
+    financialYearValue,
+    headingValue,
+    fieldNameValue,
+    isAcceptNegativeValue,
+    e
   ) {
-    const { selectedFinancialYear, selectedSheet } = this.state;
-    let amount = value.value;
-    this.setState({
-      Merchandise: 0,
-    });
-
-    finalResultObj[fieldName] = amount;
-    total = total + amount;
-
-    SheetWisefinalResultObj.value.year = selectedFinancialYear;
-    SheetWisefinalResultObj.value.incomeStatement = finalResultObj;
-
-    if (acceptOnlyNegativeValues == "true") {
-      if (amount > 0) {
-        wrongFields.push(fieldName);
-      } else if (wrongFields.includes(fieldName)) {
-        //REMOVE CORRECT FIELDS
-        wrongFields = wrongFields.filter((Person) => {
-          return Person !== fieldName;
-        });
-      }
-      //REMOVE DUPLICATE FIELDS
-      wrongFields = wrongFields.filter(function (elem, pos) {
-        return wrongFields.indexOf(elem) == pos;
-      });
+    if (
+      yearHeadingFieldWiseAmount[financialYearValue][headingValue] == undefined
+    ) {
+      yearHeadingFieldWiseAmount[financialYearValue][headingValue] = {};
     }
 
-    if (headerWiseAmountArray[headerIdx] != undefined) {
-      amountArray = headerWiseAmountArray[headerIdx];
-    } else {
-      amountArray = [];
-    }
-    amountArray[fieldIdx] = amount;
-    headerWiseAmountArray[headerIdx] = amountArray;
-  }
+    yearHeadingFieldWiseAmount[financialYearValue][headingValue][
+      fieldNameValue
+    ] = e.value;
 
-  yearOnClick(e) {
-    // let selectedTabYear = moment(e).format("YYYY");
-    let selectedTabYear = e.value.split("-")[0];
-    this.setState({
-      activeIndex1: 0,
-      selectedFinancialYear: selectedTabYear,
-      selectedFinancialYearTabValue: e.value,
-    });
-
-    getIncomeStatementFieldsArray = [];
-    headerWiseAmountArray = [];
-    //sum = 0;
-    axios
-      .get("/getIncomeStatementFieldsByYear/" + selectedTabYear)
-      .then((response) => {
-        let getIncomeStatementFieldsResponse = response.data;
-
-        Object.keys(getIncomeStatementFieldsResponse).map((i) => {
-          let getIncomeStatementFieldsResponseObj = {
-            header: "",
-            fields: [],
-          };
-
-          getIncomeStatementFieldsResponseObj.header = i;
-          getIncomeStatementFieldsResponse[i] &&
-            getIncomeStatementFieldsResponse[i].length > 0 &&
-            getIncomeStatementFieldsResponse[i].map((j) => {
-              getIncomeStatementFieldsResponseObj.fields.push(
-                j.name +
-                  "@#%#@" +
-                  j.issumfield +
-                  "@#%#@" +
-                  j.acceptonlynegativevalues
-              );
-            });
-          getIncomeStatementFieldsArray.push(
-            getIncomeStatementFieldsResponseObj
-          );
-
-          this.setState({
-            incomeStatementFieldsObj: response.data,
-          });
-        });
-      })
-      .catch((error) => {});
-  }
-  render() {
-     console.log(getIncomeStatementFieldsArray,'///****//');
-    const {
-      incomeStatementFieldsObj,
-      activeIndex1,
-      selectedFinancialYearTabValue,
-    } = this.state;
-    const { financialYear, incomeStatement } = this.props;
-
+    let kkr = yearHeadingFieldWiseAmount[financialYearValue][headingValue];
     let sum = 0;
 
-    let operatingResults,
-      profitAfterFinancialItems = 0,
-      profitBeforeTax = 0,
-      thisYearResults = 0,
-      totalSumObj = {};
-//console.log(financialYear);
-console.log(selectedFinancialYearTabValue);
-    return (
-      <div className="carousel-demo">
-        <Navbar />
-        {/* <Sidebar/> */}
+    Object.keys(kkr).map((yearWiseData, idx) => {
+      sum += kkr[yearWiseData];
 
-        {financialYear != undefined && (
-          <div>
-            <div className="card">
-              <div className="pt-2 pb-4">
-                <SelectButton
-                  value={selectedFinancialYearTabValue}
-                  options={tabYearOptionArray}
-                  onChange={(e) => this.yearOnClick(e)}
-                  optionLabel="name"
+      if (yearHeadingWiseSum[financialYearValue] == undefined) {
+        yearHeadingWiseSum[financialYearValue] = {};
+      }
+
+      if (yearHeadingWiseSum[financialYearValue][headingValue] == undefined) {
+        yearHeadingWiseSum[financialYearValue][headingValue] = {};
+      }
+
+      yearHeadingWiseSum[financialYearValue][headingValue] = sum;
+    });
+
+    let fieldNameWithYear = fieldNameValue + "**" + financialYearValue;
+    if (e.value > 0 && isAcceptNegativeValue) {
+      wrongFields.push(fieldNameWithYear);
+    } else if (wrongFields.includes(fieldNameWithYear)) {
+      //REMOVE CORRECTED FIELDS
+      wrongFields = wrongFields.filter((name) => {
+        return name !== fieldNameWithYear;
+      });
+    }
+    //REMOVE DUPLICATE FIELDS
+    wrongFields = wrongFields.filter(function (elem, pos) {
+      return wrongFields.indexOf(elem) == pos;
+    });
+
+    this.setState({
+      test: "",
+    });
+  }
+
+  componentWillMount() {
+    yearHeadingWiseSum = {};
+  }
+  componentDidMount() {
+    const { financialYear } = this.props;
+    let financialYearValues = financialYear.values;
+    //TODO: REMOVE IT
+    financialYearValues = {
+      0: {
+        from: "2022-12-31T18:30:00.000Z",
+        to: "2023-02-22T18:30:00.000Z",
+      },
+      1: {
+        from: "2021-12-31T18:30:00.000Z",
+        to: "2022-12-30T18:30:00.000Z",
+      },
+    };
+
+    let selectedFinancialYears = [];
+    formattedYearHeader = [];
+    Object.keys(financialYearValues).map(function (key) {
+      selectedFinancialYears.push(
+        moment(financialYearValues[key].from).format("YYYY")
+      );
+
+      let formattedDate =
+        moment(financialYearValues[key].from).format("YYYY-MM-DD") +
+        " - " +
+        moment(financialYearValues[key].to).format("YYYY-MM-DD");
+
+      formattedYearHeader.push(formattedDate);
+
+      yearHeadingFieldWiseAmount[formattedDate] = {};
+    });
+    const uniqueFinancialYears = Array.from(new Set(selectedFinancialYears));
+
+    let financialYears = uniqueFinancialYears.toString();
+    axios
+      .get("/getIncomeStatementFieldsByFinancialYears/" + financialYears)
+      .then((response) => {
+        mockResponse = response.data;
+
+        this.openAll();
+        {
+          Object.keys(mockResponse).map((heading, idx) => {
+            let responseArray = mockResponse[heading];
+            headersList.push(heading.split("@#%#@")[1]);
+          });
+        }
+
+        headersList = headersList.filter(function (elem, pos) {
+          return headersList.indexOf(elem) == pos;
+        });
+
+        this.setState({
+          test: "response",
+        });
+      });
+  }
+
+  test(header) {
+    return (
+      <Row>
+        <Col
+          xs={5}
+          sm={5}
+          md={5}
+          lg={5}
+          xl={5}
+          style={{ width: "41%", marginTop: "7px" }}
+        >
+          <label className="ISFieldsStyle">{header}</label>
+        </Col>
+
+        <Col xs={7} sm={7} md={7} lg={7} xl={7} className="ISAmountBoxCol">
+          {formattedYearHeader.map((i, idx) => {
+            let sum = "SEK " + 0;
+
+            if (yearHeadingWiseSum[i] != undefined) {
+              if (yearHeadingWiseSum[i][header] != undefined) {
+                sum = "SEK " + yearHeadingWiseSum[i][header];
+              }
+            }
+
+            return (
+              <div className="ISTotalInHeading">
+                <InputText
+                  className="incomeStatementHeadingSum"
+                  value={sum}
+                  disabled={true}
                 />
               </div>
+            );
+          })}
+        </Col>
+      </Row>
+    );
+  }
 
-              <TabView
-                activeIndex={this.state.activeIndex1}
-                onTabChange={(e) =>
-                  this.setState({
-                    activeIndex1: e.index,
-                    selectedSheet: e.originalEvent.target.innerText,
-                  })
-                }
-              >
-                <TabPanel header="Income Statement">
-                  <div className="incomeStatement">
-                    <div className="incomeStatementPadding">
-                      {getIncomeStatementFieldsArray.map((result, idx) => {
-                        let headerIdx = result.header.split("@#%#@")[0];
-                        if (headerWiseAmountArray[headerIdx] != undefined) {
-                          sum = headerWiseAmountArray[headerIdx].reduce(
-                            (partialSum, a) => partialSum + a,
-                            0
-                          );
-                        }
+  openAll() {
+    let lengthArray = [];
+    {
+      Object.keys(mockResponse).map((heading, idx) => {
+        lengthArray.push(idx);
+      });
+    }
+    let open = lengthArray;
+    this.setState({ activeIndex: open });
+  }
 
-                        totalSumObj[headerIdx] = sum;
-                        operatingResults = totalSumObj[1] + totalSumObj[2];
-                        profitAfterFinancialItems =
-                          operatingResults + totalSumObj[3];
-                        profitBeforeTax =
-                          profitAfterFinancialItems + totalSumObj[4];
-                        thisYearResults = profitBeforeTax + totalSumObj[5];
-                        let i = 0;
+  render() {
+    const { checked, activeIndex } = this.state;
+    return (
+      <div ref={this.myRef}>
+        <NavBar />
+
+        <label className="ISExapndCollapsToggleLbl">
+          <div>
+            <span className="ISExpandCollapseLbl">Collapse All </span>
+            <Switch
+              checked={checked}
+              onChange={this.handleChange.bind(this, !checked)}
+              // onColor="#86d3ff"
+              // onHandleColor="#2693e6"
+              handleDiameter={18}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={25}
+              width={48}
+              className="react-switch"
+              id="material-switch"
+            />
+            <span className="ISExpandCollapseLbl">Expand All </span>
+          </div>
+        </label>
+
+        <Row style={{ width: "100%" }}>
+          <Col
+            xs={1}
+            sm={1}
+            md={1}
+            lg={1}
+            xl={1}
+            style={{ width: "64px", zIndex: 1 }}
+          >
+            <Sidebar />
+          </Col>
+
+          <Col xs={11} sm={11} md={11} lg={11} xl={11}>
+            <Row className="ISFYStyle">
+              <div className="parentIS">
+                <Col xs={5} sm={5} md={5} lg={5} xl={5}></Col>
+                <Col
+                  xs={7}
+                  sm={7}
+                  md={7}
+                  lg={7}
+                  xl={7}
+                  className="ISAmountBoxCol"
+                >
+                  {formattedYearHeader.map((selectedYear, fyIdx) => {
+                    return (
+                      <InputNumber
+                        mode="decimal"
+                        inputId="integeronly"
+                        className="ISFY"
+                        placeholder={selectedYear}
+                      />
+                    );
+                  })}
+                </Col>
+              </div>
+            </Row>
+
+            <Accordion
+              multiple
+              activeIndex={activeIndex}
+              onTabChange={(e) => this.setState({ activeIndex: e.index })}
+              ref={this.myRef}
+            >
+              {Object.keys(mockResponse).map((heading, idx) => {
+                let responseArray = mockResponse[heading];
+                let header = heading.split("@#%#@")[1];
+
+                return (
+                  // <div className="ISAccordion">
+                  <AccordionTab
+                    // id="ISAccordionTab"
+                    header={this.test(header)}
+                    ref={this.myRef}
+                    // className="ISAccordion"
+                  >
+                    {responseArray.map((i, idx) => {
+                      let yearsInResponse = i.year.split(",");
+                      {
                         return (
                           <div>
-                            <h5 className="incomeStatementHeader" key={idx}>
-                              <Row className="fields">
-                                <Col
-                                  xs={8}
-                                  sm={8}
-                                  md={8}
-                                  lg={8}
-                                  xl={8}
-                                  id="headingStyle"
-                                >
-                                  {result.header.split("@#%#@")[1]}
-                                </Col>
+                            <Row className="ISFields">
+                              <Col xs={5} sm={5} md={5} lg={5} xl={5}>
+                                {i.issumfield ? (
+                                  <label className="ISTotalFieldsStyle">
+                                    {i.name}
+                                  </label>
+                                ) : (
+                                  <label className="ISFieldsStyle">
+                                    {i.name}
+                                  </label>
+                                )}
+                              </Col>
+                              <Col
+                                xs={7}
+                                sm={7}
+                                md={7}
+                                lg={7}
+                                xl={7}
+                                className="ISAmountBoxCol"
+                              >
+                                {formattedYearHeader.map(
+                                  (selectedYear, fyIdx) => {
+                                    let year = selectedYear.split("-")[0];
+                                    let bb = i.name + "**" + selectedYear;
 
-                                <Col
-                                  xs={4}
-                                  sm={4}
-                                  md={4}
-                                  lg={4}
-                                  xl={4}
-                                  id="headingStyle"
-                                >
-                                  SEK {sum}
-                                </Col>
-                              </Row>
-                            </h5>
-                            {result.fields.map((fields, idx) => {
-                              let splittedFieldsValue = [];
-                              splittedFieldsValue = fields.split("@#%#@");
-                              i++;
-                              return (
-                                <div>
-                                  <Row className="fields">
-                                    <Col
-                                      xs={8}
-                                      sm={8}
-                                      md={8}
-                                      lg={8}
-                                      xl={8}
-                                      id="fieldsCol"
-                                    >
-                                      {splittedFieldsValue[1] == "false" ? (
-                                        <label key={fields}>
-                                          {splittedFieldsValue[0]}
-                                        </label>
-                                      ) : (
-                                        <label
-                                          className="isSumField"
-                                          key={fields}
-                                        >
-                                          {splittedFieldsValue[0]}
-                                        </label>
-                                      )}
-                                      <br />
-                                      <br />
-                                    </Col>
-                                    <Col
-                                      xs={4}
-                                      sm={4}
-                                      md={4}
-                                      lg={4}
-                                      xl={4}
-                                      id="fieldsCol"
-                                    >
-                                      {splittedFieldsValue[1] == "false" ? (
-                                        <div className="inputFieldWithWarning">
-                                          <InputNumber
-                                            mode="decimal"
-                                            inputId="integeronly"
-                                            style={{ height: "24px" }}
-                                            onValueChange={(e) => {
-                                              this.amountOnChange(
-                                                e,
-                                                splittedFieldsValue[0],
-                                                splittedFieldsValue[2],
-                                                headerIdx,
-                                                idx
-                                              );
-                                            }}
-                                          />
+                                    let fieldTotalValue;
+                                    let yearHeadingWiseSumForSelectedYear =
+                                      yearHeadingWiseSum[selectedYear];
 
-                                          {wrongFields.includes(
-                                            splittedFieldsValue[0]
-                                          ) && (
-                                            <div>
-                                              &nbsp;&nbsp;
-                                              <i
-                                                className="fa fa-exclamation-triangle"
-                                                id="negativeNumberWarningIcon"
-                                              ></i>
-                                              &nbsp;&nbsp;
-                                              <label className="negativeNumber">
-                                                Enter Negative Number
-                                              </label>
-                                            </div>
-                                          )}
-                                        </div>
-                                      ) : (
-                                        <label style={{ height: "30px" }}>
-                                          SEK {""}
-                                          {splittedFieldsValue[0] ==
-                                          "Operating results"
-                                            ? operatingResults
-                                            : splittedFieldsValue[0] ==
-                                              "Profit after financial items"
-                                            ? profitAfterFinancialItems
-                                            : splittedFieldsValue[0] ==
-                                              "Profit before tax"
-                                            ? profitBeforeTax
-                                            : thisYearResults}
-                                        </label>
-                                      )}
-                                    </Col>
-                                  </Row>
-                                </div>
-                              );
-                            })}
+                                    if (
+                                      yearHeadingWiseSumForSelectedYear !=
+                                      undefined
+                                    ) {
+                                      if (i.name == "Operating results") {
+                                        if (
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[0]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[1]
+                                          ] != undefined
+                                        ) {
+                                          fieldTotalValue =
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ];
+                                        }
+                                      }
+
+                                      if (
+                                        i.name == "Profit after financial items"
+                                      ) {
+                                        if (
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[0]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[1]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[2]
+                                          ] != undefined
+                                        ) {
+                                          fieldTotalValue =
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ];
+                                        }
+                                      }
+
+                                      if (i.name == "Profit before tax") {
+                                        if (
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[0]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[1]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[2]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[3]
+                                          ] != undefined
+                                        ) {
+                                          fieldTotalValue =
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[3]
+                                            ];
+                                        }
+                                      }
+                                      if (i.name == "This year's results") {
+                                        if (
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[0]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[1]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[2]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[3]
+                                          ] != undefined &&
+                                          yearHeadingWiseSumForSelectedYear[
+                                            isSumFieldNames[4]
+                                          ] != undefined
+                                        ) {
+                                          fieldTotalValue =
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[0]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[1]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[2]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[3]
+                                            ] +
+                                            yearHeadingWiseSumForSelectedYear[
+                                              isSumFieldNames[4]
+                                            ];
+                                        }
+                                      }
+                                    }
+
+                                    return (
+                                      <div className="ISAmountBoxRowDiv">
+                                        {yearsInResponse.includes(year) ? (
+                                          <div>
+                                            {i.issumfield ? (
+                                              <InputNumber
+                                                mode="decimal"
+                                                inputId="integeronly"
+                                                className="ISAmountBoxDisabled"
+                                                disabled={true}
+                                                placeholder={fieldTotalValue}
+                                              />
+                                            ) : (
+                                              <div>
+                                                <InputNumber
+                                                  mode="decimal"
+                                                  inputId="integeronly"
+                                                  value={
+                                                    yearHeadingFieldWiseAmount[
+                                                      selectedYear
+                                                    ][header] &&
+                                                    yearHeadingFieldWiseAmount[
+                                                      selectedYear
+                                                    ][header][i.name] !=
+                                                      undefined
+                                                      ? yearHeadingFieldWiseAmount[
+                                                          selectedYear
+                                                        ][header][i.name]
+                                                      : ""
+                                                  }
+                                                  onValueChange={(e) => {
+                                                    this.amountOnChange(
+                                                      selectedYear,
+                                                      header,
+                                                      i.name,
+                                                      i.acceptonlynegativevalues,
+                                                      e
+                                                    );
+                                                  }}
+                                                  className={
+                                                    wrongFields.includes(bb)
+                                                      ? "ISNegativeAmountBox"
+                                                      : "ISAmountBox"
+                                                  }
+                                                />
+                                                {wrongFields.includes(bb) && (
+                                                  <i
+                                                    className="fa fa-exclamation-circle"
+                                                    id="negativeNumberWarningIcon"
+                                                    title="Negative Value is Recommended"
+                                                  ></i>
+                                                )}
+                                              </div>
+                                            )}
+                                          </div>
+                                        ) : (
+                                          <div>
+                                            <InputNumber
+                                              mode="decimal"
+                                              inputId="integeronly"
+                                              className="ISAmountBoxDisabled"
+                                              disabled={true}
+                                              tooltip="This field is not applicable for the selected financial year"
+                                            />
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  }
+                                )}
+                              </Col>
+                            </Row>
                           </div>
                         );
-                      })}
-                      <center>
-                
-
-                        <Button
-                          label="Previous"
-                          aria-label="Annual Report"
-                          onClick={() => this.props.history.push('/year')}
-                          id="annualReportBtn"
-                          className="btn_Annual"
-                          style={{
-                            width: "157px",
-                            height: "44px",
-                            fontSize: "1.2rem",
-                          }}
-                        />
-                        <Button
-                          label="Save & Continue"
-                          aria-label="Annual Report"
-                          onClick={() => this.navigateToBalanceSheet()}
-                          id="annualReportBtn"
-                          className="btn_Annual"
-                          style={{
-                            width: "227px",
-                            height: "44px",
-                            fontSize: "1.2rem",
-                          }}
-                        />
-                      </center>
-                    </div>
-                  </div>
-                </TabPanel>
-                <TabPanel header="Balance Sheet">
-                  <p>Work in progress</p>
-                </TabPanel>
-              </TabView>
-            </div>
-          </div>
-        )}
-        <ScrolltoTop />
+                      }
+                    })}
+                  </AccordionTab>
+                );
+              })}
+            </Accordion>
+          </Col>
+        </Row>
       </div>
     );
   }
 }
+
 export default connect(mapStateToProps, null)(IncomeStatement);
