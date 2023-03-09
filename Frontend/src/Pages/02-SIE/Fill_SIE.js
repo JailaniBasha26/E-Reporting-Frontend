@@ -7,14 +7,15 @@ import { Button } from "primereact/button";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import "./Fill_SIE.css";
-import Navbar from "../00-Corporate Page/Navbar"
+import Navbar from "../00-Corporate Page/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import Footerpage from "../Footerpage/Footerpage";         
+import Footerpage from "../Footerpage/Footerpage";
 
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType,
+    sessionDetails: state.sessionDetails,
   };
 };
 
@@ -25,14 +26,19 @@ class Fill_SIE extends Component {
   }
 
   navigateToInformationPage(e) {
-    let { annualReportType } = this.props;
+    let { annualReportType, sessionDetails } = this.props;
     const reportType = {
       type: e,
     };
     annualReportType.values = reportType;
     annualReportType.values.status = true;
-    this.props.history.push("/info");
-    console.log("Its navigating");
+    sessionDetails["sessionDetails"].values.currentPage = "info";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+    const annualReport = "/annualreport/";
+
+    this.props.history.push(
+      annualReport + sessionDetails["sessionDetails"].values.uuid + "/info"
+    );
   }
 
   render() {
@@ -62,18 +68,15 @@ class Fill_SIE extends Component {
               <Button
                 label="Import SIE File"
                 aria-label="Annual Report"
-                onClick={(e) =>
-                  this.props.history.push("/HooksTry")
-                }
+                onClick={(e) => this.props.history.push("/HooksTry")}
                 id="annualReportBtn"
                 className="btn_Annual"
               />
-              
             </div>
           </div>
         </center>
         <ScrolltoTop />
-        <Footerpage/>
+        <Footerpage />
       </div>
     );
   }

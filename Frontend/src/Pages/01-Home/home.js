@@ -6,7 +6,7 @@ import { Button } from "primereact/button";
 import Navbar from "../00-Corporate Page/Navbar";
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import Footerpage from "../Footerpage/Footerpage";        
+import Footerpage from "../Footerpage/Footerpage";
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     companyInformation: state.companyInformation.companyInformation.values,
     financialYear: state.financialYear.financialYear,
     incomeStatement: state.incomeStatement.incomeStatement,
+    sessionDetails: state.sessionDetails,
   };
 };
 class home extends Component {
@@ -21,6 +22,7 @@ class home extends Component {
     super(props);
     this.state = {
       carouselUrls: [],
+      refresh: false,
     };
     this.carouselRender = this.carouselRender.bind(this);
   }
@@ -62,7 +64,15 @@ class home extends Component {
   }
 
   annualReport() {
-    this.props.history.push("/fileSIE");
+    const { sessionDetails } = this.props;
+
+    sessionDetails["sessionDetails"].values.currentPage = "fileSIE";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+
+    const annualReport = "/annualreport/";
+    this.props.history.push(
+      annualReport + sessionDetails["sessionDetails"].values.uuid + "/fileSIE"
+    );
   }
 
   render() {
@@ -102,7 +112,7 @@ class home extends Component {
           </div>
         </div>
         <ScrolltoTop />
-        <Footerpage/>
+        <Footerpage />
       </div>
     );
   }

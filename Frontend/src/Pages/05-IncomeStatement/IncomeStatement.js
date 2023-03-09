@@ -117,21 +117,22 @@ class IncomeStatement extends Component {
 
   componentWillMount() {
     yearHeadingWiseSum = {};
+    // console.log("--- REFRESH WILL MONUT", window.location.href);
   }
   componentDidMount() {
     const { financialYear } = this.props;
     let financialYearValues = financialYear.values;
     //TODO: REMOVE IT
-    financialYearValues = {
-      0: {
-        from: "2022-12-31T18:30:00.000Z",
-        to: "2023-02-22T18:30:00.000Z",
-      },
-      1: {
-        from: "2021-12-31T18:30:00.000Z",
-        to: "2022-12-30T18:30:00.000Z",
-      },
-    };
+    // financialYearValues = {
+    //   0: {
+    //     from: "2022-12-31T18:30:00.000Z",
+    //     to: "2023-02-22T18:30:00.000Z",
+    //   },
+    //   1: {
+    //     from: "2021-12-31T18:30:00.000Z",
+    //     to: "2022-12-30T18:30:00.000Z",
+    //   },
+    // };
 
     let selectedFinancialYears = [];
     formattedYearHeader = [];
@@ -223,6 +224,15 @@ class IncomeStatement extends Component {
     }
     let open = lengthArray;
     this.setState({ activeIndex: open });
+  }
+
+  navigateToHomePage() {
+    const { sessionDetails } = this.props;
+    sessionDetails["sessionDetails"].values.currentPage = "home";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+
+    this.props.history.push("/");
+    window.location.reload(false);
   }
 
   render() {
@@ -543,6 +553,23 @@ class IncomeStatement extends Component {
             </Accordion>
           </Col>
         </Row>
+
+        <center className="incomeStatementSaveBtnCenter">
+          <Button
+            label="Previous"
+            aria-label="Annual Report"
+            // onClick={() => this.props.history.push('/year')}
+            id="annualReportBtn"
+            className="incomeStatementSaveBtn"
+          />
+          <Button
+            label="Save & Continue"
+            aria-label="Annual Report"
+            onClick={() => this.navigateToHomePage()}
+            id="annualReportBtn"
+            className="incomeStatementSaveBtn"
+          />
+        </center>
       </div>
     );
   }

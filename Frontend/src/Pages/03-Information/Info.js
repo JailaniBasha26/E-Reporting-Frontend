@@ -9,17 +9,19 @@ import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import Footerpage from "../Footerpage/Footerpage";   
+import Footerpage from "../Footerpage/Footerpage";
 import "./Info.css";
 
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
     companyInformation: state.companyInformation.companyInformation,
+    sessionDetails: state.sessionDetails,
   };
 };
 
 let isAllFieldsFilled = false;
+const annualReport = "/annualreport/";
 class Info extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +47,6 @@ class Info extends Component {
   componentDidMount() {
     const { annualReportType, companyInformation } = this.props;
 
-    //console.log(companyInformation, ">> INFO");
     if (
       companyInformation != undefined &&
       companyInformation.values != undefined
@@ -104,6 +105,8 @@ class Info extends Component {
   navigateToYearPage() {
     ////////////////////////////////////////
     ////////////////////////////////////////
+    const { sessionDetails } = this.props;
+
     let localData = localStorage.getItem("localData");
     let localArray = JSON.parse(localData);
 
@@ -130,7 +133,6 @@ class Info extends Component {
       arryObj.push(obj);
       localStorage.setItem("localData", JSON.stringify(arryObj));
     }
-    console.log(localArray);
     ////////////////////////////////////////
     ////////////////////////////////////////
     const {
@@ -153,22 +155,38 @@ class Info extends Component {
     companyInformation.values = organizationDetails;
     companyInformation.values.isExistingOrganization = isExistingOrganization;
 
+    sessionDetails["sessionDetails"].values.currentPage = "year";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
     if (!isExistingOrganization) {
       axios
         .post("/postOrganizationDetails", organizationDetails)
         .then((data) => {
-          this.props.history.push("/year");
+          this.props.history.push(
+            annualReport +
+              sessionDetails["sessionDetails"].values.uuid +
+              "/year"
+          );
           // IncomeStatement
           // this.props.history.push("/IncomeStatement");
         })
         .catch((err) => {});
     } else {
-      this.props.history.push("/year");
+      this.props.history.push(
+        annualReport + sessionDetails["sessionDetails"].values.uuid + "/year"
+      );
       //IncomeStatement
       // this.props.history.push("/IncomeStatement");
     }
   }
 
+  navigateToFileSIEPage() {
+    const { sessionDetails } = this.props;
+    sessionDetails["sessionDetails"].values.currentPage = "fileSIE";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+    this.props.history.push(
+      annualReport + sessionDetails["sessionDetails"].values.uuid + "/fileSIE"
+    );
+  }
   companyNameAndCityOnChange(e, field) {
     if (field == "companyName") {
       this.setState({
@@ -273,7 +291,6 @@ class Info extends Component {
     else isAllFieldsFilled = true;
 
     let postalAddressLength = postaladdress.trim().length;
-    //console.log(postalAddressLength);
 
     return (
       <div>
@@ -375,7 +392,7 @@ class Info extends Component {
               <Button
                 label="Previous"
                 aria-label="Annual Report"
-                onClick={() => this.props.history.push("/fileSIE")}
+                onClick={() => this.navigateToFileSIEPage()}
                 id="annualReportBtn"
                 className="btn_Annual"
                 style={{
@@ -419,7 +436,7 @@ class Info extends Component {
           </div>
         </center>
         <ScrolltoTop />
-        <Footerpage/>
+        <Footerpage />
       </div>
     );
   }

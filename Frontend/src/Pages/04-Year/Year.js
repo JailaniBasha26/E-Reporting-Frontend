@@ -8,27 +8,27 @@ import moment from "moment";
 import { Toast } from "primereact/toast";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import {Slider} from '@material-ui/core';
+import { Slider } from "@material-ui/core";
 import "./Year.css";
 
 const mark = [
   {
-      value:0,
-      label:"0"
+    value: 0,
+    label: "0",
   },
   {
-      value:1,
-      label:"1"
+    value: 1,
+    label: "1",
   },
   {
-      value:2,
-      label:"2"
+    value: 2,
+    label: "2",
   },
   {
-      value:3,
-      label:"3"
+    value: 3,
+    label: "3",
   },
-]
+];
 let inc = [0, 1, 2];
 let yearCount = [],
   financialYearDetails = {},
@@ -40,13 +40,15 @@ let yearCount = [],
   to = "",
   redirectStatus = true;
 
-  let dataKeyIn = ""; 
+let dataKeyIn = "";
+const annualReport = "/annualreport/";
 
 const mapStateToProps = (state) => {
   return {
     annualReportType: state.annualReportType.annualReportType.values,
     companyInformation: state.companyInformation.companyInformation.values,
     financialYear: state.financialYear.financialYear,
+    sessionDetails: state.sessionDetails,
   };
 };
 class Year extends Component {
@@ -59,7 +61,7 @@ class Year extends Component {
       dummy: "",
       isEndingDateEarlier: false,
       isAllFieldsEmpty: false,
-      sliderValue:0,
+      sliderValue: 0,
     };
 
     this.fisical_year = [
@@ -75,7 +77,6 @@ class Year extends Component {
 
   dateOnChange(dateValue, Idx, postion) {
     let abc = dateValue.originalEvent.nativeEvent.data;
-    console.log(abc);
     this.setState({ isAllFieldsEmpty: false });
     financialYearDetailsObj = {
       from: "",
@@ -159,10 +160,9 @@ class Year extends Component {
 
   yearCountOnChange(e) {
     if (Object.keys(financialYearDetails).length === 0) {
-      
       this.setState({
-        sliderValue:0
-      })
+        sliderValue: 0,
+      });
 
       this.toast.show({
         severity: "error",
@@ -170,7 +170,6 @@ class Year extends Component {
         detail: "Please fill the starting date and ending date",
         life: 5000,
       });
-
     }
     if (
       financialYearDetails[0].from !== "" &&
@@ -257,19 +256,30 @@ class Year extends Component {
 
   handleSliderChange = (event, newValue) => {
     this.setState({
-      sliderValue:newValue
-    })
+      sliderValue: newValue,
+    });
 
     this.yearCountOnChange(newValue);
-
   };
 
-  componentDidMount() {
+  componentWillMount() {
     const { financialYear } = this.props;
+    financialYearDetails = {};
+    yearCount = [];
+  }
+
+  navigateToYearPage() {
+    const { sessionDetails } = this.props;
+
+    sessionDetails["sessionDetails"].values.currentPage = "info";
+    sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+    this.props.history.push(
+      annualReport + sessionDetails["sessionDetails"].values.uuid + "/Info"
+    );
   }
 
   navigateToIncomeStatementPage() {
-    const { financialYear } = this.props;
+    const { financialYear, sessionDetails } = this.props;
     financialYear.values = financialYearDetails;
     this.setState({
       dummy: "",
@@ -297,7 +307,13 @@ class Year extends Component {
         life: 2000,
       });
     } else {
-      this.props.history.push("/IncomeStatement02");
+      sessionDetails["sessionDetails"].values.currentPage = "incomeStatement";
+      sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
+      this.props.history.push(
+        annualReport +
+          sessionDetails["sessionDetails"].values.uuid +
+          "/IncomeStatement"
+      );
     }
   }
 
@@ -317,9 +333,6 @@ class Year extends Component {
             to = i.to;
           }
         });
-    }
-
-    if (financialYearDetails[0] != undefined) {
     }
 
     return (
@@ -416,20 +429,20 @@ class Year extends Component {
               </span>
             </div>
             <div>
-              <div className="slider-div">  
-            <Slider 
-                // color="secondary"
-                defaultValue={0}
-                min={0}
-                max={3}
-                step={1}
-                marks={mark}
-                valueLabelDisplay='auto'
-                value={this.state.sliderValue}
-                onChange={this.handleSliderChange.bind()}
-                className="slider-main"
-            />
-            </div>
+              <div className="slider-div">
+                <Slider
+                  // color="secondary"
+                  defaultValue={0}
+                  min={0}
+                  max={3}
+                  step={1}
+                  marks={mark}
+                  valueLabelDisplay="auto"
+                  value={this.state.sliderValue}
+                  onChange={this.handleSliderChange.bind()}
+                  className="slider-main"
+                />
+              </div>
             </div>
             <br></br>
             {yearCount.map((i, idx) => {
@@ -491,7 +504,7 @@ class Year extends Component {
               <Button
                 label="Previous"
                 aria-label="Annual Report"
-                onClick={() => this.props.history.push("/Info")}
+                onClick={() => this.navigateToYearPage()}
                 id="annualReportBtn"
                 className="btn_Annual"
                 style={{
@@ -516,7 +529,6 @@ class Year extends Component {
           </div>
         </center>
         <ScrolltoTop />
-        
       </div>
     );
   }
