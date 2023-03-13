@@ -7,11 +7,7 @@ import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
-<<<<<<< Updated upstream
-import  Dropnav from  "../src/Pages/00-Corporate Page/Dropnav";
-=======
 import PlayGround from "../src/Pages/90-PlayGround/PlayGround";
->>>>>>> Stashed changes
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 

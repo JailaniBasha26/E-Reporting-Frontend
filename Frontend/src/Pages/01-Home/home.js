@@ -3,12 +3,8 @@ import { Carousel } from "primereact/carousel";
 import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
-<<<<<<< Updated upstream
-import  Dropnav from  "../00-Corporate Page/Dropnav"
-=======
 // import Navbar from "../00-Corporate Page/Navbar";
- import Navbar from "../Dropdown/Dropnav"
->>>>>>> Stashed changes
+ import Dropnav from "../Dropdown/Dropnav"
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Footerpage from "../Footerpage/Footerpage";

@@ -1,10 +1,6 @@
 .footerpagediv {
   position: relative;
   background: #112D4E;
-<<<<<<< Updated upstream
-  /* height: 230px; */
-=======
->>>>>>> Stashed changes
   padding: 30px 170px;
   display: flex;
   flex-direction: column;
@@ -86,11 +82,7 @@ text-align: end;
 
 .footer_div{
   background-color: #222020;
-<<<<<<< Updated upstream
-  color: #222020;
-=======
   color: black;
->>>>>>> Stashed changes
 }
 
 .Contact_btn{
