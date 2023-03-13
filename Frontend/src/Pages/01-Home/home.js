@@ -3,7 +3,12 @@ import { Carousel } from "primereact/carousel";
 import axios from "axios";
 import "./home.css";
 import { Button } from "primereact/button";
+<<<<<<< Updated upstream
 import  Dropnav from  "../00-Corporate Page/Dropnav"
+=======
+// import Navbar from "../00-Corporate Page/Navbar";
+ import Navbar from "../Dropdown/Dropnav"
+>>>>>>> Stashed changes
 import { connect } from "react-redux";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Footerpage from "../Footerpage/Footerpage";
@@ -66,12 +71,12 @@ class home extends Component {
   annualReport() {
     const { sessionDetails } = this.props;
 
-    sessionDetails["sessionDetails"].values.currentPage = "fileSIE";
+    sessionDetails["sessionDetails"].values.currentPage = "companyInfo";
     sessionDetails["sessionDetails"].values.IsAnnualReportSubmitted = false;
 
     const annualReport = "/annualreport/";
     this.props.history.push(
-      annualReport + sessionDetails["sessionDetails"].values.uuid + "/fileSIE"
+      annualReport + sessionDetails["sessionDetails"].values.uuid + "/companyInfo"
     );
   }
 

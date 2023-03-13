@@ -1,0 +1,79 @@
+.show-btn{
+    width: 100px;
+}
+
+.contact-dialog {
+    /* border: 5px solid black; */
+    width: 800px;
+    height: 603px;
+}
+
+.contact-col1 {
+    /* border: 1px solid black; */
+    margin-top: -81px;
+    margin-left: -12px;
+    /* z-index: 999; */
+    /* position: absolute; */
+    
+}
+
+.contact-col1 > img {
+    z-index: 999;
+    position: absolute;
+    height: 604px;
+    /* border: 5px solid black; */
+    width: 380px;
+    top: 0px;
+    left: 0px;
+} 
+
+
+#username,#email,#mobile,#message {
+    margin: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-radius: 0;
+    width: 300px;
+}
+
+
+    .contact-h2-1 {
+        /* border: 1px solid black; */
+        position: absolute;
+        z-index: 999;
+        text-align: center;
+        right: 80px;
+        top: 30px;
+    }
+
+    .contact-h2-2 {
+        /* border: 1px solid black; */
+        position: absolute;
+        z-index: 999;
+        top: 80px;
+        text-align: center;
+        right: 130px;
+    }
+
+          
+    .contact-submit{
+        font-size: 0.9em;
+        font-weight: 600;
+        background-color: transparent;
+        cursor:pointer;
+        border-radius: 20px;
+        border: 2px solid #112D4E;
+        color :#112D4E; 
+        padding: 10px 25px; 
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size :1em;
+      }
+        
+          
+      .contact-submit:hover{
+          border: 2px solid transparent;
+          background-color:#112D4E ;
+          color :#fff;
+        }
+       

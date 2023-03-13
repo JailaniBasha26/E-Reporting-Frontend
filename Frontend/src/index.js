@@ -7,7 +7,11 @@ import Year from "./Pages/04-Year/Year";
 import home from "./Pages/01-Home/home";
 import Info from "./Pages/03-Information/Info";
 import Steps from "../src/Pages/Steps/steps";
+<<<<<<< Updated upstream
 import  Dropnav from  "../src/Pages/00-Corporate Page/Dropnav";
+=======
+import PlayGround from "../src/Pages/90-PlayGround/PlayGround";
+>>>>>>> Stashed changes
 import Login from "./Pages/Login/Login";
 import ScrollTopDemo from "./Pages/ScrollTop/ScrollTop";
 
@@ -33,6 +37,9 @@ import Theme from "./Pages/Theme/Theme";
 import ThemeTry from "./Pages/Theme/ThemeTry";
 import Merge from "./Pages/Merge/Merge";
 import axios from "axios";
+import Dropnav from "./Pages/Dropdown/Dropnav";
+import Contact from "./Pages/Contact Us/Contact";
+//import Navbar from "./Pages/00-Corporate Page/Navbar";
 
 const history = createBrowserHistory();
 let store = createStore(reducers, applyMiddleware(thunk));
@@ -67,6 +74,7 @@ axios.get("/generateUUID").then((response) => {
   const year = annualReport + uuid + "/year";
   const info = annualReport + uuid + "/info";
   const incomeStatement = annualReport + uuid + "/incomeStatement";
+  const companyInfo = annualReport + uuid + "/companyInfo";
 
   render(
     <Provider store={store}>
@@ -76,10 +84,11 @@ axios.get("/generateUUID").then((response) => {
           <Route exact path={fileSIE} component={File_SIE} />
           <Route exact path={info} component={Info} />
           <Route exact path={year} component={Year} />
-          <Route exact path={incomeStatement} component={IncomeStatement} />
+          <Route exact path="/incomeStatement" component={IncomeStatement} />
           <Route exact path="/steps" component={Steps} />
           <Route exact path="/ThemeTry" component={ThemeTry} />
-          <Route exact path="/merge" component={Merge} />
+          <Route exact path={companyInfo} component={Merge} />
+          <Route exact path="/contact" component={Contact} />
         </Switch>
       </HashRouter>
     </Provider>,

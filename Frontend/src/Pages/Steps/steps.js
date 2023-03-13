@@ -22,8 +22,12 @@ class steps extends Component {
   componentDidMount() {
     let ls = JSON.parse(localStorage.getItem("localData"));
 
+<<<<<<< Updated upstream
     ls &&
       ls.length &&
+=======
+    ls&&ls.length &&
+>>>>>>> Stashed changes
       ls.map((i, idx) => {
         const bb = { name: "", id: "" };
         (bb.name = i.companyName), (bb.id = i.organizationNumber);
@@ -70,4 +74,10 @@ class steps extends Component {
   }
 }
 
+<<<<<<< Updated upstream
 export default steps;
+=======
+export default steps;
+
+
+>>>>>>> Stashed changes

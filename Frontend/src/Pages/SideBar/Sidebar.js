@@ -115,7 +115,7 @@ const routes = [
 ];
 
 const Sidebar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   const inputAnimation = {
     hidden: {
@@ -158,11 +158,11 @@ const Sidebar = ({ children }) => {
           animate={{
             width: isOpen ? "250px" : "50px",
 
-            transition: {
-              duration: 0.5,
-              type: "spring",
-              damping: 10,
-            },
+            //transition: {
+             // duration: 0.5,
+              // type: "spring",
+              // damping: 10,
+            //},
           }}
           className={`sidebar `}
         >

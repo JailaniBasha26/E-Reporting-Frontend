@@ -8,13 +8,29 @@
 
 .p-button.p-component.user-btn
 {
-    margin: 0px 20px;
+    margin: 0px 0px;
     margin-bottom: 20px;
     color: #ffffff;
+<<<<<<< Updated upstream
     background: rgb(45, 151, 250);
+=======
+    background: #3F72AF;
+>>>>>>> Stashed changes
     border: none;
     font-size: 1rem;
-    transition: red 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    transition: #3F72AF 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    border-radius: 3px;
+}
+
+.p-button.p-component.user-btn:hover
+{
+    margin: 0px 0px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    background: #112D4E;
+    border: none;
+    font-size: 1rem;
+    transition: #112D4E 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 3px;
 }
 

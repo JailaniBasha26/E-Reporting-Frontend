@@ -9,11 +9,18 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import axios from "axios";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
+<<<<<<< Updated upstream
 import  Dropnav from  "../00-Corporate Page/Dropnav"
+=======
+>>>>>>> Stashed changes
 import { connect } from "react-redux";
 import Footerpage from "../Footerpage/Footerpage";
 import MergeYear from './MergeYear'
 import Sidebar from "../Sidebar/Sidebar";
+<<<<<<< Updated upstream
+=======
+import Dropnav from "../Dropdown/Dropnav";
+>>>>>>> Stashed changes
 import "./Merge.css";
 
 const mapStateToProps = (state) => {
@@ -286,10 +293,17 @@ class Merge extends Component {
                 label="Import SIE"
                 aria-label="import_SIE"
                 id="import_SIE"
+<<<<<<< Updated upstream
                  onClick={(e) =>
                    this.navigateToInformationPage("Fill in by hand")
                  }
                 //  id="import_Btn"
+=======
+                // onClick={(e) =>
+                //   this.navigateToInformationPage("Fill in by hand")
+                // }
+                //id="annualReportBtn"
+>>>>>>> Stashed changes
                 className="import-sie"
               />
               </div>
@@ -381,10 +395,17 @@ class Merge extends Component {
                 </div>
               </Fieldset>
               {
+<<<<<<< Updated upstream
                 !(this.state.isWrongOrganizationNo) &&
                 !(this.state.isWrongPostalcodeFormat) &&
                 this.state.companyName !== "" &&
                 this.state.postaladdress !== "" &&
+=======
+                // !(this.state.isWrongOrganizationNo) &&
+                // !(this.state.isWrongPostalcodeFormat) &&
+                // this.state.companyName !== "" &&
+                // this.state.postaladdress !== "" &&
+>>>>>>> Stashed changes
                  <MergeYear />
               }
             </div>

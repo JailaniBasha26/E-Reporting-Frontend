@@ -71,7 +71,11 @@
   margin: 5px;
   width: 250px;
   height: 55px;
+<<<<<<< Updated upstream
   background: rgb(45, 151, 250);
+=======
+  background: #3F72AF;
+>>>>>>> Stashed changes
   font-size: 1.5rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

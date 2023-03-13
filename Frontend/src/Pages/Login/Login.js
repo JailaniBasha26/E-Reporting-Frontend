@@ -189,8 +189,12 @@ function getLoginEmail() {
 
   return (
     <div>
-      <Button className="user-btn" onClick={() => setVisible(true)}>
-        <FaUser />
+      <Button 
+      value="Login"
+        className="user-btn" 
+        onClick={() => setVisible(true)}>
+        {/* <FaUser /> */}
+      Login
       </Button>
       <Sidebar
         visible={visible}

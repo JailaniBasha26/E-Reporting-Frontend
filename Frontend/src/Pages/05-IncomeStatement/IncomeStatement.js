@@ -272,7 +272,7 @@ class IncomeStatement extends Component {
             xl={1}
             style={{ width: "64px", zIndex: 1 }}
           >
-            <Sidebar />
+            {/* <Sidebar /> */}
           </Col>
 
           <Col xs={11} sm={11} md={11} lg={11} xl={11}>

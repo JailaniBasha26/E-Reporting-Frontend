@@ -1,0 +1,15 @@
+
+
+.lang-div{
+    border: 2px solid black;
+}
+
+.lang-img {
+    border: 1px solid black;
+    margin: 20px 20px;
+    margin-bottom: 30px;
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+    padding-bottom: 20px;
+}
