@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import { Calendar } from "primereact/calendar";
 import { Dropdown } from "primereact/dropdown";
 import { Button } from "primereact/button";
-import Navbar from "../00-Corporate Page/Navbar";
+import  Dropnav from  "../00-Corporate Page/Dropnav"
 import { connect } from "react-redux";
 import moment from "moment";
 import { Toast } from "primereact/toast";
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
-import { Slider } from "@material-ui/core";
+import {Slider} from '@material-ui/core';
+import Footerpage from "../Footerpage/Footerpage";      
 import "./Year.css";
 
 const mark = [
@@ -336,8 +337,8 @@ class Year extends Component {
     }
 
     return (
-      <div>
-        <Navbar />
+      <div className="year_divpage">
+        <Dropnav />
         <Sidebar />
         <Toast
           ref={(el) => {
@@ -529,6 +530,7 @@ class Year extends Component {
           </div>
         </center>
         <ScrolltoTop />
+        <Footerpage/>
       </div>
     );
   }

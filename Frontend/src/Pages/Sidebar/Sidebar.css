@@ -18,9 +18,9 @@ main {
 }
 
 .sidebar {
-  background: rgb(217, 66, 66);
+  background: #2f4e88ee;
   color: white;
-  height: 100vh;
+  height: 90vh;
   overflow-y: auto;
 }
 
@@ -82,7 +82,7 @@ main {
 .link_text {
   white-space: nowrap;
   font-size: 15px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: Garamond, serif;
   padding-top: 10px;
 }
 

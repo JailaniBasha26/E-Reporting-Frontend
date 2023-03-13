@@ -12,6 +12,10 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
+.carousel-demo{
+  background-color: #DBE2EF;
+}
+
 .p-carousel-container {
   height: 30em;
 }
@@ -26,7 +30,7 @@
   justify-self: center;
   margin: 0 auto;
   height: 100vh;
-  background-color: white;
+  background-color: #DBE2EF;
   z-index: 1;
   width: 100%;
   max-width: 1300px;
@@ -39,6 +43,7 @@
   font-weight: 700;
   margin-top: 1rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: #DBE2EF;
 }
 
 .btn:hover,
@@ -57,7 +62,7 @@
 #annualReportBtn {
   border-radius: 10px;
   border: none;
-  color: #ffffff;
+  color: #DBE2EF;
   text-align: center;
   padding: 15px;
   width: 200px;
@@ -66,7 +71,7 @@
   margin: 5px;
   width: 250px;
   height: 55px;
-  background: red;
+  background: rgb(45, 151, 250);
   font-size: 1.5rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -97,7 +102,7 @@
 }
 
 .p-carousel .p-carousel-indicators .p-carousel-indicator button {
-  background-color: #e9ecef;
+  background-color: #DBE2EF;
   width: 10px !important;
   height: 10px !important;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;

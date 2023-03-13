@@ -1,7 +1,7 @@
 import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
-import  Navbar from './Navbar';
+import Dropnav from  "../00-Corporate Page/Dropnav"
 import HeroSection from './HeroSection';
 import Testimonial from './Testimonial';
 import Subscribe from './Subscribe';
@@ -16,7 +16,7 @@ import ScrolltoTop from "../ScrollTop/ScrollTop";
 function Cards() {
   return (
     <div>
-      <Navbar />
+      <Dropnav />
       <HeroSection />
       {/* <CardItem /> */}
     <div className='cards'>

@@ -8,7 +8,7 @@ import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import NavBar from "../00-Corporate Page/Navbar";
+import Dropnav from  "../00-Corporate Page/Dropnav"
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Sidebar from "../Sidebar/Sidebar";
 import Steps from "../Steps/steps";
@@ -239,7 +239,7 @@ class IncomeStatement extends Component {
     const { checked, activeIndex } = this.state;
     return (
       <div ref={this.myRef}>
-        <NavBar />
+        <Dropnav />
 
         <label className="ISExapndCollapsToggleLbl">
           <div>

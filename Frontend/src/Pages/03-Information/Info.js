@@ -4,7 +4,7 @@ import { InputNumber } from "primereact/inputnumber";
 import { InputMask } from "primereact/inputmask";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import Navbar from "../00-Corporate Page/Navbar";
+import  Dropnav from  "../00-Corporate Page/Dropnav"
 import axios from "axios";
 import { connect } from "react-redux";
 import Sidebar from "../Sidebar/Sidebar";
@@ -293,8 +293,8 @@ class Info extends Component {
     let postalAddressLength = postaladdress.trim().length;
 
     return (
-      <div>
-        <Navbar />
+      <div className="info_divpage">
+        <Dropnav />
         <Sidebar />
         <Toast
           ref={(el) => {

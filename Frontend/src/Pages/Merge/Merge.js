@@ -7,11 +7,13 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
-import Navbar from "../00-Corporate Page/Navbar";
 import axios from "axios";
-import { connect } from "react-redux";
-import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
+import  Dropnav from  "../00-Corporate Page/Dropnav"
+import { connect } from "react-redux";
+import Footerpage from "../Footerpage/Footerpage";
+import MergeYear from './MergeYear'
+import Sidebar from "../Sidebar/Sidebar";
 import "./Merge.css";
 
 const mapStateToProps = (state) => {
@@ -277,9 +279,25 @@ class Merge extends Component {
     let postalAddressLength = postaladdress.trim().length;
     return (
       <div>
+        <Dropnav />
+        <Sidebar />
+        <div className="fill-btn-div">
+              <Button
+                label="Import SIE"
+                aria-label="import_SIE"
+                id="import_SIE"
+                 onClick={(e) =>
+                   this.navigateToInformationPage("Fill in by hand")
+                 }
+                //  id="import_Btn"
+                className="import-sie"
+              />
+              </div>
         <center>
           <div className="info-year-container">
+          
             <div className="card">
+            
               <Fieldset legend="Fill in the company details below">
                 <div>
                   <div className="info-number-name">
@@ -300,20 +318,20 @@ class Merge extends Component {
                             </p>
                           </div>
                         ) : ( */}
-                          <span className="p-float-label">
-                            <InputMask
-                              className="info-org-no"
-                              mask="999999-9999"
-                              //placeholder="xxxxxx-xxxx"
-                              value={this.state.organizationNo}
-                              onChange={(e) => this.organizationNoOnChange(e)}
-                              mode="decimal"
-                              useGrouping={false}
-                            />
-                            <label htmlFor="OrganizationNumber">
-                              Organization Number
-                            </label>
-                          </span>
+                        <span className="p-float-label">
+                          <InputMask
+                            className="info-org-no"
+                            mask="999999-9999"
+                            //placeholder="xxxxxx-xxxx"
+                            value={this.state.organizationNo}
+                            onChange={(e) => this.organizationNoOnChange(e)}
+                            mode="decimal"
+                            useGrouping={false}
+                          />
+                          <label htmlFor="OrganizationNumber">
+                            Organization Number
+                          </label>
+                        </span>
                         {/* )} */}
                       </Col>
                       <Col className="info-col">
@@ -362,20 +380,18 @@ class Merge extends Component {
                   </div>
                 </div>
               </Fieldset>
-            </div>
-          </div>
-        </center>
-             {
+              {
                 !(this.state.isWrongOrganizationNo) &&
                 !(this.state.isWrongPostalcodeFormat) &&
                 this.state.companyName !== "" &&
                 this.state.postaladdress !== "" &&
-                (
-                    <div>
-                        Fill in the Financial Details
-                    </div>
-                )
-            } 
+                 <MergeYear />
+              }
+            </div>
+          </div>
+        </center>
+        <ScrolltoTop />
+        <Footerpage />
       </div>
     );
   }

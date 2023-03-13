@@ -1,117 +1,116 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
 import { HiOutlineDocumentReport } from "react-icons/hi";
-import {
-  MdSend,
-  MdOutlineLiveHelp,
-  MdOutlineCorporateFare,
-  MdPayment,
-  MdSendToMobile,
-} from "react-icons/md";
-import {
-  BsFileEarmarkPdf,
-  BsCalendarDate,
-  BsFileEarmarkSpreadsheet,
-  BsStickies,
-} from "react-icons/bs";
+import { MdSend,MdOutlineLiveHelp,MdOutlineCorporateFare,MdPayment,MdSendToMobile } from "react-icons/md";
+import { BsFileEarmarkPdf,BsCalendarDate,BsFileEarmarkSpreadsheet,BsStickies } from "react-icons/bs";
 import { BiSupport } from "react-icons/bi";
-import { AiFillDashboard } from "react-icons/ai";
-import { TbFileInvoice, TbSignature } from "react-icons/tb";
-import { CgNotes } from "react-icons/cg";
-import { RxDoubleArrowRight, RxDoubleArrowLeft } from "react-icons/rx";
+import {AiFillDashboard } from "react-icons/ai";
+import {TbFileInvoice,TbSignature } from "react-icons/tb";
+import {CgNotes } from "react-icons/cg";
+import {RxDoubleArrowRight,RxDoubleArrowLeft } from "react-icons/rx";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import Steps from "../Steps/steps";
-import "./Sidebar.css";
+import './Sidebar.css';
 
 const routes = [
   {
+    
     name: "My Dashboard",
     icon: <AiFillDashboard className="icon" />,
-    path: "/year",
+    path:'/year',
     subRoutes: [
       {
+       
         name: "User History",
-        icon: <MdOutlineCorporateFare className="icon" />,
-        path: "/Userhistory",
-      },
-    ],
+        icon: <MdOutlineCorporateFare className="icon"/>,
+        path:'/Userhistory',
+      }
+    ]
   },
   {
+   
     name: "Annual Report",
     icon: <HiOutlineDocumentReport className="icon" />,
-    path: "/info",
+    path:'/info',
     subRoutes: [
       {
+       
         name: "Company Information ",
-        icon: <MdOutlineCorporateFare className="icon" />,
-        path: "/info",
+        icon: <MdOutlineCorporateFare className="icon"/>,
+        path:'/info',
       },
+
       {
-        name: "Financial Year",
-        icon: <BsCalendarDate className="icon" />,
-        path: "/info",
-      },
-      {
+        
         name: "Income Statement",
-        icon: <TbFileInvoice className="icon" />,
-        path: "/info",
+        icon: <TbFileInvoice className="icon"/>,
+        path:'/info',
       },
       {
+        
         name: "Balance Sheet",
-        icon: <BsFileEarmarkSpreadsheet className="icon" />,
-        path: "/info",
+        icon: <BsFileEarmarkSpreadsheet className="icon"/>,
+        path:'/info',
       },
       {
+        
         name: "Notes",
-        icon: <BsStickies className="icon" />,
-        path: "/fileSIE",
+        icon: <BsStickies className="icon"/>,
+        path:'/fileSIE',
       },
       {
+        
         name: "Management Statement",
-        icon: <CgNotes className="icon" />,
-        path: "/info",
+        icon: <CgNotes className="icon"/>,
+        path:'/info',
       },
-    ],
+    ]
   },
   {
+    
     name: "Send Annual Report",
-    icon: <MdSend className="icon" />,
-    path: "#/fileSIE",
+    icon: <MdSend className="icon"/>,
+    path:'#/fileSIE',
     subRoutes: [
       {
+        
         name: "Digital Signature",
-        icon: <TbSignature className="icon" />,
-        path: "/info",
+        icon: <TbSignature className="icon"/>,
+        path:'/info',
       },
       {
+       
         name: "Pay",
-        icon: <MdPayment className="icon" />,
-        path: "/info",
+        icon: <MdPayment className="icon"/>,
+        path:'/info',
       },
       {
+       
         name: "Send",
         icon: <MdSendToMobile className="icon" />,
-        path: "/info",
+        path:'/info',
       },
-    ],
+    ]
   },
   {
+    
     name: "View PDF",
-    icon: <BsFileEarmarkPdf className="icon" />,
-    path: "#/fileSIE",
+    icon: <BsFileEarmarkPdf className="icon"/>,
+    path:'#/fileSIE',
   },
   {
+    
     name: "Help/Example Report",
-    icon: <MdOutlineLiveHelp className="icon" />,
-    path: "#/fileSIE",
+    icon: <MdOutlineLiveHelp className="icon"/>,
+    path:'#/fileSIE',
   },
   {
+    
     name: "Contact Support",
     icon: <BiSupport className="icon" />,
-    path: "#/fileSIE",
+    path:'#/fileSIE',
   },
 ];
 
@@ -177,19 +176,23 @@ const Sidebar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                  <Steps />
+                  <Steps/>
+
                 </motion.h1>
               )}
             </AnimatePresence>
 
             <div className="bars">
-              {isOpen == true ? (
-                <RxDoubleArrowLeft className="icon" onClick={toggle} />
-              ) : (
-                <RxDoubleArrowRight className="icon" onClick={toggle} />
-              )}
+            {isOpen == true 
+            ?
+            <RxDoubleArrowLeft className="icon" onClick={toggle} />
+              :
+              <RxDoubleArrowRight className="icon" onClick={toggle} />
+            }
+
             </div>
           </div>
+
           <section className="routes">
             {routes.map((route, index) => {
               if (route.subRoutes) {

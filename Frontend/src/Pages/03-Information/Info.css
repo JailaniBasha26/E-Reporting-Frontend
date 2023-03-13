@@ -3,10 +3,14 @@
   box-shadow: 5px 10px 8px #888888;
   border: 1px solid white;
   margin-top: 130px;
-  margin-left: 500px;
+  margin-left: 180px;
   width: 900px;
   position: relative;
   /* height: 650px; */
+}
+
+.info_divpage{
+  background-color: #DBE2EF;
 }
 
 .info2 {

@@ -1,12 +1,11 @@
 
 .footer-body {
-    background-color: #353535;
-    padding: 2rem 0 2rem 0;
+    background-color: #3F72AF;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 18%;
+    margin-top: 10%;
   }
   
   section.footer-sectiondiv {
@@ -27,14 +26,22 @@
   
   p.footer-subscription-heading {
     margin-bottom: 10px;
-    font-size: 55px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+    font-family:'Brush Script MT', cursive;
   }
   
   p.footer-subscription-text {
-    margin-bottom: 24px;
-    font-size: 22px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
+
+  p.footer-subscription-text2 {
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
 
 
 .searchbox-wrap {
@@ -48,7 +55,7 @@
 
 .input-box {
   flex: 1;
-  padding: 30px 20px;
+  padding: 20px 20px;
   font-size: 1.1em;
   -webkit-border-top-left-radius: 25px;
   -webkit-border-bottom-left-radius: 25px;
@@ -56,11 +63,10 @@
   -moz-border-radius-bottomleft: 25px;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
-  box-shadow: none;
   border: none;
-  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
-
+  outline: none;
 }
+
 
 .button-box {
   padding-right: 10px;
@@ -79,25 +85,21 @@
 
 .span-box {
   margin-left: 50px;
-  padding: 24px 45px;
+  padding: 18px 41px;
   font-size: 0.9em;
   text-transform: uppercase;
-  font-weight: 300;
+  font-weight: 500;
   color: #fff;
-  background-color: #F54E59;
+  background-color: #129ed6;
   border-radius: 20px;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.19);
 }
 
 .span-box:hover {
-  background-color: #d6121f;
+  background-color: #4eb2f5;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.19);
 }
 
 
-p.footer-subscription-text2 {
-  margin-bottom: 24px;
-  font-size: 14px;
-}
 
 

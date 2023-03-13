@@ -11,7 +11,7 @@ let selectedOption = "",
 class steps extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { refresh: "" };
   }
   Newtablist(e) {
     if (e.value.name === "Profile") {
@@ -22,12 +22,25 @@ class steps extends Component {
   componentDidMount() {
     let ls = JSON.parse(localStorage.getItem("localData"));
 
-    ls.length &&
+    ls &&
+      ls.length &&
       ls.map((i, idx) => {
         const bb = { name: "", id: "" };
         (bb.name = i.companyName), (bb.id = i.organizationNumber);
         optionValues.push(bb);
       });
+
+    optionValues = optionValues.filter(
+      (ele, ind) =>
+        ind ===
+        optionValues.findIndex(
+          (elem) => elem.jobid === ele.jobid && elem.id === ele.id
+        )
+    );
+
+    this.setState({
+      refresh: "",
+    });
   }
 
   render() {

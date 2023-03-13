@@ -7,7 +7,7 @@ import { Button } from "primereact/button";
 import Steps from "../Steps/steps";
 import { connect } from "react-redux";
 import "./Fill_SIE.css";
-import Navbar from "../00-Corporate Page/Navbar";
+import  Dropnav from  "../00-Corporate Page/Dropnav"
 import Sidebar from "../Sidebar/Sidebar";
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Footerpage from "../Footerpage/Footerpage";
@@ -43,8 +43,8 @@ class Fill_SIE extends Component {
 
   render() {
     return (
-      <div>
-        <Navbar />
+      <div className="Fill_siediv">
+        <Dropnav />
         <Sidebar />
         <center>
           <div className="fill-sub">

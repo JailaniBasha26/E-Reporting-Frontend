@@ -8,7 +8,7 @@ import { SelectButton } from "primereact/selectbutton";
 import axios from "axios";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import NavBar from "../00-Corporate Page/Navbar";
+import Dropnav from  "../00-Corporate Page/Dropnav"
 import ScrolltoTop from "../ScrollTop/ScrollTop";
 import Sidebar from "../Sidebar/Sidebar";
 import Steps from "../Steps/steps";
@@ -210,7 +210,7 @@ class AccordionDemo extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <Dropnav />
         <Row style={{ width: "100%" }}>
           <Col
             xs={1}
